@@ -1,0 +1,30 @@
+{
+  "cv_accuracy": 1.0,
+  "cv_std": 0.0,
+  "n_train": 5089,
+  "n_classes": 9,
+  "class_names": [
+    "CENTER",
+    "DONUT",
+    "EDGE_LOC",
+    "EDGE_RING",
+    "LOCAL",
+    "NEAR_FULL",
+    "NORMAL",
+    "RANDOM",
+    "SCRATCH"
+  ],
+  "feature_importances": {
+    "ir_drop_mv": 0.0088,
+    "thermal_c": 0.0071,
+    "setup_slack_ps": 0.009,
+    "hold_slack_ps": 0.0085,
+    "die_row": 0.2422,
+    "die_col": 0.223,
+    "wafer_x": 0.2352,
+    "wafer_y": 0.266
+  },
+  "cv_folds": 5,
+  "n_estimators": 200,
+  "model_type": "RandomForestClassifier"
+}

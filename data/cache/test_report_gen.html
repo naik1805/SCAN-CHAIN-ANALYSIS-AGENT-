@@ -1,0 +1,2643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DFT Scan Chain Diagnosis Report</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --slate-50: #f8fafc;
+            --slate-100: #f1f5f9;
+            --slate-200: #e2e8f0;
+            --slate-700: #334155;
+            --slate-800: #1e293b;
+            --slate-900: #0f172a;
+            --border: #e2e8f0;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #f8fafc;
+            color: var(--slate-800);
+            line-height: 1.5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .wrapper {
+            max-width: 1000px;
+            margin: 40px auto;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+            border: 1px solid var(--slate-200);
+            padding: 40px;
+        }
+
+        header {
+            border-bottom: 2px solid var(--slate-100);
+            padding-bottom: 30px;
+            margin-bottom: 35px;
+        }
+
+        .logo-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 26px;
+            color: var(--slate-900);
+            margin: 0;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .meta-tag {
+            font-family: monospace;
+            background-color: var(--slate-100);
+            color: var(--slate-700);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .card {
+            background: var(--slate-50);
+            border: 1px solid var(--slate-200);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .card-num {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 0;
+        }
+
+        .card-lbl {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--slate-700);
+            margin-top: 5px;
+            font-weight: 700;
+        }
+
+        h2 {
+            font-size: 20px;
+            color: var(--slate-900);
+            border-left: 4px solid var(--primary);
+            padding-left: 12px;
+            margin-top: 45px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .section-desc {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 20px;
+            margin-top: -10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        th, td {
+            padding: 10px 14px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background-color: var(--slate-50);
+            color: var(--slate-900);
+            font-weight: 700;
+        }
+
+        tr:hover td {
+            background-color: var(--slate-50);
+        }
+
+        .mono {
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
+            font-size: 13px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .badge-shift { background-color: #fee2e2; color: #dc2626; }
+        .badge-setup { background-color: #dbeafe; color: #2563eb; }
+        .badge-hold { background-color: #d1fae5; color: #059669; }
+        .badge-defect { background-color: #f3e8ff; color: #7c3aed; }
+
+        .charts-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .chart-box {
+            background: #ffffff;
+            border: 1px solid var(--slate-200);
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .chart-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--slate-900);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        footer {
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid var(--slate-200);
+            text-align: center;
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        @media print {
+            body {
+                background-color: #ffffff;
+            }
+            .wrapper {
+                box-shadow: none;
+                border: none;
+                margin: 0;
+                padding: 0;
+            }
+            .no-print {
+                display: none;
+            }
+            h2 {
+                page-break-after: avoid;
+            }
+            tr {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <header>
+        <div class="logo-area">
+            <div>
+                <h1>DFT SCAN DIAGNOSIS REPORT</h1>
+                <p style="margin: 5px 0 0 0; color: #64748b; font-size: 14px;">Automated Diagnostic Summary & Yield Analysis</p>
+            </div>
+            <div>
+                <span class="meta-tag">GEN_TIME: 2026-07-02 06:26:22 UTC</span>
+            </div>
+        </div>
+
+        <div class="grid-4">
+            <div class="card">
+                <p class="card-num">2,458</p>
+                <p class="card-lbl">FAIL RECORDS</p>
+            </div>
+            <div class="card">
+                <p class="card-num">17</p>
+                <p class="card-lbl">FAILING CHAINS</p>
+            </div>
+            <div class="card">
+                <p class="card-num">44</p>
+                <p class="card-lbl">DETECTED BREAKS</p>
+            </div>
+            <div class="card">
+                <p class="card-num">45</p>
+                <p class="card-lbl">AFFECTED DICE</p>
+            </div>
+        </div>
+
+        <div style="margin-top: 20px; font-size: 13px; color: #475569;">
+            <strong>Active STIL File:</strong> <span class="mono">Unknown STIL</span> | 
+            <strong>Total Lots Ingested:</strong> 9
+        </div>
+    </header>
+
+    <h2>1. Executive Summary</h2>
+    <p class="section-desc">Diagnostic overview of the scan test execution across lots.</p>
+    <p>
+        During test execution, a total of <strong>2,458 failure records</strong> were collected and parsed across 
+        <strong>9 lots</strong> (containing <strong>45 failing dice</strong>).
+        Physical scan diagnostics identified <strong>44 scan chain breaks</strong> causing systematic shift-path failures.
+        The remaining failure signatures were classified using timing slack parameters and anomalous behavior profiles, 
+        separating capture timing violations (setup/hold) from functional cell defects.
+    </p>
+
+    <div class="charts-row">
+        <div class="chart-box">
+            <div class="chart-title">Failure Diagnostics Breakdown</div>
+            
+    <svg width="550" height="260" viewBox="0 0 550 260">
+        <g><path d="M 130.0 30.0 A 100 100 0 1 1 117.50725468347633 30.78341210031219 L 121.87971554425961 65.50921786520293 A 65 65 0 1 0 130.0 65.0 Z" fill="#ef4444" stroke="#ffffff" stroke-width="1.5"><title>SHIFT_ISSUE: 2,409 (98.0%)</title></path>
+<path d="M 117.50725468347633 30.78341210031219 A 100 100 0 0 1 120.04725267586866 30.49651854984171 L 123.53071423931463 65.3227370573971 A 65 65 0 0 0 121.87971554425961 65.50921786520293 Z" fill="#3b82f6" stroke="#ffffff" stroke-width="1.5"><title>CAPTURE_TIMING_SETUP: 10 (0.4%)</title></path>
+<path d="M 120.04725267586866 30.49651854984171 A 100 100 0 0 1 125.91119040898862 30.083626786554873 L 127.3422737658426 65.05435741126067 A 65 65 0 0 0 123.53071423931463 65.3227370573971 Z" fill="#1d4ed8" stroke="#ffffff" stroke-width="1.5"><title>CAPTURE_TIMING_SETUP_ANOMALY: 23 (0.9%)</title></path>
+<path d="M 125.91119040898862 30.083626786554873 A 100 100 0 0 1 126.4220578006711 30.0640288503771 L 127.67433757043621 65.04161875274511 A 65 65 0 0 0 127.3422737658426 65.05435741126067 Z" fill="#10b981" stroke="#ffffff" stroke-width="1.5"><title>CAPTURE_TIMING_HOLD: 2 (0.1%)</title></path>
+<path d="M 126.4220578006711 30.0640288503771 A 100 100 0 0 1 129.48875850800673 30.001306847854934 L 129.6676930302044 65.00084945110571 A 65 65 0 0 0 127.67433757043621 65.04161875274511 Z" fill="#047857" stroke="#ffffff" stroke-width="1.5"><title>CAPTURE_TIMING_HOLD_ANOMALY: 12 (0.5%)</title></path>
+<path d="M 129.48875850800673 30.001306847854934 A 100 100 0 0 1 130.00000000000006 30.0 L 130.00000000000006 65.0 A 65 65 0 0 0 129.6676930302044 65.00084945110571 Z" fill="#8b5cf6" stroke="#ffffff" stroke-width="1.5"><title>CAPTURE_CELL_DEFECT: 2 (0.1%)</title></path></g>
+        <g>
+            <circle cx="130" cy="130" r="63" fill="#ffffff" />
+            <text x="130" y="125" font-family="sans-serif" font-weight="bold" font-size="20" fill="#0f172a" text-anchor="middle">2,458</text>
+            <text x="130" y="145" font-family="sans-serif" font-size="11" fill="#64748b" text-anchor="middle">TOTAL FAILS</text>
+        </g>
+        <g><g transform="translate(280, 35)">  <circle cx="0" cy="0" r="6" fill="#ef4444" />  <text x="15" y="4" font-family="sans-serif" font-size="12" fill="#334155" font-weight="600">SHIFT_ISSUE</text>  <text x="15" y="18" font-family="monospace" font-size="11" fill="#64748b">2,409 (98.0%)</text></g>
+<g transform="translate(280, 70)">  <circle cx="0" cy="0" r="6" fill="#3b82f6" />  <text x="15" y="4" font-family="sans-serif" font-size="12" fill="#334155" font-weight="600">SETUP</text>  <text x="15" y="18" font-family="monospace" font-size="11" fill="#64748b">10 (0.4%)</text></g>
+<g transform="translate(280, 105)">  <circle cx="0" cy="0" r="6" fill="#1d4ed8" />  <text x="15" y="4" font-family="sans-serif" font-size="12" fill="#334155" font-weight="600">SETUP_ANOMALY</text>  <text x="15" y="18" font-family="monospace" font-size="11" fill="#64748b">23 (0.9%)</text></g>
+<g transform="translate(280, 140)">  <circle cx="0" cy="0" r="6" fill="#10b981" />  <text x="15" y="4" font-family="sans-serif" font-size="12" fill="#334155" font-weight="600">HOLD</text>  <text x="15" y="18" font-family="monospace" font-size="11" fill="#64748b">2 (0.1%)</text></g>
+<g transform="translate(280, 175)">  <circle cx="0" cy="0" r="6" fill="#047857" />  <text x="15" y="4" font-family="sans-serif" font-size="12" fill="#334155" font-weight="600">HOLD_ANOMALY</text>  <text x="15" y="18" font-family="monospace" font-size="11" fill="#64748b">12 (0.5%)</text></g>
+<g transform="translate(280, 210)">  <circle cx="0" cy="0" r="6" fill="#8b5cf6" />  <text x="15" y="4" font-family="sans-serif" font-size="12" fill="#334155" font-weight="600">CELL_DEFECT</text>  <text x="15" y="18" font-family="monospace" font-size="11" fill="#64748b">2 (0.1%)</text></g></g>
+    </svg>
+    
+        </div>
+        <div class="chart-box">
+            <div class="chart-title">Top Worst Failing Scan Chains</div>
+            
+    <svg width="610" height="290" viewBox="0 0 610 290">
+        <g><text x="105" y="28" font-family="monospace" font-weight="bold" font-size="12" fill="#334155" text-anchor="end">#1: channel7</text>
+<text x="105" y="54" font-family="monospace" font-weight="bold" font-size="12" fill="#334155" text-anchor="end">#2: channel3</text>
+<text x="105" y="80" font-family="monospace" font-weight="bold" font-size="12" fill="#334155" text-anchor="end">#3: channel16</text>
+<text x="105" y="106" font-family="monospace" font-weight="bold" font-size="12" fill="#334155" text-anchor="end">#4: channel6</text>
+<text x="105" y="132" font-family="monospace" font-weight="bold" font-size="12" fill="#334155" text-anchor="end">#5: channel21</text>
+<text x="105" y="158" font-family="monospace" font-weight="bold" font-size="12" fill="#334155" text-anchor="end">#6: channel10</text>
+<text x="105" y="184" font-family="monospace" font-weight="bold" font-size="12" fill="#334155" text-anchor="end">#7: channel1</text>
+<text x="105" y="210" font-family="monospace" font-weight="bold" font-size="12" fill="#334155" text-anchor="end">#8: channel20</text>
+<text x="105" y="236" font-family="monospace" font-weight="bold" font-size="12" fill="#334155" text-anchor="end">#9: channel23</text>
+<text x="105" y="262" font-family="monospace" font-weight="bold" font-size="12" fill="#334155" text-anchor="end">#10: channel14</text></g>
+        <g><rect x="120" y="15" width="400.0" height="18" rx="3" fill="#2563eb">  <title>channel7: 302 fails</title></rect>
+<rect x="120" y="41" width="382.78145695364236" height="18" rx="3" fill="#2563eb">  <title>channel3: 289 fails</title></rect>
+<rect x="120" y="67" width="264.90066225165566" height="18" rx="3" fill="#2563eb">  <title>channel16: 200 fails</title></rect>
+<rect x="120" y="93" width="226.49006622516558" height="18" rx="3" fill="#2563eb">  <title>channel6: 171 fails</title></rect>
+<rect x="120" y="119" width="209.27152317880794" height="18" rx="3" fill="#2563eb">  <title>channel21: 158 fails</title></rect>
+<rect x="120" y="145" width="207.94701986754967" height="18" rx="3" fill="#2563eb">  <title>channel10: 157 fails</title></rect>
+<rect x="120" y="171" width="202.64900662251657" height="18" rx="3" fill="#2563eb">  <title>channel1: 153 fails</title></rect>
+<rect x="120" y="197" width="200.0" height="18" rx="3" fill="#2563eb">  <title>channel20: 151 fails</title></rect>
+<rect x="120" y="223" width="180.13245033112582" height="18" rx="3" fill="#2563eb">  <title>channel23: 136 fails</title></rect>
+<rect x="120" y="249" width="176.158940397351" height="18" rx="3" fill="#2563eb">  <title>channel14: 133 fails</title></rect></g>
+        <g><text x="530.0" y="28" font-family="monospace" font-size="11" fill="#475569">302 (12.3%)</text>
+<text x="512.7814569536424" y="54" font-family="monospace" font-size="11" fill="#475569">289 (11.8%)</text>
+<text x="394.90066225165566" y="80" font-family="monospace" font-size="11" fill="#475569">200 (8.1%)</text>
+<text x="356.4900662251656" y="106" font-family="monospace" font-size="11" fill="#475569">171 (7.0%)</text>
+<text x="339.2715231788079" y="132" font-family="monospace" font-size="11" fill="#475569">158 (6.4%)</text>
+<text x="337.94701986754967" y="158" font-family="monospace" font-size="11" fill="#475569">157 (6.4%)</text>
+<text x="332.6490066225166" y="184" font-family="monospace" font-size="11" fill="#475569">153 (6.2%)</text>
+<text x="330.0" y="210" font-family="monospace" font-size="11" fill="#475569">151 (6.1%)</text>
+<text x="310.1324503311258" y="236" font-family="monospace" font-size="11" fill="#475569">136 (5.5%)</text>
+<text x="306.158940397351" y="262" font-family="monospace" font-size="11" fill="#475569">133 (5.4%)</text></g>
+    </svg>
+    
+        </div>
+    </div>
+
+    <h2>2. Failing Scan Chains (FR-001)</h2>
+    <p class="section-desc">Identified failing scan chains with individual failure log counts.</p>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 10%;">Rank</th>
+                <th style="width: 30%;">Scan Chain</th>
+                <th style="width: 30%;">Fail Counts</th>
+                <th style="width: 30%;">Percentage</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            <tr>
+                <td>#1</td>
+                <td class="mono">channel7</td>
+                <td class="mono">302</td>
+                <td>12.29%</td>
+            </tr>
+            
+            <tr>
+                <td>#2</td>
+                <td class="mono">channel3</td>
+                <td class="mono">289</td>
+                <td>11.76%</td>
+            </tr>
+            
+            <tr>
+                <td>#3</td>
+                <td class="mono">channel16</td>
+                <td class="mono">200</td>
+                <td>8.14%</td>
+            </tr>
+            
+            <tr>
+                <td>#4</td>
+                <td class="mono">channel6</td>
+                <td class="mono">171</td>
+                <td>6.96%</td>
+            </tr>
+            
+            <tr>
+                <td>#5</td>
+                <td class="mono">channel21</td>
+                <td class="mono">158</td>
+                <td>6.43%</td>
+            </tr>
+            
+            <tr>
+                <td>#6</td>
+                <td class="mono">channel10</td>
+                <td class="mono">157</td>
+                <td>6.39%</td>
+            </tr>
+            
+            <tr>
+                <td>#7</td>
+                <td class="mono">channel1</td>
+                <td class="mono">153</td>
+                <td>6.22%</td>
+            </tr>
+            
+            <tr>
+                <td>#8</td>
+                <td class="mono">channel20</td>
+                <td class="mono">151</td>
+                <td>6.14%</td>
+            </tr>
+            
+            <tr>
+                <td>#9</td>
+                <td class="mono">channel23</td>
+                <td class="mono">136</td>
+                <td>5.53%</td>
+            </tr>
+            
+            <tr>
+                <td>#10</td>
+                <td class="mono">channel14</td>
+                <td class="mono">133</td>
+                <td>5.41%</td>
+            </tr>
+            
+            <tr>
+                <td>#11</td>
+                <td class="mono">channel5</td>
+                <td class="mono">132</td>
+                <td>5.37%</td>
+            </tr>
+            
+            <tr>
+                <td>#12</td>
+                <td class="mono">channel19</td>
+                <td class="mono">122</td>
+                <td>4.96%</td>
+            </tr>
+            
+            <tr>
+                <td>#13</td>
+                <td class="mono">channel9</td>
+                <td class="mono">119</td>
+                <td>4.84%</td>
+            </tr>
+            
+            <tr>
+                <td>#14</td>
+                <td class="mono">channel22</td>
+                <td class="mono">61</td>
+                <td>2.48%</td>
+            </tr>
+            
+            <tr>
+                <td>#15</td>
+                <td class="mono">channel2</td>
+                <td class="mono">60</td>
+                <td>2.44%</td>
+            </tr>
+            
+            <tr>
+                <td>#16</td>
+                <td class="mono">channel13</td>
+                <td class="mono">59</td>
+                <td>2.40%</td>
+            </tr>
+            
+            <tr>
+                <td>#17</td>
+                <td class="mono">channel12</td>
+                <td class="mono">55</td>
+                <td>2.24%</td>
+            </tr>
+            
+        </tbody>
+    </table>
+
+    <h2>3. Scan Chain Topology Map (FR-003)</h2>
+    <p class="section-desc">Logical scan chains mapped to physical boundaries and hierarchical paths from the STIL design definitions.</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Scan Chain</th>
+                <th>Logical Length</th>
+                <th>Scan In Pin</th>
+                <th>Scan Out Pin</th>
+                <th>Clock Domain</th>
+                <th>Hierarchical Register Prefix</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel1</td>
+                <td class="mono">234</td>
+                <td class="mono">Unknown</td>
+                <td class="mono">Unknown</td>
+                <td class="mono">Unknown</td>
+                <td class="mono" style="color: #4f46e5;">Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel10</td>
+                <td class="mono">234</td>
+                <td class="mono">Unknown</td>
+                <td class="mono">Unknown</td>
+                <td class="mono">Unknown</td>
+                <td class="mono" style="color: #4f46e5;">Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel12</td>
+                <td class="mono">234</td>
+                <td class="mono">Unknown</td>
+                <td class="mono">Unknown</td>
+                <td class="mono">Unknown</td>
+                <td class="mono" style="color: #4f46e5;">Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel13</td>
+                <td class="mono">234</td>
+                <td class="mono">Unknown</td>
+                <td class="mono">Unknown</td>
+                <td class="mono">Unknown</td>
+                <td class="mono" style="color: #4f46e5;">Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel14</td>
+                <td class="mono">234</td>
+                <td class="mono">Unknown</td>
+                <td class="mono">Unknown</td>
+                <td class="mono">Unknown</td>
+                <td class="mono" style="color: #4f46e5;">Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel16</td>
+                <td class="mono">234</td>
+                <td class="mono">Unknown</td>
+                <td class="mono">Unknown</td>
+                <td class="mono">Unknown</td>
+                <td class="mono" style="color: #4f46e5;">Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel19</td>
+                <td class="mono">234</td>
+                <td class="mono">Unknown</td>
+                <td class="mono">Unknown</td>
+                <td class="mono">Unknown</td>
+                <td class="mono" style="color: #4f46e5;">Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel2</td>
+                <td class="mono">234</td>
+                <td class="mono">Unknown</td>
+                <td class="mono">Unknown</td>
+                <td class="mono">Unknown</td>
+                <td class="mono" style="color: #4f46e5;">Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel20</td>
+                <td class="mono">234</td>
+                <td class="mono">Unknown</td>
+                <td class="mono">Unknown</td>
+                <td class="mono">Unknown</td>
+                <td class="mono" style="color: #4f46e5;">Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">234</td>
+                <td class="mono">Unknown</td>
+                <td class="mono">Unknown</td>
+                <td class="mono">Unknown</td>
+                <td class="mono" style="color: #4f46e5;">Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel22</td>
+                <td class="mono">234</td>
+                <td class="mono">Unknown</td>
+                <td class="mono">Unknown</td>
+                <td class="mono">Unknown</td>
+                <td class="mono" style="color: #4f46e5;">Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel23</td>
+                <td class="mono">234</td>
+                <td class="mono">Unknown</td>
+                <td class="mono">Unknown</td>
+                <td class="mono">Unknown</td>
+                <td class="mono" style="color: #4f46e5;">Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel3</td>
+                <td class="mono">234</td>
+                <td class="mono">Unknown</td>
+                <td class="mono">Unknown</td>
+                <td class="mono">Unknown</td>
+                <td class="mono" style="color: #4f46e5;">Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel5</td>
+                <td class="mono">234</td>
+                <td class="mono">Unknown</td>
+                <td class="mono">Unknown</td>
+                <td class="mono">Unknown</td>
+                <td class="mono" style="color: #4f46e5;">Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel6</td>
+                <td class="mono">234</td>
+                <td class="mono">Unknown</td>
+                <td class="mono">Unknown</td>
+                <td class="mono">Unknown</td>
+                <td class="mono" style="color: #4f46e5;">Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel7</td>
+                <td class="mono">234</td>
+                <td class="mono">Unknown</td>
+                <td class="mono">Unknown</td>
+                <td class="mono">Unknown</td>
+                <td class="mono" style="color: #4f46e5;">Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel9</td>
+                <td class="mono">234</td>
+                <td class="mono">Unknown</td>
+                <td class="mono">Unknown</td>
+                <td class="mono">Unknown</td>
+                <td class="mono" style="color: #4f46e5;">Unknown</td>
+            </tr>
+            
+        </tbody>
+    </table>
+
+    <h2>4. Identified Scan Chain Breaks (FR-006)</h2>
+    <p class="section-desc">Shift path breaks blocking scan chain flow (blocking values from cells upstream of the break bit position).</p>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Lot ID</th>
+                <th>Die File</th>
+                <th>Chain</th>
+                <th>Break Pos</th>
+                <th>Suspected Break Cell</th>
+                <th>Fail Count</th>
+                <th>Scan In/Out</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            <tr>
+                <td class="mono">LOT_1</td>
+                <td class="mono">fail_die_1.log</td>
+                <td class="mono" style="font-weight: bold;">channel3</td>
+                <td class="mono">11</td>
+                <td class="mono" style="color: #dc2626; font-weight: bold;">U_core/reg_c2_ff[11]</td>
+                <td class="mono">57</td>
+                <td class="mono">Unknown / Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_2</td>
+                <td class="mono">fail_die_1.log</td>
+                <td class="mono" style="font-weight: bold;">channel10</td>
+                <td class="mono">6</td>
+                <td class="mono" style="color: #dc2626; font-weight: bold;">U_core/reg_c9_ff[6]</td>
+                <td class="mono">66</td>
+                <td class="mono">Unknown / Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_3</td>
+                <td class="mono">fail_die_1.log</td>
+                <td class="mono" style="font-weight: bold;">channel9</td>
+                <td class="mono">10</td>
+                <td class="mono" style="color: #dc2626; font-weight: bold;">U_core/reg_c8_ff[10]</td>
+                <td class="mono">49</td>
+                <td class="mono">Unknown / Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_4</td>
+                <td class="mono">fail_die_1.log</td>
+                <td class="mono" style="font-weight: bold;">channel3</td>
+                <td class="mono">6</td>
+                <td class="mono" style="color: #dc2626; font-weight: bold;">U_core/reg_c2_ff[6]</td>
+                <td class="mono">45</td>
+                <td class="mono">Unknown / Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_5</td>
+                <td class="mono">fail_die_1.log</td>
+                <td class="mono" style="font-weight: bold;">channel20</td>
+                <td class="mono">8</td>
+                <td class="mono" style="color: #dc2626; font-weight: bold;">U_core/reg_c19_ff[8]</td>
+                <td class="mono">41</td>
+                <td class="mono">Unknown / Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_1.log</td>
+                <td class="mono" style="font-weight: bold;">channel23</td>
+                <td class="mono">10</td>
+                <td class="mono" style="color: #dc2626; font-weight: bold;">U_core/reg_c22_ff[10]</td>
+                <td class="mono">50</td>
+                <td class="mono">Unknown / Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_7</td>
+                <td class="mono">fail_die_1.log</td>
+                <td class="mono" style="font-weight: bold;">channel12</td>
+                <td class="mono">4</td>
+                <td class="mono" style="color: #dc2626; font-weight: bold;">U_core/reg_c11_ff[4]</td>
+                <td class="mono">55</td>
+                <td class="mono">Unknown / Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_8</td>
+                <td class="mono">fail_die_1.log</td>
+                <td class="mono" style="font-weight: bold;">channel1</td>
+                <td class="mono">4</td>
+                <td class="mono" style="color: #dc2626; font-weight: bold;">U_core/reg_c0_ff[4]</td>
+                <td class="mono">69</td>
+                <td class="mono">Unknown / Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_9</td>
+                <td class="mono">fail_die_1.log</td>
+                <td class="mono" style="font-weight: bold;">channel19</td>
+                <td class="mono">4</td>
+                <td class="mono" style="color: #dc2626; font-weight: bold;">U_core/reg_c18_ff[4]</td>
+                <td class="mono">64</td>
+                <td class="mono">Unknown / Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_1</td>
+                <td class="mono">fail_die_2.log</td>
+                <td class="mono" style="font-weight: bold;">channel9</td>
+                <td class="mono">8</td>
+                <td class="mono" style="color: #dc2626; font-weight: bold;">U_core/reg_c8_ff[8]</td>
+                <td class="mono">70</td>
+                <td class="mono">Unknown / Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_2</td>
+                <td class="mono">fail_die_2.log</td>
+                <td class="mono" style="font-weight: bold;">channel19</td>
+                <td class="mono">6</td>
+                <td class="mono" style="color: #dc2626; font-weight: bold;">U_core/reg_c18_ff[6]</td>
+                <td class="mono">58</td>
+                <td class="mono">Unknown / Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_3</td>
+                <td class="mono">fail_die_2.log</td>
+                <td class="mono" style="font-weight: bold;">channel7</td>
+                <td class="mono">4</td>
+                <td class="mono" style="color: #dc2626; font-weight: bold;">U_core/reg_c6_ff[4]</td>
+                <td class="mono">67</td>
+                <td class="mono">Unknown / Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_4</td>
+                <td class="mono">fail_die_2.log</td>
+                <td class="mono" style="font-weight: bold;">channel14</td>
+                <td class="mono">5</td>
+                <td class="mono" style="color: #dc2626; font-weight: bold;">U_core/reg_c13_ff[5]</td>
+                <td class="mono">68</td>
+                <td class="mono">Unknown / Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_5</td>
+                <td class="mono">fail_die_2.log</td>
+                <td class="mono" style="font-weight: bold;">channel6</td>
+                <td class="mono">13</td>
+                <td class="mono" style="color: #dc2626; font-weight: bold;">U_core/reg_c5_ff[13]</td>
+                <td class="mono">55</td>
+                <td class="mono">Unknown / Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_2.log</td>
+                <td class="mono" style="font-weight: bold;">channel20</td>
+                <td class="mono">4</td>
+                <td class="mono" style="color: #dc2626; font-weight: bold;">U_core/reg_c19_ff[4]</td>
+                <td class="mono">67</td>
+                <td class="mono">Unknown / Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_7</td>
+                <td class="mono">fail_die_2.log</td>
+                <td class="mono" style="font-weight: bold;">channel16</td>
+                <td class="mono">4</td>
+                <td class="mono" style="color: #dc2626; font-weight: bold;">U_core/reg_c15_ff[4]</td>
+                <td class="mono">58</td>
+                <td class="mono">Unknown / Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_8</td>
+                <td class="mono">fail_die_2.log</td>
+                <td class="mono" style="font-weight: bold;">channel14</td>
+                <td class="mono">4</td>
+                <td class="mono" style="color: #dc2626; font-weight: bold;">U_core/reg_c13_ff[4]</td>
+                <td class="mono">65</td>
+                <td class="mono">Unknown / Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_9</td>
+                <td class="mono">fail_die_2.log</td>
+                <td class="mono" style="font-weight: bold;">channel6</td>
+                <td class="mono">6</td>
+                <td class="mono" style="color: #dc2626; font-weight: bold;">U_core/reg_c5_ff[6]</td>
+                <td class="mono">58</td>
+                <td class="mono">Unknown / Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_1</td>
+                <td class="mono">fail_die_3.log</td>
+                <td class="mono" style="font-weight: bold;">channel5</td>
+                <td class="mono">13</td>
+                <td class="mono" style="color: #dc2626; font-weight: bold;">U_core/reg_c4_ff[13]</td>
+                <td class="mono">44</td>
+                <td class="mono">Unknown / Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_2</td>
+                <td class="mono">fail_die_3.log</td>
+                <td class="mono" style="font-weight: bold;">channel3</td>
+                <td class="mono">7</td>
+                <td class="mono" style="color: #dc2626; font-weight: bold;">U_core/reg_c2_ff[7]</td>
+                <td class="mono">63</td>
+                <td class="mono">Unknown / Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_3</td>
+                <td class="mono">fail_die_3.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">5</td>
+                <td class="mono" style="color: #dc2626; font-weight: bold;">U_core/reg_c20_ff[5]</td>
+                <td class="mono">66</td>
+                <td class="mono">Unknown / Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_4</td>
+                <td class="mono">fail_die_3.log</td>
+                <td class="mono" style="font-weight: bold;">channel16</td>
+                <td class="mono">7</td>
+                <td class="mono" style="color: #dc2626; font-weight: bold;">U_core/reg_c15_ff[7]</td>
+                <td class="mono">43</td>
+                <td class="mono">Unknown / Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_5</td>
+                <td class="mono">fail_die_3.log</td>
+                <td class="mono" style="font-weight: bold;">channel7</td>
+                <td class="mono">8</td>
+                <td class="mono" style="color: #dc2626; font-weight: bold;">U_core/reg_c6_ff[8]</td>
+                <td class="mono">59</td>
+                <td class="mono">Unknown / Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_3.log</td>
+                <td class="mono" style="font-weight: bold;">channel6</td>
+                <td class="mono">4</td>
+                <td class="mono" style="color: #dc2626; font-weight: bold;">U_core/reg_c5_ff[4]</td>
+                <td class="mono">58</td>
+                <td class="mono">Unknown / Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_7</td>
+                <td class="mono">fail_die_3.log</td>
+                <td class="mono" style="font-weight: bold;">channel10</td>
+                <td class="mono">4</td>
+                <td class="mono" style="color: #dc2626; font-weight: bold;">U_core/reg_c9_ff[4]</td>
+                <td class="mono">49</td>
+                <td class="mono">Unknown / Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_8</td>
+                <td class="mono">fail_die_3.log</td>
+                <td class="mono" style="font-weight: bold;">channel7</td>
+                <td class="mono">4</td>
+                <td class="mono" style="color: #dc2626; font-weight: bold;">U_core/reg_c6_ff[4]</td>
+                <td class="mono">61</td>
+                <td class="mono">Unknown / Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_9</td>
+                <td class="mono">fail_die_3.log</td>
+                <td class="mono" style="font-weight: bold;">channel5</td>
+                <td class="mono">4</td>
+                <td class="mono" style="color: #dc2626; font-weight: bold;">U_core/reg_c4_ff[4]</td>
+                <td class="mono">41</td>
+                <td class="mono">Unknown / Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_1</td>
+                <td class="mono">fail_die_4.log</td>
+                <td class="mono" style="font-weight: bold;">channel20</td>
+                <td class="mono">6</td>
+                <td class="mono" style="color: #dc2626; font-weight: bold;">U_core/reg_c19_ff[6]</td>
+                <td class="mono">43</td>
+                <td class="mono">Unknown / Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_2</td>
+                <td class="mono">fail_die_4.log</td>
+                <td class="mono" style="font-weight: bold;">channel23</td>
+                <td class="mono">6</td>
+                <td class="mono" style="color: #dc2626; font-weight: bold;">U_core/reg_c22_ff[6]</td>
+                <td class="mono">40</td>
+                <td class="mono">Unknown / Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_3</td>
+                <td class="mono">fail_die_4.log</td>
+                <td class="mono" style="font-weight: bold;">channel3</td>
+                <td class="mono">4</td>
+                <td class="mono" style="color: #dc2626; font-weight: bold;">U_core/reg_c2_ff[4]</td>
+                <td class="mono">70</td>
+                <td class="mono">Unknown / Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_4</td>
+                <td class="mono">fail_die_4.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">14</td>
+                <td class="mono" style="color: #dc2626; font-weight: bold;">U_core/reg_c20_ff[14]</td>
+                <td class="mono">43</td>
+                <td class="mono">Unknown / Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_5</td>
+                <td class="mono">fail_die_4.log</td>
+                <td class="mono" style="font-weight: bold;">channel5</td>
+                <td class="mono">4</td>
+                <td class="mono" style="color: #dc2626; font-weight: bold;">U_core/reg_c4_ff[4]</td>
+                <td class="mono">47</td>
+                <td class="mono">Unknown / Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_4.log</td>
+                <td class="mono" style="font-weight: bold;">channel7</td>
+                <td class="mono">6</td>
+                <td class="mono" style="color: #dc2626; font-weight: bold;">U_core/reg_c6_ff[6]</td>
+                <td class="mono">60</td>
+                <td class="mono">Unknown / Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_7</td>
+                <td class="mono">fail_die_4.log</td>
+                <td class="mono" style="font-weight: bold;">channel1</td>
+                <td class="mono">5</td>
+                <td class="mono" style="color: #dc2626; font-weight: bold;">U_core/reg_c0_ff[5]</td>
+                <td class="mono">44</td>
+                <td class="mono">Unknown / Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_8</td>
+                <td class="mono">fail_die_4.log</td>
+                <td class="mono" style="font-weight: bold;">channel3</td>
+                <td class="mono">5</td>
+                <td class="mono" style="color: #dc2626; font-weight: bold;">U_core/reg_c2_ff[5]</td>
+                <td class="mono">54</td>
+                <td class="mono">Unknown / Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_9</td>
+                <td class="mono">fail_die_4.log</td>
+                <td class="mono" style="font-weight: bold;">channel1</td>
+                <td class="mono">6</td>
+                <td class="mono" style="color: #dc2626; font-weight: bold;">U_core/reg_c0_ff[6]</td>
+                <td class="mono">40</td>
+                <td class="mono">Unknown / Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_1</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel16</td>
+                <td class="mono">16</td>
+                <td class="mono" style="color: #dc2626; font-weight: bold;">U_core/reg_c15_ff[16]</td>
+                <td class="mono">43</td>
+                <td class="mono">Unknown / Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_2</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel2</td>
+                <td class="mono">4</td>
+                <td class="mono" style="color: #dc2626; font-weight: bold;">U_core/reg_c1_ff[4]</td>
+                <td class="mono">60</td>
+                <td class="mono">Unknown / Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_3</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel23</td>
+                <td class="mono">6</td>
+                <td class="mono" style="color: #dc2626; font-weight: bold;">U_core/reg_c22_ff[6]</td>
+                <td class="mono">46</td>
+                <td class="mono">Unknown / Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_4</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel16</td>
+                <td class="mono">19</td>
+                <td class="mono" style="color: #dc2626; font-weight: bold;">U_core/reg_c15_ff[19]</td>
+                <td class="mono">56</td>
+                <td class="mono">Unknown / Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_5</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel7</td>
+                <td class="mono">4</td>
+                <td class="mono" style="color: #dc2626; font-weight: bold;">U_core/reg_c6_ff[4]</td>
+                <td class="mono">55</td>
+                <td class="mono">Unknown / Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_7</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel22</td>
+                <td class="mono">4</td>
+                <td class="mono" style="color: #dc2626; font-weight: bold;">U_core/reg_c21_ff[4]</td>
+                <td class="mono">61</td>
+                <td class="mono">Unknown / Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_8</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel10</td>
+                <td class="mono">4</td>
+                <td class="mono" style="color: #dc2626; font-weight: bold;">U_core/reg_c9_ff[4]</td>
+                <td class="mono">42</td>
+                <td class="mono">Unknown / Unknown</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_9</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel13</td>
+                <td class="mono">5</td>
+                <td class="mono" style="color: #dc2626; font-weight: bold;">U_core/reg_c12_ff[5]</td>
+                <td class="mono">59</td>
+                <td class="mono">Unknown / Unknown</td>
+            </tr>
+            
+        </tbody>
+    </table>
+    
+
+    <h2>5. Worst Scan Chains Pareto Ranking (FR-004)</h2>
+    <p class="section-desc">Pareto ordering showing individual and cumulative contribution of worst failing chains.</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Scan Chain</th>
+                <th>Fails Count</th>
+                <th>Individual Pct</th>
+                <th>Cumulative Pct</th>
+                <th>Status (Pareto 80% Rule)</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            <tr>
+                <td>#1</td>
+                <td class="mono" style="font-weight: bold;">channel7</td>
+                <td class="mono">302</td>
+                <td>12.29%</td>
+                <td>12.29%</td>
+                <td>
+                    <span style="color: #e11d48; font-weight: 700;">
+                        Vital Few (<= 80%)
+                    </span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td>#2</td>
+                <td class="mono" style="font-weight: bold;">channel3</td>
+                <td class="mono">289</td>
+                <td>11.76%</td>
+                <td>24.04%</td>
+                <td>
+                    <span style="color: #e11d48; font-weight: 700;">
+                        Vital Few (<= 80%)
+                    </span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td>#3</td>
+                <td class="mono" style="font-weight: bold;">channel16</td>
+                <td class="mono">200</td>
+                <td>8.14%</td>
+                <td>32.18%</td>
+                <td>
+                    <span style="color: #e11d48; font-weight: 700;">
+                        Vital Few (<= 80%)
+                    </span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td>#4</td>
+                <td class="mono" style="font-weight: bold;">channel6</td>
+                <td class="mono">171</td>
+                <td>6.96%</td>
+                <td>39.14%</td>
+                <td>
+                    <span style="color: #e11d48; font-weight: 700;">
+                        Vital Few (<= 80%)
+                    </span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td>#5</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">158</td>
+                <td>6.43%</td>
+                <td>45.57%</td>
+                <td>
+                    <span style="color: #e11d48; font-weight: 700;">
+                        Vital Few (<= 80%)
+                    </span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td>#6</td>
+                <td class="mono" style="font-weight: bold;">channel10</td>
+                <td class="mono">157</td>
+                <td>6.39%</td>
+                <td>51.95%</td>
+                <td>
+                    <span style="color: #e11d48; font-weight: 700;">
+                        Vital Few (<= 80%)
+                    </span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td>#7</td>
+                <td class="mono" style="font-weight: bold;">channel1</td>
+                <td class="mono">153</td>
+                <td>6.22%</td>
+                <td>58.18%</td>
+                <td>
+                    <span style="color: #e11d48; font-weight: 700;">
+                        Vital Few (<= 80%)
+                    </span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td>#8</td>
+                <td class="mono" style="font-weight: bold;">channel20</td>
+                <td class="mono">151</td>
+                <td>6.14%</td>
+                <td>64.32%</td>
+                <td>
+                    <span style="color: #e11d48; font-weight: 700;">
+                        Vital Few (<= 80%)
+                    </span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td>#9</td>
+                <td class="mono" style="font-weight: bold;">channel23</td>
+                <td class="mono">136</td>
+                <td>5.53%</td>
+                <td>69.85%</td>
+                <td>
+                    <span style="color: #e11d48; font-weight: 700;">
+                        Vital Few (<= 80%)
+                    </span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td>#10</td>
+                <td class="mono" style="font-weight: bold;">channel14</td>
+                <td class="mono">133</td>
+                <td>5.41%</td>
+                <td>75.26%</td>
+                <td>
+                    <span style="color: #e11d48; font-weight: 700;">
+                        Vital Few (<= 80%)
+                    </span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td>#11</td>
+                <td class="mono" style="font-weight: bold;">channel5</td>
+                <td class="mono">132</td>
+                <td>5.37%</td>
+                <td>80.63%</td>
+                <td>
+                    <span style="color: #475569;">
+                        Trivial Many (> 80%)
+                    </span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td>#12</td>
+                <td class="mono" style="font-weight: bold;">channel19</td>
+                <td class="mono">122</td>
+                <td>4.96%</td>
+                <td>85.60%</td>
+                <td>
+                    <span style="color: #475569;">
+                        Trivial Many (> 80%)
+                    </span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td>#13</td>
+                <td class="mono" style="font-weight: bold;">channel9</td>
+                <td class="mono">119</td>
+                <td>4.84%</td>
+                <td>90.44%</td>
+                <td>
+                    <span style="color: #475569;">
+                        Trivial Many (> 80%)
+                    </span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td>#14</td>
+                <td class="mono" style="font-weight: bold;">channel22</td>
+                <td class="mono">61</td>
+                <td>2.48%</td>
+                <td>92.92%</td>
+                <td>
+                    <span style="color: #475569;">
+                        Trivial Many (> 80%)
+                    </span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td>#15</td>
+                <td class="mono" style="font-weight: bold;">channel2</td>
+                <td class="mono">60</td>
+                <td>2.44%</td>
+                <td>95.36%</td>
+                <td>
+                    <span style="color: #475569;">
+                        Trivial Many (> 80%)
+                    </span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td>#16</td>
+                <td class="mono" style="font-weight: bold;">channel13</td>
+                <td class="mono">59</td>
+                <td>2.40%</td>
+                <td>97.76%</td>
+                <td>
+                    <span style="color: #475569;">
+                        Trivial Many (> 80%)
+                    </span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td>#17</td>
+                <td class="mono" style="font-weight: bold;">channel12</td>
+                <td class="mono">55</td>
+                <td>2.24%</td>
+                <td>100.00%</td>
+                <td>
+                    <span style="color: #475569;">
+                        Trivial Many (> 80%)
+                    </span>
+                </td>
+            </tr>
+            
+        </tbody>
+    </table>
+
+    <h2>6. Suspected Failing Cells (FR-002)</h2>
+    <p class="section-desc">Top localized register cells sorted by diagnostic confidence.</p>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Scan Chain</th>
+                <th>Logical Position</th>
+                <th>Cell Naming Identifier</th>
+                <th>Observations</th>
+                <th>Confidence</th>
+                <th>RF Predicted Root Cause</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            <tr>
+                <td class="mono">channel13</td>
+                <td class="mono">57</td>
+                <td class="mono" style="color: #059669; font-weight: bold;">U_core/reg_c12_ff[57]</td>
+                <td class="mono">3</td>
+                <td class="mono" style="font-weight: bold;">0.051</td>
+                <td><span class="badge badge-defect">SCRATCH</span></td>
+            </tr>
+            
+            <tr>
+                <td class="mono">channel13</td>
+                <td class="mono">73</td>
+                <td class="mono" style="color: #059669; font-weight: bold;">U_core/reg_c12_ff[73]</td>
+                <td class="mono">3</td>
+                <td class="mono" style="font-weight: bold;">0.051</td>
+                <td><span class="badge badge-defect">SCRATCH</span></td>
+            </tr>
+            
+            <tr>
+                <td class="mono">channel13</td>
+                <td class="mono">7</td>
+                <td class="mono" style="color: #059669; font-weight: bold;">U_core/reg_c12_ff[7]</td>
+                <td class="mono">3</td>
+                <td class="mono" style="font-weight: bold;">0.051</td>
+                <td><span class="badge badge-defect">SCRATCH</span></td>
+            </tr>
+            
+            <tr>
+                <td class="mono">channel2</td>
+                <td class="mono">25</td>
+                <td class="mono" style="color: #059669; font-weight: bold;">U_core/reg_c1_ff[25]</td>
+                <td class="mono">3</td>
+                <td class="mono" style="font-weight: bold;">0.050</td>
+                <td><span class="badge badge-defect">DONUT</span></td>
+            </tr>
+            
+            <tr>
+                <td class="mono">channel2</td>
+                <td class="mono">37</td>
+                <td class="mono" style="color: #059669; font-weight: bold;">U_core/reg_c1_ff[37]</td>
+                <td class="mono">3</td>
+                <td class="mono" style="font-weight: bold;">0.050</td>
+                <td><span class="badge badge-defect">DONUT</span></td>
+            </tr>
+            
+            <tr>
+                <td class="mono">channel12</td>
+                <td class="mono">128</td>
+                <td class="mono" style="color: #059669; font-weight: bold;">U_core/reg_c11_ff[128]</td>
+                <td class="mono">2</td>
+                <td class="mono" style="font-weight: bold;">0.036</td>
+                <td><span class="badge badge-defect">NORMAL</span></td>
+            </tr>
+            
+            <tr>
+                <td class="mono">channel12</td>
+                <td class="mono">147</td>
+                <td class="mono" style="color: #059669; font-weight: bold;">U_core/reg_c11_ff[147]</td>
+                <td class="mono">2</td>
+                <td class="mono" style="font-weight: bold;">0.036</td>
+                <td><span class="badge badge-defect">NORMAL</span></td>
+            </tr>
+            
+            <tr>
+                <td class="mono">channel12</td>
+                <td class="mono">150</td>
+                <td class="mono" style="color: #059669; font-weight: bold;">U_core/reg_c11_ff[150]</td>
+                <td class="mono">2</td>
+                <td class="mono" style="font-weight: bold;">0.036</td>
+                <td><span class="badge badge-defect">NORMAL</span></td>
+            </tr>
+            
+            <tr>
+                <td class="mono">channel12</td>
+                <td class="mono">33</td>
+                <td class="mono" style="color: #059669; font-weight: bold;">U_core/reg_c11_ff[33]</td>
+                <td class="mono">2</td>
+                <td class="mono" style="font-weight: bold;">0.036</td>
+                <td><span class="badge badge-defect">NORMAL</span></td>
+            </tr>
+            
+            <tr>
+                <td class="mono">channel12</td>
+                <td class="mono">61</td>
+                <td class="mono" style="color: #059669; font-weight: bold;">U_core/reg_c11_ff[61]</td>
+                <td class="mono">2</td>
+                <td class="mono" style="font-weight: bold;">0.036</td>
+                <td><span class="badge badge-defect">NORMAL</span></td>
+            </tr>
+            
+            <tr>
+                <td class="mono">channel12</td>
+                <td class="mono">72</td>
+                <td class="mono" style="color: #059669; font-weight: bold;">U_core/reg_c11_ff[72]</td>
+                <td class="mono">2</td>
+                <td class="mono" style="font-weight: bold;">0.036</td>
+                <td><span class="badge badge-defect">NORMAL</span></td>
+            </tr>
+            
+            <tr>
+                <td class="mono">channel12</td>
+                <td class="mono">90</td>
+                <td class="mono" style="color: #059669; font-weight: bold;">U_core/reg_c11_ff[90]</td>
+                <td class="mono">2</td>
+                <td class="mono" style="font-weight: bold;">0.036</td>
+                <td><span class="badge badge-defect">NORMAL</span></td>
+            </tr>
+            
+            <tr>
+                <td class="mono">channel13</td>
+                <td class="mono">106</td>
+                <td class="mono" style="color: #059669; font-weight: bold;">U_core/reg_c12_ff[106]</td>
+                <td class="mono">2</td>
+                <td class="mono" style="font-weight: bold;">0.034</td>
+                <td><span class="badge badge-defect">SCRATCH</span></td>
+            </tr>
+            
+            <tr>
+                <td class="mono">channel13</td>
+                <td class="mono">32</td>
+                <td class="mono" style="color: #059669; font-weight: bold;">U_core/reg_c12_ff[32]</td>
+                <td class="mono">2</td>
+                <td class="mono" style="font-weight: bold;">0.034</td>
+                <td><span class="badge badge-defect">SCRATCH</span></td>
+            </tr>
+            
+            <tr>
+                <td class="mono">channel13</td>
+                <td class="mono">47</td>
+                <td class="mono" style="color: #059669; font-weight: bold;">U_core/reg_c12_ff[47]</td>
+                <td class="mono">2</td>
+                <td class="mono" style="font-weight: bold;">0.034</td>
+                <td><span class="badge badge-defect">SCRATCH</span></td>
+            </tr>
+            
+            <tr>
+                <td class="mono">channel13</td>
+                <td class="mono">5</td>
+                <td class="mono" style="color: #059669; font-weight: bold;">U_core/reg_c12_ff[5]</td>
+                <td class="mono">2</td>
+                <td class="mono" style="font-weight: bold;">0.034</td>
+                <td><span class="badge badge-defect">SCRATCH</span></td>
+            </tr>
+            
+            <tr>
+                <td class="mono">channel9</td>
+                <td class="mono">142</td>
+                <td class="mono" style="color: #059669; font-weight: bold;">U_core/reg_c8_ff[142]</td>
+                <td class="mono">4</td>
+                <td class="mono" style="font-weight: bold;">0.034</td>
+                <td><span class="badge badge-defect">CENTER</span></td>
+            </tr>
+            
+            <tr>
+                <td class="mono">channel2</td>
+                <td class="mono">148</td>
+                <td class="mono" style="color: #059669; font-weight: bold;">U_core/reg_c1_ff[148]</td>
+                <td class="mono">2</td>
+                <td class="mono" style="font-weight: bold;">0.033</td>
+                <td><span class="badge badge-defect">DONUT</span></td>
+            </tr>
+            
+            <tr>
+                <td class="mono">channel2</td>
+                <td class="mono">157</td>
+                <td class="mono" style="color: #059669; font-weight: bold;">U_core/reg_c1_ff[157]</td>
+                <td class="mono">2</td>
+                <td class="mono" style="font-weight: bold;">0.033</td>
+                <td><span class="badge badge-defect">DONUT</span></td>
+            </tr>
+            
+            <tr>
+                <td class="mono">channel2</td>
+                <td class="mono">164</td>
+                <td class="mono" style="color: #059669; font-weight: bold;">U_core/reg_c1_ff[164]</td>
+                <td class="mono">2</td>
+                <td class="mono" style="font-weight: bold;">0.033</td>
+                <td><span class="badge badge-defect">DONUT</span></td>
+            </tr>
+            
+            <tr>
+                <td class="mono">channel2</td>
+                <td class="mono">19</td>
+                <td class="mono" style="color: #059669; font-weight: bold;">U_core/reg_c1_ff[19]</td>
+                <td class="mono">2</td>
+                <td class="mono" style="font-weight: bold;">0.033</td>
+                <td><span class="badge badge-defect">DONUT</span></td>
+            </tr>
+            
+            <tr>
+                <td class="mono">channel2</td>
+                <td class="mono">27</td>
+                <td class="mono" style="color: #059669; font-weight: bold;">U_core/reg_c1_ff[27]</td>
+                <td class="mono">2</td>
+                <td class="mono" style="font-weight: bold;">0.033</td>
+                <td><span class="badge badge-defect">DONUT</span></td>
+            </tr>
+            
+            <tr>
+                <td class="mono">channel2</td>
+                <td class="mono">79</td>
+                <td class="mono" style="color: #059669; font-weight: bold;">U_core/reg_c1_ff[79]</td>
+                <td class="mono">2</td>
+                <td class="mono" style="font-weight: bold;">0.033</td>
+                <td><span class="badge badge-defect">DONUT</span></td>
+            </tr>
+            
+            <tr>
+                <td class="mono">channel2</td>
+                <td class="mono">83</td>
+                <td class="mono" style="color: #059669; font-weight: bold;">U_core/reg_c1_ff[83]</td>
+                <td class="mono">2</td>
+                <td class="mono" style="font-weight: bold;">0.033</td>
+                <td><span class="badge badge-defect">DONUT</span></td>
+            </tr>
+            
+            <tr>
+                <td class="mono">channel2</td>
+                <td class="mono">96</td>
+                <td class="mono" style="color: #059669; font-weight: bold;">U_core/reg_c1_ff[96]</td>
+                <td class="mono">2</td>
+                <td class="mono" style="font-weight: bold;">0.033</td>
+                <td><span class="badge badge-defect">DONUT</span></td>
+            </tr>
+            
+            <tr>
+                <td class="mono">channel19</td>
+                <td class="mono">146</td>
+                <td class="mono" style="color: #059669; font-weight: bold;">U_core/reg_c18_ff[146]</td>
+                <td class="mono">4</td>
+                <td class="mono" style="font-weight: bold;">0.033</td>
+                <td><span class="badge badge-defect">SCRATCH</span></td>
+            </tr>
+            
+            <tr>
+                <td class="mono">channel19</td>
+                <td class="mono">62</td>
+                <td class="mono" style="color: #059669; font-weight: bold;">U_core/reg_c18_ff[62]</td>
+                <td class="mono">4</td>
+                <td class="mono" style="font-weight: bold;">0.033</td>
+                <td><span class="badge badge-defect">SCRATCH</span></td>
+            </tr>
+            
+            <tr>
+                <td class="mono">channel22</td>
+                <td class="mono">101</td>
+                <td class="mono" style="color: #059669; font-weight: bold;">U_core/reg_c21_ff[101]</td>
+                <td class="mono">2</td>
+                <td class="mono" style="font-weight: bold;">0.033</td>
+                <td><span class="badge badge-defect">NORMAL</span></td>
+            </tr>
+            
+            <tr>
+                <td class="mono">channel22</td>
+                <td class="mono">17</td>
+                <td class="mono" style="color: #059669; font-weight: bold;">U_core/reg_c21_ff[17]</td>
+                <td class="mono">2</td>
+                <td class="mono" style="font-weight: bold;">0.033</td>
+                <td><span class="badge badge-defect">NORMAL</span></td>
+            </tr>
+            
+            <tr>
+                <td class="mono">channel22</td>
+                <td class="mono">19</td>
+                <td class="mono" style="color: #059669; font-weight: bold;">U_core/reg_c21_ff[19]</td>
+                <td class="mono">2</td>
+                <td class="mono" style="font-weight: bold;">0.033</td>
+                <td><span class="badge badge-defect">NORMAL</span></td>
+            </tr>
+            
+        </tbody>
+    </table>
+    
+
+    <h2>7. Failure Correlation Analysis (FR-005)</h2>
+    <p class="section-desc">Pearson correlation coefficient mapping of scan chains against physical and timing features.</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Scan Chain</th>
+                <th>IR DROP MV</th><th>THERMAL C</th><th>SETUP SLACK PS</th><th>HOLD SLACK PS</th><th>AI SEVERITY SCORE</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel1</td>
+                <td class="mono" style="color: #334155; font-weight: normal;">-0.0214</td><td class="mono" style="color: #334155; font-weight: normal;">-0.0054</td><td class="mono" style="color: #334155; font-weight: normal;">0.0041</td><td class="mono" style="color: #334155; font-weight: normal;">-0.0008</td><td class="mono" style="color: #334155; font-weight: normal;">0.0</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel2</td>
+                <td class="mono" style="color: #334155; font-weight: normal;">0.0263</td><td class="mono" style="color: #334155; font-weight: normal;">0.0164</td><td class="mono" style="color: #334155; font-weight: normal;">-0.0146</td><td class="mono" style="color: #334155; font-weight: normal;">-0.0027</td><td class="mono" style="color: #334155; font-weight: normal;">0.0</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel3</td>
+                <td class="mono" style="color: #334155; font-weight: normal;">-0.0148</td><td class="mono" style="color: #334155; font-weight: normal;">-0.0165</td><td class="mono" style="color: #334155; font-weight: normal;">0.0086</td><td class="mono" style="color: #334155; font-weight: normal;">0.022</td><td class="mono" style="color: #334155; font-weight: normal;">0.0</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel5</td>
+                <td class="mono" style="color: #334155; font-weight: normal;">-0.0105</td><td class="mono" style="color: #334155; font-weight: normal;">0.0101</td><td class="mono" style="color: #334155; font-weight: normal;">-0.0193</td><td class="mono" style="color: #334155; font-weight: normal;">-0.0003</td><td class="mono" style="color: #334155; font-weight: normal;">0.0</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel6</td>
+                <td class="mono" style="color: #334155; font-weight: normal;">0.002</td><td class="mono" style="color: #334155; font-weight: normal;">-0.0251</td><td class="mono" style="color: #334155; font-weight: normal;">0.035</td><td class="mono" style="color: #334155; font-weight: normal;">-0.0212</td><td class="mono" style="color: #334155; font-weight: normal;">0.0</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel7</td>
+                <td class="mono" style="color: #334155; font-weight: normal;">0.0085</td><td class="mono" style="color: #334155; font-weight: normal;">0.0051</td><td class="mono" style="color: #334155; font-weight: normal;">-0.0058</td><td class="mono" style="color: #334155; font-weight: normal;">-0.0333</td><td class="mono" style="color: #334155; font-weight: normal;">0.0</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel9</td>
+                <td class="mono" style="color: #334155; font-weight: normal;">0.0037</td><td class="mono" style="color: #334155; font-weight: normal;">0.0085</td><td class="mono" style="color: #334155; font-weight: normal;">0.038</td><td class="mono" style="color: #334155; font-weight: normal;">-0.0199</td><td class="mono" style="color: #334155; font-weight: normal;">0.0</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel10</td>
+                <td class="mono" style="color: #334155; font-weight: normal;">-0.0208</td><td class="mono" style="color: #334155; font-weight: normal;">0.0065</td><td class="mono" style="color: #334155; font-weight: normal;">-0.0038</td><td class="mono" style="color: #334155; font-weight: normal;">0.0495</td><td class="mono" style="color: #334155; font-weight: normal;">0.0</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel12</td>
+                <td class="mono" style="color: #334155; font-weight: normal;">0.0079</td><td class="mono" style="color: #334155; font-weight: normal;">-0.0014</td><td class="mono" style="color: #334155; font-weight: normal;">0.0089</td><td class="mono" style="color: #334155; font-weight: normal;">0.0301</td><td class="mono" style="color: #334155; font-weight: normal;">0.0</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel13</td>
+                <td class="mono" style="color: #334155; font-weight: normal;">-0.0335</td><td class="mono" style="color: #334155; font-weight: normal;">0.0072</td><td class="mono" style="color: #334155; font-weight: normal;">0.009</td><td class="mono" style="color: #334155; font-weight: normal;">-0.0155</td><td class="mono" style="color: #334155; font-weight: normal;">0.0</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel14</td>
+                <td class="mono" style="color: #334155; font-weight: normal;">-0.0182</td><td class="mono" style="color: #334155; font-weight: normal;">0.0103</td><td class="mono" style="color: #334155; font-weight: normal;">0.0369</td><td class="mono" style="color: #334155; font-weight: normal;">-0.0039</td><td class="mono" style="color: #334155; font-weight: normal;">0.0</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel16</td>
+                <td class="mono" style="color: #334155; font-weight: normal;">0.0104</td><td class="mono" style="color: #334155; font-weight: normal;">0.0158</td><td class="mono" style="color: #334155; font-weight: normal;">-0.0236</td><td class="mono" style="color: #334155; font-weight: normal;">0.0118</td><td class="mono" style="color: #334155; font-weight: normal;">0.0</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel19</td>
+                <td class="mono" style="color: #334155; font-weight: normal;">-0.0061</td><td class="mono" style="color: #334155; font-weight: normal;">-0.0312</td><td class="mono" style="color: #334155; font-weight: normal;">-0.0039</td><td class="mono" style="color: #334155; font-weight: normal;">-0.0024</td><td class="mono" style="color: #334155; font-weight: normal;">0.0</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel20</td>
+                <td class="mono" style="color: #334155; font-weight: normal;">0.0262</td><td class="mono" style="color: #334155; font-weight: normal;">0.0115</td><td class="mono" style="color: #334155; font-weight: normal;">-0.0036</td><td class="mono" style="color: #334155; font-weight: normal;">-0.0192</td><td class="mono" style="color: #334155; font-weight: normal;">0.0</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono" style="color: #334155; font-weight: normal;">0.0276</td><td class="mono" style="color: #334155; font-weight: normal;">-0.0078</td><td class="mono" style="color: #334155; font-weight: normal;">0.0049</td><td class="mono" style="color: #334155; font-weight: normal;">-0.0021</td><td class="mono" style="color: #334155; font-weight: normal;">0.0</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel22</td>
+                <td class="mono" style="color: #334155; font-weight: normal;">-0.0239</td><td class="mono" style="color: #334155; font-weight: normal;">-0.0158</td><td class="mono" style="color: #334155; font-weight: normal;">-0.0421</td><td class="mono" style="color: #334155; font-weight: normal;">0.0292</td><td class="mono" style="color: #334155; font-weight: normal;">0.0</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel23</td>
+                <td class="mono" style="color: #334155; font-weight: normal;">0.0283</td><td class="mono" style="color: #334155; font-weight: normal;">0.0172</td><td class="mono" style="color: #334155; font-weight: normal;">-0.0389</td><td class="mono" style="color: #334155; font-weight: normal;">-0.0054</td><td class="mono" style="color: #334155; font-weight: normal;">0.0</td>
+            </tr>
+            
+        </tbody>
+    </table>
+
+    <h3 style="margin-top: 25px;">7.2 Failure Signature & Physical Driver Details</h3>
+    <p class="section-desc">Primary physical drivers and signature distributions for each failing scan chain.</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Scan Chain</th>
+                <th>Fail Count</th>
+                <th>Primary Physical Driver</th>
+                <th>Fail Type Breakdown</th>
+                <th>Root Cause Breakdown</th>
+                <th>Spatial Region Breakdown</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel1</td>
+                <td>153</td>
+                <td class="mono" style="font-weight: bold; color: #334155">IR DROP MV (r=-0.021)</td>
+                <td style="font-size: 11px;">SCAN_SHIFT: 100.0%</td>
+                <td style="font-size: 11px;">RANDOM: 45.1%, NORMAL: 28.8%, SCRATCH: 26.1%</td>
+                <td style="font-size: 11px;">N/A</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel2</td>
+                <td>60</td>
+                <td class="mono" style="font-weight: bold; color: #334155">IR DROP MV (r=0.026)</td>
+                <td style="font-size: 11px;">SCAN_SHIFT: 100.0%</td>
+                <td style="font-size: 11px;">DONUT: 100.0%</td>
+                <td style="font-size: 11px;">N/A</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel3</td>
+                <td>289</td>
+                <td class="mono" style="font-weight: bold; color: #334155">HOLD SLACK PS (r=0.022)</td>
+                <td style="font-size: 11px;">SCAN_SHIFT: 100.0%</td>
+                <td style="font-size: 11px;">EDGE_LOC: 24.2%, DONUT: 21.8%, CENTER: 19.7%, RANDOM: 18.7%, EDGE_RING: 15.6%</td>
+                <td style="font-size: 11px;">N/A</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel5</td>
+                <td>132</td>
+                <td class="mono" style="font-weight: bold; color: #334155">SETUP SLACK PS (r=-0.019)</td>
+                <td style="font-size: 11px;">SCAN_SHIFT: 100.0%</td>
+                <td style="font-size: 11px;">LOCAL: 35.6%, CENTER: 33.3%, SCRATCH: 31.1%</td>
+                <td style="font-size: 11px;">N/A</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel6</td>
+                <td>171</td>
+                <td class="mono" style="font-weight: bold; color: #334155">SETUP SLACK PS (r=0.035)</td>
+                <td style="font-size: 11px;">SCAN_SHIFT: 100.0%</td>
+                <td style="font-size: 11px;">NEAR_FULL: 33.9%, SCRATCH: 33.9%, LOCAL: 32.2%</td>
+                <td style="font-size: 11px;">N/A</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel7</td>
+                <td>302</td>
+                <td class="mono" style="font-weight: bold; color: #334155">HOLD SLACK PS (r=-0.033)</td>
+                <td style="font-size: 11px;">SCAN_SHIFT: 100.0%</td>
+                <td style="font-size: 11px;">LOCAL: 37.7%, EDGE_LOC: 22.2%, RANDOM: 20.2%, NEAR_FULL: 19.9%</td>
+                <td style="font-size: 11px;">N/A</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel9</td>
+                <td>119</td>
+                <td class="mono" style="font-weight: bold; color: #334155">SETUP SLACK PS (r=0.038)</td>
+                <td style="font-size: 11px;">SCAN_SHIFT: 100.0%</td>
+                <td style="font-size: 11px;">CENTER: 58.8%, EDGE_LOC: 41.2%</td>
+                <td style="font-size: 11px;">N/A</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel10</td>
+                <td>157</td>
+                <td class="mono" style="font-weight: bold; color: #334155">HOLD SLACK PS (r=0.050)</td>
+                <td style="font-size: 11px;">SCAN_SHIFT: 100.0%</td>
+                <td style="font-size: 11px;">DONUT: 42.0%, NORMAL: 31.2%, RANDOM: 26.8%</td>
+                <td style="font-size: 11px;">N/A</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel12</td>
+                <td>55</td>
+                <td class="mono" style="font-weight: bold; color: #334155">HOLD SLACK PS (r=0.030)</td>
+                <td style="font-size: 11px;">SCAN_SHIFT: 100.0%</td>
+                <td style="font-size: 11px;">NORMAL: 100.0%</td>
+                <td style="font-size: 11px;">N/A</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel13</td>
+                <td>59</td>
+                <td class="mono" style="font-weight: bold; color: #334155">IR DROP MV (r=-0.034)</td>
+                <td style="font-size: 11px;">SCAN_SHIFT: 100.0%</td>
+                <td style="font-size: 11px;">SCRATCH: 100.0%</td>
+                <td style="font-size: 11px;">N/A</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel14</td>
+                <td>133</td>
+                <td class="mono" style="font-weight: bold; color: #334155">SETUP SLACK PS (r=0.037)</td>
+                <td style="font-size: 11px;">SCAN_SHIFT: 100.0%</td>
+                <td style="font-size: 11px;">EDGE_RING: 51.1%, RANDOM: 48.9%</td>
+                <td style="font-size: 11px;">N/A</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel16</td>
+                <td>200</td>
+                <td class="mono" style="font-weight: bold; color: #334155">SETUP SLACK PS (r=-0.024)</td>
+                <td style="font-size: 11px;">SCAN_SHIFT: 100.0%</td>
+                <td style="font-size: 11px;">EDGE_RING: 49.5%, NORMAL: 29.0%, CENTER: 21.5%</td>
+                <td style="font-size: 11px;">N/A</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel19</td>
+                <td>122</td>
+                <td class="mono" style="font-weight: bold; color: #334155">THERMAL C (r=-0.031)</td>
+                <td style="font-size: 11px;">SCAN_SHIFT: 100.0%</td>
+                <td style="font-size: 11px;">SCRATCH: 52.5%, DONUT: 47.5%</td>
+                <td style="font-size: 11px;">N/A</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel20</td>
+                <td>151</td>
+                <td class="mono" style="font-weight: bold; color: #334155">IR DROP MV (r=0.026)</td>
+                <td style="font-size: 11px;">SCAN_SHIFT: 100.0%</td>
+                <td style="font-size: 11px;">NEAR_FULL: 44.4%, CENTER: 28.5%, LOCAL: 27.2%</td>
+                <td style="font-size: 11px;">N/A</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td>158</td>
+                <td class="mono" style="font-weight: bold; color: #334155">IR DROP MV (r=0.028)</td>
+                <td style="font-size: 11px;">SCAN_SHIFT: 100.0%</td>
+                <td style="font-size: 11px;">EDGE_LOC: 41.8%, NEAR_FULL: 31.0%, EDGE_RING: 27.2%</td>
+                <td style="font-size: 11px;">N/A</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel22</td>
+                <td>61</td>
+                <td class="mono" style="font-weight: bold; color: #334155">SETUP SLACK PS (r=-0.042)</td>
+                <td style="font-size: 11px;">SCAN_SHIFT: 100.0%</td>
+                <td style="font-size: 11px;">NORMAL: 100.0%</td>
+                <td style="font-size: 11px;">N/A</td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">channel23</td>
+                <td>136</td>
+                <td class="mono" style="font-weight: bold; color: #334155">SETUP SLACK PS (r=-0.039)</td>
+                <td style="font-size: 11px;">SCAN_SHIFT: 100.0%</td>
+                <td style="font-size: 11px;">NEAR_FULL: 36.8%, EDGE_LOC: 33.8%, DONUT: 29.4%</td>
+                <td style="font-size: 11px;">N/A</td>
+            </tr>
+            
+        </tbody>
+    </table>
+
+    <h2>8. Shift vs. Capture Timing Analysis (FR-007)</h2>
+    <p class="section-desc">Physical breakdown classifying failures by shift-path integrity failures vs capture timing errors.</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Classification</th>
+                <th>Fails Count</th>
+                <th>Percentage</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">
+                    <span class="badge badge-shift">SHIFT_ISSUE</span>
+                </td>
+                <td class="mono">2,409</td>
+                <td>98.01%</td>
+                <td>
+                    Fails on a scan chain with a shift-path break.
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">
+                    <span class="badge badge-setup">CAPTURE_TIMING_SETUP</span>
+                </td>
+                <td class="mono">10</td>
+                <td>0.41%</td>
+                <td>
+                    Setup timing violation (setup_slack < 0)
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">
+                    <span class="badge badge-setup">CAPTURE_TIMING_SETUP_ANOMALY</span>
+                </td>
+                <td class="mono">23</td>
+                <td>0.94%</td>
+                <td>
+                    Anomalous setup timing violation (outlier flagged by IsolationForest)
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">
+                    <span class="badge badge-hold">CAPTURE_TIMING_HOLD</span>
+                </td>
+                <td class="mono">2</td>
+                <td>0.08%</td>
+                <td>
+                    Hold timing violation (hold_slack < 0)
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">
+                    <span class="badge badge-hold">CAPTURE_TIMING_HOLD_ANOMALY</span>
+                </td>
+                <td class="mono">12</td>
+                <td>0.49%</td>
+                <td>
+                    Anomalous hold timing violation (outlier flagged by IsolationForest)
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="mono" style="font-weight: bold;">
+                    <span class="badge badge-defect">CAPTURE_CELL_DEFECT</span>
+                </td>
+                <td class="mono">2</td>
+                <td>0.08%</td>
+                <td>
+                    Fails under correct timing constraints, indicating logical cell defect.
+                </td>
+            </tr>
+            
+        </tbody>
+    </table>
+
+    <h3 style="margin-top: 25px;">8.2 Detailed Capture Violations Registry</h3>
+    <p class="section-desc">Failing patterns classified as capture timing errors or cell defects (excluding systematic shift breaks).</p>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Lot ID</th>
+                <th>Die File</th>
+                <th>Scan Chain</th>
+                <th>Pattern ID</th>
+                <th>Failing Cell/Flop</th>
+                <th>Classification</th>
+                <th>Setup / Hold Slack (ps)</th>
+                <th>Diagnostic Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">13</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_9</td>
+                <td class="mono">
+                    <span class="badge badge-setup">CAPTURE_TIMING_SETUP_ANOMALY</span>
+                </td>
+                <td class="mono">-33 / 3</td>
+                <td style="font-size: 11px;">Anomalous setup timing violation (slack: -33 ps).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">21</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_95</td>
+                <td class="mono">
+                    <span class="badge badge-setup">CAPTURE_TIMING_SETUP_ANOMALY</span>
+                </td>
+                <td class="mono">-23 / 4</td>
+                <td style="font-size: 11px;">Anomalous setup timing violation (slack: -23 ps).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">45</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_113</td>
+                <td class="mono">
+                    <span class="badge badge-hold">CAPTURE_TIMING_HOLD_ANOMALY</span>
+                </td>
+                <td class="mono">-17 / -22</td>
+                <td style="font-size: 11px;">Anomalous hold timing violation (slack: -22 ps).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">56</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_108</td>
+                <td class="mono">
+                    <span class="badge badge-setup">CAPTURE_TIMING_SETUP_ANOMALY</span>
+                </td>
+                <td class="mono">-16 / -13</td>
+                <td style="font-size: 11px;">Anomalous setup timing violation (slack: -16 ps).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">60</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_156</td>
+                <td class="mono">
+                    <span class="badge badge-setup">CAPTURE_TIMING_SETUP_ANOMALY</span>
+                </td>
+                <td class="mono">-40 / -10</td>
+                <td style="font-size: 11px;">Anomalous setup timing violation (slack: -40 ps).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">85</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_49</td>
+                <td class="mono">
+                    <span class="badge badge-setup">CAPTURE_TIMING_SETUP_ANOMALY</span>
+                </td>
+                <td class="mono">-46 / -19</td>
+                <td style="font-size: 11px;">Anomalous setup timing violation (slack: -46 ps).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">129</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_103</td>
+                <td class="mono">
+                    <span class="badge badge-setup">CAPTURE_TIMING_SETUP_ANOMALY</span>
+                </td>
+                <td class="mono">-21 / -5</td>
+                <td style="font-size: 11px;">Anomalous setup timing violation (slack: -21 ps).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">144</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_32</td>
+                <td class="mono">
+                    <span class="badge badge-setup">CAPTURE_TIMING_SETUP_ANOMALY</span>
+                </td>
+                <td class="mono">-2 / 6</td>
+                <td style="font-size: 11px;">Anomalous setup timing violation (slack: -2 ps).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">148</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_28</td>
+                <td class="mono">
+                    <span class="badge badge-setup">CAPTURE_TIMING_SETUP_ANOMALY</span>
+                </td>
+                <td class="mono">-12 / -7</td>
+                <td style="font-size: 11px;">Anomalous setup timing violation (slack: -12 ps).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">192</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_51</td>
+                <td class="mono">
+                    <span class="badge badge-hold">CAPTURE_TIMING_HOLD_ANOMALY</span>
+                </td>
+                <td class="mono">-17 / -19</td>
+                <td style="font-size: 11px;">Anomalous hold timing violation (slack: -19 ps).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">194</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_38</td>
+                <td class="mono">
+                    <span class="badge badge-defect">CAPTURE_CELL_DEFECT</span>
+                </td>
+                <td class="mono">7 / 2</td>
+                <td style="font-size: 11px;">Functional cell defect (RF predicted root cause: NEAR_FULL).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">195</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_49</td>
+                <td class="mono">
+                    <span class="badge badge-defect">CAPTURE_CELL_DEFECT</span>
+                </td>
+                <td class="mono">0 / 4</td>
+                <td style="font-size: 11px;">Functional cell defect (RF predicted root cause: NEAR_FULL).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">207</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_43</td>
+                <td class="mono">
+                    <span class="badge badge-setup">CAPTURE_TIMING_SETUP_ANOMALY</span>
+                </td>
+                <td class="mono">-43 / -16</td>
+                <td style="font-size: 11px;">Anomalous setup timing violation (slack: -43 ps).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">209</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_37</td>
+                <td class="mono">
+                    <span class="badge badge-hold">CAPTURE_TIMING_HOLD</span>
+                </td>
+                <td class="mono">-7 / -20</td>
+                <td style="font-size: 11px;">Hold timing violation (slack: -20 ps).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">227</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_80</td>
+                <td class="mono">
+                    <span class="badge badge-setup">CAPTURE_TIMING_SETUP</span>
+                </td>
+                <td class="mono">-31 / 1</td>
+                <td style="font-size: 11px;">Setup timing violation (slack: -31 ps).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">277</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_112</td>
+                <td class="mono">
+                    <span class="badge badge-setup">CAPTURE_TIMING_SETUP_ANOMALY</span>
+                </td>
+                <td class="mono">-32 / 6</td>
+                <td style="font-size: 11px;">Anomalous setup timing violation (slack: -32 ps).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">282</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_24</td>
+                <td class="mono">
+                    <span class="badge badge-setup">CAPTURE_TIMING_SETUP_ANOMALY</span>
+                </td>
+                <td class="mono">-47 / -14</td>
+                <td style="font-size: 11px;">Anomalous setup timing violation (slack: -47 ps).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">297</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_73</td>
+                <td class="mono">
+                    <span class="badge badge-setup">CAPTURE_TIMING_SETUP_ANOMALY</span>
+                </td>
+                <td class="mono">-32 / 2</td>
+                <td style="font-size: 11px;">Anomalous setup timing violation (slack: -32 ps).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">307</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_28</td>
+                <td class="mono">
+                    <span class="badge badge-hold">CAPTURE_TIMING_HOLD_ANOMALY</span>
+                </td>
+                <td class="mono">-13 / -19</td>
+                <td style="font-size: 11px;">Anomalous hold timing violation (slack: -19 ps).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">314</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_116</td>
+                <td class="mono">
+                    <span class="badge badge-setup">CAPTURE_TIMING_SETUP</span>
+                </td>
+                <td class="mono">-25 / 4</td>
+                <td style="font-size: 11px;">Setup timing violation (slack: -25 ps).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">329</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_123</td>
+                <td class="mono">
+                    <span class="badge badge-hold">CAPTURE_TIMING_HOLD_ANOMALY</span>
+                </td>
+                <td class="mono">-13 / -17</td>
+                <td style="font-size: 11px;">Anomalous hold timing violation (slack: -17 ps).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">372</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_43</td>
+                <td class="mono">
+                    <span class="badge badge-hold">CAPTURE_TIMING_HOLD_ANOMALY</span>
+                </td>
+                <td class="mono">-2 / -4</td>
+                <td style="font-size: 11px;">Anomalous hold timing violation (slack: -4 ps).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">392</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_28</td>
+                <td class="mono">
+                    <span class="badge badge-setup">CAPTURE_TIMING_SETUP_ANOMALY</span>
+                </td>
+                <td class="mono">-40 / 5</td>
+                <td style="font-size: 11px;">Anomalous setup timing violation (slack: -40 ps).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">395</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_46</td>
+                <td class="mono">
+                    <span class="badge badge-setup">CAPTURE_TIMING_SETUP_ANOMALY</span>
+                </td>
+                <td class="mono">-40 / -19</td>
+                <td style="font-size: 11px;">Anomalous setup timing violation (slack: -40 ps).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">431</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_65</td>
+                <td class="mono">
+                    <span class="badge badge-setup">CAPTURE_TIMING_SETUP_ANOMALY</span>
+                </td>
+                <td class="mono">-42 / 0</td>
+                <td style="font-size: 11px;">Anomalous setup timing violation (slack: -42 ps).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">442</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_156</td>
+                <td class="mono">
+                    <span class="badge badge-setup">CAPTURE_TIMING_SETUP</span>
+                </td>
+                <td class="mono">-34 / -6</td>
+                <td style="font-size: 11px;">Setup timing violation (slack: -34 ps).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">464</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_36</td>
+                <td class="mono">
+                    <span class="badge badge-setup">CAPTURE_TIMING_SETUP</span>
+                </td>
+                <td class="mono">-20 / -2</td>
+                <td style="font-size: 11px;">Setup timing violation (slack: -20 ps).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">495</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_105</td>
+                <td class="mono">
+                    <span class="badge badge-setup">CAPTURE_TIMING_SETUP</span>
+                </td>
+                <td class="mono">-15 / 4</td>
+                <td style="font-size: 11px;">Setup timing violation (slack: -15 ps).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">502</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_24</td>
+                <td class="mono">
+                    <span class="badge badge-hold">CAPTURE_TIMING_HOLD_ANOMALY</span>
+                </td>
+                <td class="mono">2 / -11</td>
+                <td style="font-size: 11px;">Anomalous hold timing violation (slack: -11 ps).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">519</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_8</td>
+                <td class="mono">
+                    <span class="badge badge-setup">CAPTURE_TIMING_SETUP_ANOMALY</span>
+                </td>
+                <td class="mono">-44 / -18</td>
+                <td style="font-size: 11px;">Anomalous setup timing violation (slack: -44 ps).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">577</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_14</td>
+                <td class="mono">
+                    <span class="badge badge-setup">CAPTURE_TIMING_SETUP</span>
+                </td>
+                <td class="mono">-23 / 5</td>
+                <td style="font-size: 11px;">Setup timing violation (slack: -23 ps).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">581</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_64</td>
+                <td class="mono">
+                    <span class="badge badge-setup">CAPTURE_TIMING_SETUP</span>
+                </td>
+                <td class="mono">-6 / -5</td>
+                <td style="font-size: 11px;">Setup timing violation (slack: -6 ps).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">633</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_38</td>
+                <td class="mono">
+                    <span class="badge badge-setup">CAPTURE_TIMING_SETUP_ANOMALY</span>
+                </td>
+                <td class="mono">-31 / -4</td>
+                <td style="font-size: 11px;">Anomalous setup timing violation (slack: -31 ps).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">643</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_7</td>
+                <td class="mono">
+                    <span class="badge badge-hold">CAPTURE_TIMING_HOLD_ANOMALY</span>
+                </td>
+                <td class="mono">6 / -16</td>
+                <td style="font-size: 11px;">Anomalous hold timing violation (slack: -16 ps).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">652</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_20</td>
+                <td class="mono">
+                    <span class="badge badge-hold">CAPTURE_TIMING_HOLD</span>
+                </td>
+                <td class="mono">-6 / -13</td>
+                <td style="font-size: 11px;">Hold timing violation (slack: -13 ps).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">690</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_143</td>
+                <td class="mono">
+                    <span class="badge badge-hold">CAPTURE_TIMING_HOLD_ANOMALY</span>
+                </td>
+                <td class="mono">-7 / -21</td>
+                <td style="font-size: 11px;">Anomalous hold timing violation (slack: -21 ps).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">703</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_153</td>
+                <td class="mono">
+                    <span class="badge badge-setup">CAPTURE_TIMING_SETUP_ANOMALY</span>
+                </td>
+                <td class="mono">-32 / -11</td>
+                <td style="font-size: 11px;">Anomalous setup timing violation (slack: -32 ps).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">745</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_79</td>
+                <td class="mono">
+                    <span class="badge badge-setup">CAPTURE_TIMING_SETUP_ANOMALY</span>
+                </td>
+                <td class="mono">-4 / 1</td>
+                <td style="font-size: 11px;">Anomalous setup timing violation (slack: -4 ps).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">779</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_113</td>
+                <td class="mono">
+                    <span class="badge badge-setup">CAPTURE_TIMING_SETUP</span>
+                </td>
+                <td class="mono">-37 / -10</td>
+                <td style="font-size: 11px;">Setup timing violation (slack: -37 ps).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">798</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_81</td>
+                <td class="mono">
+                    <span class="badge badge-setup">CAPTURE_TIMING_SETUP_ANOMALY</span>
+                </td>
+                <td class="mono">-13 / 4</td>
+                <td style="font-size: 11px;">Anomalous setup timing violation (slack: -13 ps).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">809</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_139</td>
+                <td class="mono">
+                    <span class="badge badge-hold">CAPTURE_TIMING_HOLD_ANOMALY</span>
+                </td>
+                <td class="mono">-3 / -19</td>
+                <td style="font-size: 11px;">Anomalous hold timing violation (slack: -19 ps).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">830</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_149</td>
+                <td class="mono">
+                    <span class="badge badge-setup">CAPTURE_TIMING_SETUP_ANOMALY</span>
+                </td>
+                <td class="mono">-14 / -10</td>
+                <td style="font-size: 11px;">Anomalous setup timing violation (slack: -14 ps).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">852</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_134</td>
+                <td class="mono">
+                    <span class="badge badge-hold">CAPTURE_TIMING_HOLD_ANOMALY</span>
+                </td>
+                <td class="mono">6 / -21</td>
+                <td style="font-size: 11px;">Anomalous hold timing violation (slack: -21 ps).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">864</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_11</td>
+                <td class="mono">
+                    <span class="badge badge-setup">CAPTURE_TIMING_SETUP</span>
+                </td>
+                <td class="mono">-10 / -1</td>
+                <td style="font-size: 11px;">Setup timing violation (slack: -10 ps).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">920</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_132</td>
+                <td class="mono">
+                    <span class="badge badge-setup">CAPTURE_TIMING_SETUP_ANOMALY</span>
+                </td>
+                <td class="mono">-25 / -4</td>
+                <td style="font-size: 11px;">Anomalous setup timing violation (slack: -25 ps).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">924</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_45</td>
+                <td class="mono">
+                    <span class="badge badge-setup">CAPTURE_TIMING_SETUP_ANOMALY</span>
+                </td>
+                <td class="mono">-43 / -3</td>
+                <td style="font-size: 11px;">Anomalous setup timing violation (slack: -43 ps).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">940</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_82</td>
+                <td class="mono">
+                    <span class="badge badge-hold">CAPTURE_TIMING_HOLD_ANOMALY</span>
+                </td>
+                <td class="mono">4 / -6</td>
+                <td style="font-size: 11px;">Anomalous hold timing violation (slack: -6 ps).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">977</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_17</td>
+                <td class="mono">
+                    <span class="badge badge-setup">CAPTURE_TIMING_SETUP</span>
+                </td>
+                <td class="mono">-6 / -3</td>
+                <td style="font-size: 11px;">Setup timing violation (slack: -6 ps).</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">LOT_6</td>
+                <td class="mono">fail_die_5.log</td>
+                <td class="mono" style="font-weight: bold;">channel21</td>
+                <td class="mono">988</td>
+                <td class="mono" style="color: #4f46e5; font-weight: bold;">FF_33</td>
+                <td class="mono">
+                    <span class="badge badge-hold">CAPTURE_TIMING_HOLD_ANOMALY</span>
+                </td>
+                <td class="mono">-5 / -17</td>
+                <td style="font-size: 11px;">Anomalous hold timing violation (slack: -17 ps).</td>
+            </tr>
+            
+        </tbody>
+    </table>
+    
+
+    <footer>
+        <p>Report Generated Automatically by Antigravity Scan Chain Diagnosis & Yield Analysis System</p>
+        <p style="font-size: 11px; margin-top: 5px; color: #94a3b8;">&copy; 2026 Antigravity. All rights reserved.</p>
+    </footer>
+</div>
+
+</body>
+</html>

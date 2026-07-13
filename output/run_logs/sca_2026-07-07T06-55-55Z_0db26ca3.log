@@ -1,0 +1,2 @@
+{"timestamp": "2026-07-07T06:56:35.911822+00:00", "run_id": "2026-07-07T06-55-55Z_0db26ca3", "level": "WARNING", "logger": "sca:2026-07-07T06-55-55Z_0db26ca3", "message": "Anomaly detection skipped: Anomaly scoring failed: X has 4 features, but StandardScaler is expecting 8 features as input. [model: IsolationForest]"}
+{"timestamp": "2026-07-07T06:56:35.913249+00:00", "run_id": "2026-07-07T06-55-55Z_0db26ca3", "level": "INFO", "logger": "sca:2026-07-07T06-55-55Z_0db26ca3", "message": "Parse+enrich complete: 3560 records, 90 files"}

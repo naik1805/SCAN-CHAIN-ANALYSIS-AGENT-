@@ -1,0 +1,2 @@
+{"timestamp": "2026-07-01T05:00:49.033461+00:00", "run_id": "2026-07-01T05-00-08Z_5de6af42", "level": "INFO", "logger": "sca:2026-07-01T05-00-08Z_5de6af42", "message": "Models deleted by user \u2014 will retrain on next load."}
+{"timestamp": "2026-07-01T05:00:52.172096+00:00", "run_id": "2026-07-01T05-00-08Z_5de6af42", "level": "INFO", "logger": "sca:2026-07-01T05-00-08Z_5de6af42", "message": "Classifier trained (cache-hit path): CV accuracy=0.167"}

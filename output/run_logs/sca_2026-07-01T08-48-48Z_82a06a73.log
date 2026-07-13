@@ -1,0 +1,7 @@
+{"timestamp": "2026-07-01T08:49:01.609249+00:00", "run_id": "2026-07-01T08-48-48Z_82a06a73", "level": "INFO", "logger": "sca:2026-07-01T08-48-48Z_82a06a73", "message": "Models deleted by user \u2014 will retrain on next load."}
+{"timestamp": "2026-07-01T08:49:34.754765+00:00", "run_id": "2026-07-01T08-48-48Z_82a06a73", "level": "INFO", "logger": "sca:2026-07-01T08-48-48Z_82a06a73", "message": "Classifier trained: CV accuracy=1.000 n_train=2458"}
+{"timestamp": "2026-07-01T08:49:35.210110+00:00", "run_id": "2026-07-01T08-48-48Z_82a06a73", "level": "INFO", "logger": "sca:2026-07-01T08-48-48Z_82a06a73", "message": "Parse+enrich complete: 2458 records, 90 files"}
+{"timestamp": "2026-07-01T08:51:04.329749+00:00", "run_id": "2026-07-01T08-48-48Z_82a06a73", "level": "INFO", "logger": "sca:2026-07-01T08-48-48Z_82a06a73", "message": "Models deleted by user \u2014 will retrain on next load."}
+{"timestamp": "2026-07-01T08:51:06.140794+00:00", "run_id": "2026-07-01T08-48-48Z_82a06a73", "level": "INFO", "logger": "sca:2026-07-01T08-48-48Z_82a06a73", "message": "Models deleted by user \u2014 will retrain on next load."}
+{"timestamp": "2026-07-01T08:51:42.587384+00:00", "run_id": "2026-07-01T08-48-48Z_82a06a73", "level": "INFO", "logger": "sca:2026-07-01T08-48-48Z_82a06a73", "message": "Classifier trained: CV accuracy=1.000 n_train=2458"}
+{"timestamp": "2026-07-01T08:51:43.184510+00:00", "run_id": "2026-07-01T08-48-48Z_82a06a73", "level": "INFO", "logger": "sca:2026-07-01T08-48-48Z_82a06a73", "message": "Parse+enrich complete: 2458 records, 90 files"}

@@ -1,0 +1,338 @@
+{
+  "requirement_id": "SCD-FR-001",
+  "requirement": "Identify failing scan chains",
+  "acceptance_criteria": "Failing scan chains identified from failure logs.",
+  "status": "satisfied",
+  "generated_at": "2026-07-13T07:28:20.444560+00:00",
+  "inputs": {
+    "logs_parsed": 9,
+    "log_files": [
+      "LOT_1_Center/fail_die_1.log",
+      "LOT_2_Donut/fail_die_1.log",
+      "LOT_3_Edge-Loc/fail_die_1.log",
+      "LOT_4_Edge-Ring/fail_die_1.log",
+      "LOT_5_Local/fail_die_1.log",
+      "LOT_6_Near-Full/fail_die_1.log",
+      "LOT_7_Normal/fail_die_1.log",
+      "LOT_8_Random/fail_die_1.log",
+      "LOT_9_Scratch/fail_die_1.log"
+    ],
+    "lots": [
+      "LOT_1",
+      "LOT_2",
+      "LOT_3",
+      "LOT_4",
+      "LOT_5",
+      "LOT_6",
+      "LOT_7",
+      "LOT_8",
+      "LOT_9"
+    ]
+  },
+  "summary": {
+    "total_fail_records": 960,
+    "distinct_failing_chains": 23,
+    "distinct_failing_flops": 161
+  },
+  "failing_chains": [
+    {
+      "chain": "channel14",
+      "fail_count": 125,
+      "fail_pct": 13.021,
+      "distinct_patterns": 123,
+      "distinct_fail_flops": 88,
+      "lots_affected": 9,
+      "fail_type_breakdown": {
+        "SCAN_SHIFT": 125
+      },
+      "example_chain_id": "channel14",
+      "rank": 1
+    },
+    {
+      "chain": "channel16",
+      "fail_count": 89,
+      "fail_pct": 9.271,
+      "distinct_patterns": 87,
+      "distinct_fail_flops": 69,
+      "lots_affected": 9,
+      "fail_type_breakdown": {
+        "SCAN_SHIFT": 89
+      },
+      "example_chain_id": "channel16",
+      "rank": 2
+    },
+    {
+      "chain": "channel10",
+      "fail_count": 84,
+      "fail_pct": 8.75,
+      "distinct_patterns": 84,
+      "distinct_fail_flops": 65,
+      "lots_affected": 8,
+      "fail_type_breakdown": {
+        "SCAN_SHIFT": 84
+      },
+      "example_chain_id": "channel10",
+      "rank": 3
+    },
+    {
+      "chain": "channel06",
+      "fail_count": 80,
+      "fail_pct": 8.333,
+      "distinct_patterns": 79,
+      "distinct_fail_flops": 60,
+      "lots_affected": 7,
+      "fail_type_breakdown": {
+        "SCAN_SHIFT": 80
+      },
+      "example_chain_id": "channel06",
+      "rank": 4
+    },
+    {
+      "chain": "channel03",
+      "fail_count": 68,
+      "fail_pct": 7.083,
+      "distinct_patterns": 65,
+      "distinct_fail_flops": 59,
+      "lots_affected": 9,
+      "fail_type_breakdown": {
+        "SCAN_SHIFT": 68
+      },
+      "example_chain_id": "channel03",
+      "rank": 5
+    },
+    {
+      "chain": "channel07",
+      "fail_count": 68,
+      "fail_pct": 7.083,
+      "distinct_patterns": 66,
+      "distinct_fail_flops": 57,
+      "lots_affected": 9,
+      "fail_type_breakdown": {
+        "SCAN_SHIFT": 68
+      },
+      "example_chain_id": "channel07",
+      "rank": 6
+    },
+    {
+      "chain": "channel09",
+      "fail_count": 63,
+      "fail_pct": 6.562,
+      "distinct_patterns": 63,
+      "distinct_fail_flops": 50,
+      "lots_affected": 7,
+      "fail_type_breakdown": {
+        "SCAN_SHIFT": 63
+      },
+      "example_chain_id": "channel09",
+      "rank": 7
+    },
+    {
+      "chain": "channel12",
+      "fail_count": 60,
+      "fail_pct": 6.25,
+      "distinct_patterns": 60,
+      "distinct_fail_flops": 49,
+      "lots_affected": 9,
+      "fail_type_breakdown": {
+        "SCAN_SHIFT": 60
+      },
+      "example_chain_id": "channel12",
+      "rank": 8
+    },
+    {
+      "chain": "channel17",
+      "fail_count": 27,
+      "fail_pct": 2.812,
+      "distinct_patterns": 27,
+      "distinct_fail_flops": 23,
+      "lots_affected": 9,
+      "fail_type_breakdown": {
+        "SCAN_SHIFT": 27
+      },
+      "example_chain_id": "channel17",
+      "rank": 9
+    },
+    {
+      "chain": "channel08",
+      "fail_count": 26,
+      "fail_pct": 2.708,
+      "distinct_patterns": 26,
+      "distinct_fail_flops": 24,
+      "lots_affected": 9,
+      "fail_type_breakdown": {
+        "SCAN_SHIFT": 26
+      },
+      "example_chain_id": "channel08",
+      "rank": 10
+    },
+    {
+      "chain": "channel13",
+      "fail_count": 26,
+      "fail_pct": 2.708,
+      "distinct_patterns": 25,
+      "distinct_fail_flops": 22,
+      "lots_affected": 8,
+      "fail_type_breakdown": {
+        "SCAN_SHIFT": 26
+      },
+      "example_chain_id": "channel13",
+      "rank": 11
+    },
+    {
+      "chain": "channel22",
+      "fail_count": 26,
+      "fail_pct": 2.708,
+      "distinct_patterns": 26,
+      "distinct_fail_flops": 24,
+      "lots_affected": 8,
+      "fail_type_breakdown": {
+        "SCAN_SHIFT": 26
+      },
+      "example_chain_id": "channel22",
+      "rank": 12
+    },
+    {
+      "chain": "channel23",
+      "fail_count": 26,
+      "fail_pct": 2.708,
+      "distinct_patterns": 26,
+      "distinct_fail_flops": 23,
+      "lots_affected": 9,
+      "fail_type_breakdown": {
+        "SCAN_SHIFT": 26
+      },
+      "example_chain_id": "channel23",
+      "rank": 13
+    },
+    {
+      "chain": "channel21",
+      "fail_count": 24,
+      "fail_pct": 2.5,
+      "distinct_patterns": 24,
+      "distinct_fail_flops": 23,
+      "lots_affected": 8,
+      "fail_type_breakdown": {
+        "SCAN_SHIFT": 24
+      },
+      "example_chain_id": "channel21",
+      "rank": 14
+    },
+    {
+      "chain": "channel18",
+      "fail_count": 23,
+      "fail_pct": 2.396,
+      "distinct_patterns": 22,
+      "distinct_fail_flops": 21,
+      "lots_affected": 8,
+      "fail_type_breakdown": {
+        "SCAN_SHIFT": 23
+      },
+      "example_chain_id": "channel18",
+      "rank": 15
+    },
+    {
+      "chain": "channel11",
+      "fail_count": 20,
+      "fail_pct": 2.083,
+      "distinct_patterns": 20,
+      "distinct_fail_flops": 19,
+      "lots_affected": 9,
+      "fail_type_breakdown": {
+        "SCAN_SHIFT": 20
+      },
+      "example_chain_id": "channel11",
+      "rank": 16
+    },
+    {
+      "chain": "channel05",
+      "fail_count": 19,
+      "fail_pct": 1.979,
+      "distinct_patterns": 19,
+      "distinct_fail_flops": 16,
+      "lots_affected": 9,
+      "fail_type_breakdown": {
+        "SCAN_SHIFT": 19
+      },
+      "example_chain_id": "channel05",
+      "rank": 17
+    },
+    {
+      "chain": "channel15",
+      "fail_count": 19,
+      "fail_pct": 1.979,
+      "distinct_patterns": 19,
+      "distinct_fail_flops": 17,
+      "lots_affected": 8,
+      "fail_type_breakdown": {
+        "SCAN_SHIFT": 19
+      },
+      "example_chain_id": "channel15",
+      "rank": 18
+    },
+    {
+      "chain": "channel19",
+      "fail_count": 19,
+      "fail_pct": 1.979,
+      "distinct_patterns": 19,
+      "distinct_fail_flops": 17,
+      "lots_affected": 9,
+      "fail_type_breakdown": {
+        "SCAN_SHIFT": 19
+      },
+      "example_chain_id": "channel19",
+      "rank": 19
+    },
+    {
+      "chain": "channel20",
+      "fail_count": 18,
+      "fail_pct": 1.875,
+      "distinct_patterns": 18,
+      "distinct_fail_flops": 16,
+      "lots_affected": 9,
+      "fail_type_breakdown": {
+        "SCAN_SHIFT": 18
+      },
+      "example_chain_id": "channel20",
+      "rank": 20
+    },
+    {
+      "chain": "channel02",
+      "fail_count": 17,
+      "fail_pct": 1.771,
+      "distinct_patterns": 17,
+      "distinct_fail_flops": 16,
+      "lots_affected": 8,
+      "fail_type_breakdown": {
+        "SCAN_SHIFT": 17
+      },
+      "example_chain_id": "channel02",
+      "rank": 21
+    },
+    {
+      "chain": "channel04",
+      "fail_count": 17,
+      "fail_pct": 1.771,
+      "distinct_patterns": 17,
+      "distinct_fail_flops": 16,
+      "lots_affected": 7,
+      "fail_type_breakdown": {
+        "SCAN_SHIFT": 17
+      },
+      "example_chain_id": "channel04",
+      "rank": 22
+    },
+    {
+      "chain": "channel01",
+      "fail_count": 16,
+      "fail_pct": 1.667,
+      "distinct_patterns": 16,
+      "distinct_fail_flops": 16,
+      "lots_affected": 7,
+      "fail_type_breakdown": {
+        "SCAN_SHIFT": 16
+      },
+      "example_chain_id": "channel01",
+      "rank": 23
+    }
+  ]
+}

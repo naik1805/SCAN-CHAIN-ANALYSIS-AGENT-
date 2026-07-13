@@ -1,0 +1,619 @@
+{
+  "requirement_id": "SCD-FR-005",
+  "requirement": "Correlate failures with scan chains",
+  "acceptance_criteria": "Scan-chain-to-failure correlation report generated.",
+  "status": "satisfied",
+  "generated_at": "2026-07-13T07:28:21.272222+00:00",
+  "inputs": {
+    "logs_parsed": 9,
+    "total_fail_records": 960
+  },
+  "correlations": [
+    {
+      "chain": "channel01",
+      "failure_count": 16,
+      "pearson_correlations": {
+        "ir_drop_mv": -0.0028,
+        "thermal_c": -0.0219,
+        "setup_slack_ps": -0.0656,
+        "hold_slack_ps": -0.0117,
+        "ai_severity_score": 0.0164
+      },
+      "primary_physical_driver": "setup_slack_ps",
+      "fail_type_percentages": {
+        "SCAN_SHIFT": 100.0
+      },
+      "failure_region_percentages": {},
+      "root_cause_percentages": {
+        "LOCAL": 31.25,
+        "NORMAL": 18.75,
+        "EDGE_LOC": 12.5,
+        "RANDOM": 12.5,
+        "EDGE_RING": 12.5,
+        "CENTER": 6.25,
+        "SCRATCH": 6.25
+      }
+    },
+    {
+      "chain": "channel02",
+      "failure_count": 17,
+      "pearson_correlations": {
+        "ir_drop_mv": 0.0503,
+        "thermal_c": 0.0071,
+        "setup_slack_ps": -0.0016,
+        "hold_slack_ps": -0.026,
+        "ai_severity_score": 0.0373
+      },
+      "primary_physical_driver": "ir_drop_mv",
+      "fail_type_percentages": {
+        "SCAN_SHIFT": 100.0
+      },
+      "failure_region_percentages": {},
+      "root_cause_percentages": {
+        "NEAR_FULL": 29.41,
+        "EDGE_LOC": 17.65,
+        "LOCAL": 11.76,
+        "EDGE_RING": 11.76,
+        "SCRATCH": 11.76,
+        "DONUT": 5.88,
+        "NORMAL": 5.88,
+        "RANDOM": 5.88
+      }
+    },
+    {
+      "chain": "channel03",
+      "failure_count": 68,
+      "pearson_correlations": {
+        "ir_drop_mv": -0.0108,
+        "thermal_c": 0.0195,
+        "setup_slack_ps": -0.0321,
+        "hold_slack_ps": 0.0199,
+        "ai_severity_score": 0.0095
+      },
+      "primary_physical_driver": "setup_slack_ps",
+      "fail_type_percentages": {
+        "SCAN_SHIFT": 100.0
+      },
+      "failure_region_percentages": {},
+      "root_cause_percentages": {
+        "DONUT": 61.76,
+        "CENTER": 8.82,
+        "NORMAL": 8.82,
+        "RANDOM": 5.88,
+        "EDGE_LOC": 4.41,
+        "NEAR_FULL": 2.94,
+        "EDGE_RING": 2.94,
+        "SCRATCH": 2.94,
+        "LOCAL": 1.47
+      }
+    },
+    {
+      "chain": "channel04",
+      "failure_count": 17,
+      "pearson_correlations": {
+        "ir_drop_mv": 0.0244,
+        "thermal_c": -0.0521,
+        "setup_slack_ps": -0.0539,
+        "hold_slack_ps": -0.018,
+        "ai_severity_score": -0.0075
+      },
+      "primary_physical_driver": "setup_slack_ps",
+      "fail_type_percentages": {
+        "SCAN_SHIFT": 100.0
+      },
+      "failure_region_percentages": {},
+      "root_cause_percentages": {
+        "CENTER": 29.41,
+        "RANDOM": 23.53,
+        "EDGE_LOC": 11.76,
+        "LOCAL": 11.76,
+        "SCRATCH": 11.76,
+        "NORMAL": 5.88,
+        "NEAR_FULL": 5.88
+      }
+    },
+    {
+      "chain": "channel05",
+      "failure_count": 19,
+      "pearson_correlations": {
+        "ir_drop_mv": 0.0532,
+        "thermal_c": 0.0175,
+        "setup_slack_ps": 0.0165,
+        "hold_slack_ps": 0.0271,
+        "ai_severity_score": 0.0145
+      },
+      "primary_physical_driver": "ir_drop_mv",
+      "fail_type_percentages": {
+        "SCAN_SHIFT": 100.0
+      },
+      "failure_region_percentages": {},
+      "root_cause_percentages": {
+        "CENTER": 21.05,
+        "LOCAL": 15.79,
+        "NORMAL": 15.79,
+        "EDGE_RING": 10.53,
+        "DONUT": 10.53,
+        "SCRATCH": 10.53,
+        "EDGE_LOC": 5.26,
+        "NEAR_FULL": 5.26,
+        "RANDOM": 5.26
+      }
+    },
+    {
+      "chain": "channel06",
+      "failure_count": 80,
+      "pearson_correlations": {
+        "ir_drop_mv": 0.0058,
+        "thermal_c": -0.0389,
+        "setup_slack_ps": -0.0269,
+        "hold_slack_ps": 0.041,
+        "ai_severity_score": -0.035
+      },
+      "primary_physical_driver": "hold_slack_ps",
+      "fail_type_percentages": {
+        "SCAN_SHIFT": 100.0
+      },
+      "failure_region_percentages": {},
+      "root_cause_percentages": {
+        "LOCAL": 78.75,
+        "CENTER": 7.5,
+        "SCRATCH": 5.0,
+        "EDGE_LOC": 2.5,
+        "NEAR_FULL": 2.5,
+        "RANDOM": 2.5,
+        "NORMAL": 1.25
+      }
+    },
+    {
+      "chain": "channel07",
+      "failure_count": 68,
+      "pearson_correlations": {
+        "ir_drop_mv": 0.0145,
+        "thermal_c": 0.0012,
+        "setup_slack_ps": 0.0104,
+        "hold_slack_ps": -0.018,
+        "ai_severity_score": 0.0151
+      },
+      "primary_physical_driver": "hold_slack_ps",
+      "fail_type_percentages": {
+        "SCAN_SHIFT": 100.0
+      },
+      "failure_region_percentages": {},
+      "root_cause_percentages": {
+        "EDGE_LOC": 70.59,
+        "NEAR_FULL": 7.35,
+        "NORMAL": 4.41,
+        "LOCAL": 4.41,
+        "CENTER": 2.94,
+        "EDGE_RING": 2.94,
+        "DONUT": 2.94,
+        "SCRATCH": 2.94,
+        "RANDOM": 1.47
+      }
+    },
+    {
+      "chain": "channel08",
+      "failure_count": 26,
+      "pearson_correlations": {
+        "ir_drop_mv": -0.009,
+        "thermal_c": 0.0092,
+        "setup_slack_ps": 0.0408,
+        "hold_slack_ps": -0.0007,
+        "ai_severity_score": -0.0243
+      },
+      "primary_physical_driver": "setup_slack_ps",
+      "fail_type_percentages": {
+        "SCAN_SHIFT": 100.0
+      },
+      "failure_region_percentages": {},
+      "root_cause_percentages": {
+        "LOCAL": 19.23,
+        "SCRATCH": 15.38,
+        "EDGE_LOC": 15.38,
+        "NORMAL": 15.38,
+        "CENTER": 11.54,
+        "NEAR_FULL": 7.69,
+        "EDGE_RING": 7.69,
+        "DONUT": 3.85,
+        "RANDOM": 3.85
+      }
+    },
+    {
+      "chain": "channel09",
+      "failure_count": 63,
+      "pearson_correlations": {
+        "ir_drop_mv": -0.022,
+        "thermal_c": 0.0456,
+        "setup_slack_ps": 0.0479,
+        "hold_slack_ps": 0.0181,
+        "ai_severity_score": -0.0064
+      },
+      "primary_physical_driver": "setup_slack_ps",
+      "fail_type_percentages": {
+        "SCAN_SHIFT": 100.0
+      },
+      "failure_region_percentages": {},
+      "root_cause_percentages": {
+        "NORMAL": 84.13,
+        "CENTER": 4.76,
+        "DONUT": 3.17,
+        "LOCAL": 3.17,
+        "EDGE_LOC": 1.59,
+        "EDGE_RING": 1.59,
+        "NEAR_FULL": 1.59
+      }
+    },
+    {
+      "chain": "channel10",
+      "failure_count": 84,
+      "pearson_correlations": {
+        "ir_drop_mv": 0.0376,
+        "thermal_c": -0.0098,
+        "setup_slack_ps": 0.0246,
+        "hold_slack_ps": -0.0809,
+        "ai_severity_score": 0.0472
+      },
+      "primary_physical_driver": "hold_slack_ps",
+      "fail_type_percentages": {
+        "SCAN_SHIFT": 100.0
+      },
+      "failure_region_percentages": {},
+      "root_cause_percentages": {
+        "CENTER": 80.95,
+        "EDGE_LOC": 8.33,
+        "RANDOM": 2.38,
+        "NEAR_FULL": 2.38,
+        "SCRATCH": 2.38,
+        "DONUT": 1.19,
+        "EDGE_RING": 1.19,
+        "NORMAL": 1.19
+      }
+    },
+    {
+      "chain": "channel11",
+      "failure_count": 20,
+      "pearson_correlations": {
+        "ir_drop_mv": 0.0367,
+        "thermal_c": 0.0075,
+        "setup_slack_ps": -0.0294,
+        "hold_slack_ps": -0.0074,
+        "ai_severity_score": 0.0238
+      },
+      "primary_physical_driver": "ir_drop_mv",
+      "fail_type_percentages": {
+        "SCAN_SHIFT": 100.0
+      },
+      "failure_region_percentages": {},
+      "root_cause_percentages": {
+        "RANDOM": 20.0,
+        "SCRATCH": 20.0,
+        "CENTER": 15.0,
+        "EDGE_LOC": 15.0,
+        "LOCAL": 10.0,
+        "EDGE_RING": 5.0,
+        "DONUT": 5.0,
+        "NORMAL": 5.0,
+        "NEAR_FULL": 5.0
+      }
+    },
+    {
+      "chain": "channel12",
+      "failure_count": 60,
+      "pearson_correlations": {
+        "ir_drop_mv": 0.0135,
+        "thermal_c": -0.0078,
+        "setup_slack_ps": -0.0091,
+        "hold_slack_ps": -0.0538,
+        "ai_severity_score": -0.0027
+      },
+      "primary_physical_driver": "hold_slack_ps",
+      "fail_type_percentages": {
+        "SCAN_SHIFT": 100.0
+      },
+      "failure_region_percentages": {},
+      "root_cause_percentages": {
+        "NEAR_FULL": 75.0,
+        "DONUT": 6.67,
+        "SCRATCH": 5.0,
+        "LOCAL": 3.33,
+        "EDGE_RING": 3.33,
+        "CENTER": 1.67,
+        "EDGE_LOC": 1.67,
+        "NORMAL": 1.67,
+        "RANDOM": 1.67
+      }
+    },
+    {
+      "chain": "channel13",
+      "failure_count": 26,
+      "pearson_correlations": {
+        "ir_drop_mv": 0.0021,
+        "thermal_c": -0.0817,
+        "setup_slack_ps": -0.0325,
+        "hold_slack_ps": 0.022,
+        "ai_severity_score": -0.0106
+      },
+      "primary_physical_driver": "thermal_c",
+      "fail_type_percentages": {
+        "SCAN_SHIFT": 100.0
+      },
+      "failure_region_percentages": {},
+      "root_cause_percentages": {
+        "NEAR_FULL": 19.23,
+        "CENTER": 15.38,
+        "RANDOM": 15.38,
+        "DONUT": 15.38,
+        "LOCAL": 11.54,
+        "EDGE_LOC": 11.54,
+        "NORMAL": 7.69,
+        "SCRATCH": 3.85
+      }
+    },
+    {
+      "chain": "channel14",
+      "failure_count": 125,
+      "pearson_correlations": {
+        "ir_drop_mv": -0.0197,
+        "thermal_c": 0.0429,
+        "setup_slack_ps": -0.0295,
+        "hold_slack_ps": 0.0379,
+        "ai_severity_score": 0.0156
+      },
+      "primary_physical_driver": "thermal_c",
+      "fail_type_percentages": {
+        "SCAN_SHIFT": 100.0
+      },
+      "failure_region_percentages": {},
+      "root_cause_percentages": {
+        "RANDOM": 47.2,
+        "EDGE_RING": 33.6,
+        "CENTER": 8.0,
+        "LOCAL": 2.4,
+        "EDGE_LOC": 2.4,
+        "NORMAL": 2.4,
+        "DONUT": 1.6,
+        "SCRATCH": 1.6,
+        "NEAR_FULL": 0.8
+      }
+    },
+    {
+      "chain": "channel15",
+      "failure_count": 19,
+      "pearson_correlations": {
+        "ir_drop_mv": -0.0148,
+        "thermal_c": 0.0338,
+        "setup_slack_ps": 0.0447,
+        "hold_slack_ps": 0.0205,
+        "ai_severity_score": -0.0288
+      },
+      "primary_physical_driver": "setup_slack_ps",
+      "fail_type_percentages": {
+        "SCAN_SHIFT": 100.0
+      },
+      "failure_region_percentages": {},
+      "root_cause_percentages": {
+        "RANDOM": 26.32,
+        "CENTER": 15.79,
+        "EDGE_RING": 15.79,
+        "DONUT": 15.79,
+        "EDGE_LOC": 10.53,
+        "NEAR_FULL": 5.26,
+        "NORMAL": 5.26,
+        "SCRATCH": 5.26
+      }
+    },
+    {
+      "chain": "channel16",
+      "failure_count": 89,
+      "pearson_correlations": {
+        "ir_drop_mv": -0.0312,
+        "thermal_c": -0.0337,
+        "setup_slack_ps": 0.0283,
+        "hold_slack_ps": 0.0169,
+        "ai_severity_score": -0.0424
+      },
+      "primary_physical_driver": "ai_severity_score",
+      "fail_type_percentages": {
+        "SCAN_SHIFT": 100.0
+      },
+      "failure_region_percentages": {},
+      "root_cause_percentages": {
+        "SCRATCH": 73.03,
+        "EDGE_RING": 6.74,
+        "NEAR_FULL": 4.49,
+        "LOCAL": 4.49,
+        "NORMAL": 3.37,
+        "RANDOM": 3.37,
+        "DONUT": 2.25,
+        "CENTER": 1.12,
+        "EDGE_LOC": 1.12
+      }
+    },
+    {
+      "chain": "channel17",
+      "failure_count": 27,
+      "pearson_correlations": {
+        "ir_drop_mv": -0.0033,
+        "thermal_c": -0.0362,
+        "setup_slack_ps": 0.006,
+        "hold_slack_ps": -0.0235,
+        "ai_severity_score": 0.022
+      },
+      "primary_physical_driver": "thermal_c",
+      "fail_type_percentages": {
+        "SCAN_SHIFT": 100.0
+      },
+      "failure_region_percentages": {},
+      "root_cause_percentages": {
+        "SCRATCH": 25.93,
+        "RANDOM": 18.52,
+        "EDGE_LOC": 14.81,
+        "DONUT": 11.11,
+        "LOCAL": 7.41,
+        "NEAR_FULL": 7.41,
+        "EDGE_RING": 7.41,
+        "CENTER": 3.7,
+        "NORMAL": 3.7
+      }
+    },
+    {
+      "chain": "channel18",
+      "failure_count": 23,
+      "pearson_correlations": {
+        "ir_drop_mv": -0.036,
+        "thermal_c": 0.02,
+        "setup_slack_ps": 0.0161,
+        "hold_slack_ps": -0.0042,
+        "ai_severity_score": -0.0159
+      },
+      "primary_physical_driver": "ir_drop_mv",
+      "fail_type_percentages": {
+        "SCAN_SHIFT": 100.0
+      },
+      "failure_region_percentages": {},
+      "root_cause_percentages": {
+        "SCRATCH": 17.39,
+        "CENTER": 13.04,
+        "EDGE_RING": 13.04,
+        "EDGE_LOC": 13.04,
+        "LOCAL": 13.04,
+        "NEAR_FULL": 13.04,
+        "NORMAL": 8.7,
+        "RANDOM": 8.7
+      }
+    },
+    {
+      "chain": "channel19",
+      "failure_count": 19,
+      "pearson_correlations": {
+        "ir_drop_mv": 0.0272,
+        "thermal_c": -0.0049,
+        "setup_slack_ps": -0.0072,
+        "hold_slack_ps": 0.0753,
+        "ai_severity_score": -0.0087
+      },
+      "primary_physical_driver": "hold_slack_ps",
+      "fail_type_percentages": {
+        "SCAN_SHIFT": 100.0
+      },
+      "failure_region_percentages": {},
+      "root_cause_percentages": {
+        "LOCAL": 26.32,
+        "NORMAL": 15.79,
+        "CENTER": 10.53,
+        "NEAR_FULL": 10.53,
+        "RANDOM": 10.53,
+        "SCRATCH": 10.53,
+        "EDGE_RING": 5.26,
+        "DONUT": 5.26,
+        "EDGE_LOC": 5.26
+      }
+    },
+    {
+      "chain": "channel20",
+      "failure_count": 18,
+      "pearson_correlations": {
+        "ir_drop_mv": -0.0165,
+        "thermal_c": 0.0062,
+        "setup_slack_ps": -0.015,
+        "hold_slack_ps": 0.0023,
+        "ai_severity_score": -0.0144
+      },
+      "primary_physical_driver": "ir_drop_mv",
+      "fail_type_percentages": {
+        "SCAN_SHIFT": 100.0
+      },
+      "failure_region_percentages": {},
+      "root_cause_percentages": {
+        "CENTER": 16.67,
+        "RANDOM": 16.67,
+        "NEAR_FULL": 16.67,
+        "DONUT": 11.11,
+        "EDGE_LOC": 11.11,
+        "NORMAL": 11.11,
+        "EDGE_RING": 5.56,
+        "LOCAL": 5.56,
+        "SCRATCH": 5.56
+      }
+    },
+    {
+      "chain": "channel21",
+      "failure_count": 24,
+      "pearson_correlations": {
+        "ir_drop_mv": -0.0328,
+        "thermal_c": 0.0271,
+        "setup_slack_ps": 0.0303,
+        "hold_slack_ps": -0.0123,
+        "ai_severity_score": 0.0061
+      },
+      "primary_physical_driver": "ir_drop_mv",
+      "fail_type_percentages": {
+        "SCAN_SHIFT": 100.0
+      },
+      "failure_region_percentages": {},
+      "root_cause_percentages": {
+        "CENTER": 50.0,
+        "DONUT": 12.5,
+        "EDGE_RING": 8.33,
+        "LOCAL": 8.33,
+        "RANDOM": 8.33,
+        "EDGE_LOC": 4.17,
+        "NEAR_FULL": 4.17,
+        "SCRATCH": 4.17
+      }
+    },
+    {
+      "chain": "channel22",
+      "failure_count": 26,
+      "pearson_correlations": {
+        "ir_drop_mv": -0.03,
+        "thermal_c": -0.0205,
+        "setup_slack_ps": 0.0059,
+        "hold_slack_ps": 0.0001,
+        "ai_severity_score": 0.0006
+      },
+      "primary_physical_driver": "ir_drop_mv",
+      "fail_type_percentages": {
+        "SCAN_SHIFT": 100.0
+      },
+      "failure_region_percentages": {},
+      "root_cause_percentages": {
+        "RANDOM": 34.62,
+        "SCRATCH": 15.38,
+        "CENTER": 11.54,
+        "LOCAL": 11.54,
+        "EDGE_LOC": 7.69,
+        "EDGE_RING": 7.69,
+        "NORMAL": 7.69,
+        "DONUT": 3.85
+      }
+    },
+    {
+      "chain": "channel23",
+      "failure_count": 26,
+      "pearson_correlations": {
+        "ir_drop_mv": 0.0015,
+        "thermal_c": 0.0511,
+        "setup_slack_ps": 0.0124,
+        "hold_slack_ps": -0.0259,
+        "ai_severity_score": -0.0094
+      },
+      "primary_physical_driver": "thermal_c",
+      "fail_type_percentages": {
+        "SCAN_SHIFT": 100.0
+      },
+      "failure_region_percentages": {},
+      "root_cause_percentages": {
+        "CENTER": 19.23,
+        "EDGE_LOC": 15.38,
+        "EDGE_RING": 11.54,
+        "RANDOM": 11.54,
+        "NORMAL": 11.54,
+        "SCRATCH": 11.54,
+        "DONUT": 7.69,
+        "LOCAL": 7.69,
+        "NEAR_FULL": 3.85
+      }
+    }
+  ]
+}

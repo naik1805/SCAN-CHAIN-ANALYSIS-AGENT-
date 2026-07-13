@@ -1,0 +1,3 @@
+{"timestamp": "2026-07-07T11:11:08.204615+00:00", "run_id": "2026-07-07T11-02-02Z_1588157f", "level": "INFO", "logger": "sca:2026-07-07T11-02-02Z_1588157f", "message": "Models deleted by user \u2014 will retrain on next load."}
+{"timestamp": "2026-07-07T11:12:05.590755+00:00", "run_id": "2026-07-07T11-02-02Z_1588157f", "level": "INFO", "logger": "sca:2026-07-07T11-02-02Z_1588157f", "message": "Classifier trained: CV accuracy=1.000 n_train=5089"}
+{"timestamp": "2026-07-07T11:12:06.133545+00:00", "run_id": "2026-07-07T11-02-02Z_1588157f", "level": "INFO", "logger": "sca:2026-07-07T11-02-02Z_1588157f", "message": "Parse+enrich complete: 5089 records, 90 files"}

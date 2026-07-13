@@ -1,0 +1,44 @@
+# config.yaml — Scan Chain Diagnosis Agent
+# All tuneable parameters live here. No magic numbers in source code.
+
+ml:
+  # Classifier for root-cause prediction (random_forest recommended)
+  classifier: random_forest
+  n_estimators: 200
+  max_depth: 10
+  min_samples_leaf: 2
+  cv_folds: 5
+  # Minimum labeled rows needed before training
+  min_training_samples: 10
+  # IsolationForest: fraction of failures expected to be genuine anomalies
+  anomaly_contamination: 0.05
+  # Persist trained model to disk and reload on next startup (Option B)
+  persist_model: true
+  model_dir: data/models
+
+diagnosis:
+  # Minimum corroborating observations to report a suspected cell
+  min_observations: 2
+  # Confidence score below which results are marked low-confidence
+  confidence_threshold: 0.60
+  # Chain-break detection: min unique failing positions to flag a break
+  break_min_unique_positions: 5
+  # Default max logs per lot loaded from sidebar
+  max_logs_per_lot: 15
+
+cache:
+  backend: parquet          # parquet only (duckdb optional future)
+  compression: snappy
+  cache_subdir: data/cache
+
+logging:
+  level: INFO               # DEBUG | INFO | WARNING | ERROR
+  log_dir: output/run_logs
+  max_bytes: 5242880        # 5 MB per log file
+  backup_count: 5
+
+reporting:
+  company_name: "Scan Chain Diagnosis Agent"
+  export_formats:
+    - json
+    - csv

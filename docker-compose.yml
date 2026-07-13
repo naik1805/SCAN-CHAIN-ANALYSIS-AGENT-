@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  diagnosis-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: scan_chain_diagnosis_dashboard
+    ports:
+      - "8502:8502"
+    volumes:
+      - ./data:/app/data
+      - ./output:/app/output
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped

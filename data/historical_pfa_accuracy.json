@@ -1,0 +1,8002 @@
+[
+  {
+    "pattern_consistency": 0.7966,
+    "offset_from_scan_in": 153,
+    "chain_length": 234,
+    "pattern_count": 15,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1848,
+    "offset_from_scan_in": 123,
+    "chain_length": 234,
+    "pattern_count": 34,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.2153,
+    "offset_from_scan_in": 196,
+    "chain_length": 234,
+    "pattern_count": 16,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.6795,
+    "offset_from_scan_in": 94,
+    "chain_length": 234,
+    "pattern_count": 28,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5991,
+    "offset_from_scan_in": 207,
+    "chain_length": 234,
+    "pattern_count": 3,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.7823,
+    "offset_from_scan_in": 163,
+    "chain_length": 234,
+    "pattern_count": 13,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8005,
+    "offset_from_scan_in": 177,
+    "chain_length": 234,
+    "pattern_count": 7,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2389,
+    "offset_from_scan_in": 173,
+    "chain_length": 234,
+    "pattern_count": 24,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.3932,
+    "offset_from_scan_in": 211,
+    "chain_length": 234,
+    "pattern_count": 13,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2169,
+    "offset_from_scan_in": 160,
+    "chain_length": 234,
+    "pattern_count": 17,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4934,
+    "offset_from_scan_in": 37,
+    "chain_length": 234,
+    "pattern_count": 29,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.849,
+    "offset_from_scan_in": 101,
+    "chain_length": 234,
+    "pattern_count": 28,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7142,
+    "offset_from_scan_in": 149,
+    "chain_length": 234,
+    "pattern_count": 5,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8082,
+    "offset_from_scan_in": 182,
+    "chain_length": 234,
+    "pattern_count": 23,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.513,
+    "offset_from_scan_in": 118,
+    "chain_length": 234,
+    "pattern_count": 20,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7016,
+    "offset_from_scan_in": 153,
+    "chain_length": 234,
+    "pattern_count": 17,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6712,
+    "offset_from_scan_in": 132,
+    "chain_length": 234,
+    "pattern_count": 19,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1277,
+    "offset_from_scan_in": 81,
+    "chain_length": 234,
+    "pattern_count": 15,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8681,
+    "offset_from_scan_in": 8,
+    "chain_length": 234,
+    "pattern_count": 8,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3642,
+    "offset_from_scan_in": 101,
+    "chain_length": 234,
+    "pattern_count": 23,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6979,
+    "offset_from_scan_in": 95,
+    "chain_length": 234,
+    "pattern_count": 14,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1204,
+    "offset_from_scan_in": 24,
+    "chain_length": 234,
+    "pattern_count": 4,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.2451,
+    "offset_from_scan_in": 210,
+    "chain_length": 234,
+    "pattern_count": 18,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5015,
+    "offset_from_scan_in": 38,
+    "chain_length": 234,
+    "pattern_count": 13,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4256,
+    "offset_from_scan_in": 224,
+    "chain_length": 234,
+    "pattern_count": 3,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.9177,
+    "offset_from_scan_in": 115,
+    "chain_length": 234,
+    "pattern_count": 24,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8009,
+    "offset_from_scan_in": 61,
+    "chain_length": 234,
+    "pattern_count": 25,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1868,
+    "offset_from_scan_in": 104,
+    "chain_length": 234,
+    "pattern_count": 31,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3754,
+    "offset_from_scan_in": 189,
+    "chain_length": 234,
+    "pattern_count": 20,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7827,
+    "offset_from_scan_in": 115,
+    "chain_length": 234,
+    "pattern_count": 25,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6257,
+    "offset_from_scan_in": 22,
+    "chain_length": 234,
+    "pattern_count": 23,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1375,
+    "offset_from_scan_in": 41,
+    "chain_length": 234,
+    "pattern_count": 17,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1931,
+    "offset_from_scan_in": 40,
+    "chain_length": 234,
+    "pattern_count": 20,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.623,
+    "offset_from_scan_in": 104,
+    "chain_length": 234,
+    "pattern_count": 12,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9627,
+    "offset_from_scan_in": 97,
+    "chain_length": 234,
+    "pattern_count": 17,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.538,
+    "offset_from_scan_in": 157,
+    "chain_length": 234,
+    "pattern_count": 17,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5261,
+    "offset_from_scan_in": 188,
+    "chain_length": 234,
+    "pattern_count": 10,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.495,
+    "offset_from_scan_in": 66,
+    "chain_length": 234,
+    "pattern_count": 1,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.2262,
+    "offset_from_scan_in": 70,
+    "chain_length": 234,
+    "pattern_count": 19,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3531,
+    "offset_from_scan_in": 57,
+    "chain_length": 234,
+    "pattern_count": 23,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.197,
+    "offset_from_scan_in": 143,
+    "chain_length": 234,
+    "pattern_count": 32,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5994,
+    "offset_from_scan_in": 127,
+    "chain_length": 234,
+    "pattern_count": 13,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3854,
+    "offset_from_scan_in": 47,
+    "chain_length": 234,
+    "pattern_count": 33,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3304,
+    "offset_from_scan_in": 231,
+    "chain_length": 234,
+    "pattern_count": 32,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4916,
+    "offset_from_scan_in": 226,
+    "chain_length": 234,
+    "pattern_count": 34,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9017,
+    "offset_from_scan_in": 52,
+    "chain_length": 234,
+    "pattern_count": 31,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7948,
+    "offset_from_scan_in": 78,
+    "chain_length": 234,
+    "pattern_count": 23,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7721,
+    "offset_from_scan_in": 88,
+    "chain_length": 234,
+    "pattern_count": 9,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2105,
+    "offset_from_scan_in": 15,
+    "chain_length": 234,
+    "pattern_count": 29,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6394,
+    "offset_from_scan_in": 168,
+    "chain_length": 234,
+    "pattern_count": 30,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7997,
+    "offset_from_scan_in": 74,
+    "chain_length": 234,
+    "pattern_count": 34,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1125,
+    "offset_from_scan_in": 40,
+    "chain_length": 234,
+    "pattern_count": 8,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2096,
+    "offset_from_scan_in": 69,
+    "chain_length": 234,
+    "pattern_count": 18,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2798,
+    "offset_from_scan_in": 202,
+    "chain_length": 234,
+    "pattern_count": 28,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.218,
+    "offset_from_scan_in": 101,
+    "chain_length": 234,
+    "pattern_count": 5,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3709,
+    "offset_from_scan_in": 30,
+    "chain_length": 234,
+    "pattern_count": 17,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.3578,
+    "offset_from_scan_in": 224,
+    "chain_length": 234,
+    "pattern_count": 32,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6706,
+    "offset_from_scan_in": 196,
+    "chain_length": 234,
+    "pattern_count": 4,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9696,
+    "offset_from_scan_in": 38,
+    "chain_length": 234,
+    "pattern_count": 21,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5206,
+    "offset_from_scan_in": 148,
+    "chain_length": 234,
+    "pattern_count": 27,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8465,
+    "offset_from_scan_in": 58,
+    "chain_length": 234,
+    "pattern_count": 28,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6454,
+    "offset_from_scan_in": 218,
+    "chain_length": 234,
+    "pattern_count": 30,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4368,
+    "offset_from_scan_in": 216,
+    "chain_length": 234,
+    "pattern_count": 15,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.5085,
+    "offset_from_scan_in": 124,
+    "chain_length": 234,
+    "pattern_count": 9,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8349,
+    "offset_from_scan_in": 224,
+    "chain_length": 234,
+    "pattern_count": 4,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2316,
+    "offset_from_scan_in": 44,
+    "chain_length": 234,
+    "pattern_count": 29,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9289,
+    "offset_from_scan_in": 140,
+    "chain_length": 234,
+    "pattern_count": 6,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2039,
+    "offset_from_scan_in": 126,
+    "chain_length": 234,
+    "pattern_count": 1,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.148,
+    "offset_from_scan_in": 100,
+    "chain_length": 234,
+    "pattern_count": 21,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3862,
+    "offset_from_scan_in": 230,
+    "chain_length": 234,
+    "pattern_count": 18,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.1391,
+    "offset_from_scan_in": 115,
+    "chain_length": 234,
+    "pattern_count": 7,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6141,
+    "offset_from_scan_in": 222,
+    "chain_length": 234,
+    "pattern_count": 15,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5714,
+    "offset_from_scan_in": 209,
+    "chain_length": 234,
+    "pattern_count": 4,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9324,
+    "offset_from_scan_in": 161,
+    "chain_length": 234,
+    "pattern_count": 4,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.9816,
+    "offset_from_scan_in": 75,
+    "chain_length": 234,
+    "pattern_count": 28,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8011,
+    "offset_from_scan_in": 172,
+    "chain_length": 234,
+    "pattern_count": 5,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8718,
+    "offset_from_scan_in": 195,
+    "chain_length": 234,
+    "pattern_count": 16,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3398,
+    "offset_from_scan_in": 14,
+    "chain_length": 234,
+    "pattern_count": 5,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3093,
+    "offset_from_scan_in": 79,
+    "chain_length": 234,
+    "pattern_count": 13,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4415,
+    "offset_from_scan_in": 42,
+    "chain_length": 234,
+    "pattern_count": 24,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9247,
+    "offset_from_scan_in": 199,
+    "chain_length": 234,
+    "pattern_count": 17,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8637,
+    "offset_from_scan_in": 114,
+    "chain_length": 234,
+    "pattern_count": 23,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6696,
+    "offset_from_scan_in": 16,
+    "chain_length": 234,
+    "pattern_count": 10,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7253,
+    "offset_from_scan_in": 117,
+    "chain_length": 234,
+    "pattern_count": 30,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1856,
+    "offset_from_scan_in": 145,
+    "chain_length": 234,
+    "pattern_count": 25,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.2237,
+    "offset_from_scan_in": 224,
+    "chain_length": 234,
+    "pattern_count": 33,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8044,
+    "offset_from_scan_in": 233,
+    "chain_length": 234,
+    "pattern_count": 28,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6311,
+    "offset_from_scan_in": 11,
+    "chain_length": 234,
+    "pattern_count": 4,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6085,
+    "offset_from_scan_in": 1,
+    "chain_length": 234,
+    "pattern_count": 20,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7875,
+    "offset_from_scan_in": 215,
+    "chain_length": 234,
+    "pattern_count": 28,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9381,
+    "offset_from_scan_in": 197,
+    "chain_length": 234,
+    "pattern_count": 5,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6921,
+    "offset_from_scan_in": 170,
+    "chain_length": 234,
+    "pattern_count": 15,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4003,
+    "offset_from_scan_in": 172,
+    "chain_length": 234,
+    "pattern_count": 31,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4278,
+    "offset_from_scan_in": 124,
+    "chain_length": 234,
+    "pattern_count": 11,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9425,
+    "offset_from_scan_in": 129,
+    "chain_length": 234,
+    "pattern_count": 15,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5977,
+    "offset_from_scan_in": 222,
+    "chain_length": 234,
+    "pattern_count": 32,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4387,
+    "offset_from_scan_in": 152,
+    "chain_length": 234,
+    "pattern_count": 34,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.2066,
+    "offset_from_scan_in": 63,
+    "chain_length": 234,
+    "pattern_count": 29,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6294,
+    "offset_from_scan_in": 7,
+    "chain_length": 234,
+    "pattern_count": 24,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8429,
+    "offset_from_scan_in": 100,
+    "chain_length": 234,
+    "pattern_count": 11,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3717,
+    "offset_from_scan_in": 120,
+    "chain_length": 234,
+    "pattern_count": 32,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9973,
+    "offset_from_scan_in": 10,
+    "chain_length": 234,
+    "pattern_count": 30,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1958,
+    "offset_from_scan_in": 155,
+    "chain_length": 234,
+    "pattern_count": 34,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.1814,
+    "offset_from_scan_in": 159,
+    "chain_length": 234,
+    "pattern_count": 31,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2287,
+    "offset_from_scan_in": 199,
+    "chain_length": 234,
+    "pattern_count": 27,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.6906,
+    "offset_from_scan_in": 212,
+    "chain_length": 234,
+    "pattern_count": 2,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6453,
+    "offset_from_scan_in": 229,
+    "chain_length": 234,
+    "pattern_count": 28,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1515,
+    "offset_from_scan_in": 156,
+    "chain_length": 234,
+    "pattern_count": 28,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.7283,
+    "offset_from_scan_in": 191,
+    "chain_length": 234,
+    "pattern_count": 29,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2124,
+    "offset_from_scan_in": 163,
+    "chain_length": 234,
+    "pattern_count": 18,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.866,
+    "offset_from_scan_in": 105,
+    "chain_length": 234,
+    "pattern_count": 6,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3437,
+    "offset_from_scan_in": 23,
+    "chain_length": 234,
+    "pattern_count": 25,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1491,
+    "offset_from_scan_in": 16,
+    "chain_length": 234,
+    "pattern_count": 21,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7386,
+    "offset_from_scan_in": 96,
+    "chain_length": 234,
+    "pattern_count": 6,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.982,
+    "offset_from_scan_in": 138,
+    "chain_length": 234,
+    "pattern_count": 16,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6152,
+    "offset_from_scan_in": 104,
+    "chain_length": 234,
+    "pattern_count": 5,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6202,
+    "offset_from_scan_in": 125,
+    "chain_length": 234,
+    "pattern_count": 24,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2336,
+    "offset_from_scan_in": 108,
+    "chain_length": 234,
+    "pattern_count": 18,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2073,
+    "offset_from_scan_in": 227,
+    "chain_length": 234,
+    "pattern_count": 5,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4851,
+    "offset_from_scan_in": 183,
+    "chain_length": 234,
+    "pattern_count": 21,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4679,
+    "offset_from_scan_in": 196,
+    "chain_length": 234,
+    "pattern_count": 8,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1325,
+    "offset_from_scan_in": 69,
+    "chain_length": 234,
+    "pattern_count": 15,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6152,
+    "offset_from_scan_in": 82,
+    "chain_length": 234,
+    "pattern_count": 20,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6872,
+    "offset_from_scan_in": 144,
+    "chain_length": 234,
+    "pattern_count": 11,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4883,
+    "offset_from_scan_in": 123,
+    "chain_length": 234,
+    "pattern_count": 22,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.763,
+    "offset_from_scan_in": 130,
+    "chain_length": 234,
+    "pattern_count": 31,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5682,
+    "offset_from_scan_in": 62,
+    "chain_length": 234,
+    "pattern_count": 28,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5447,
+    "offset_from_scan_in": 9,
+    "chain_length": 234,
+    "pattern_count": 4,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.15,
+    "offset_from_scan_in": 18,
+    "chain_length": 234,
+    "pattern_count": 10,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3825,
+    "offset_from_scan_in": 15,
+    "chain_length": 234,
+    "pattern_count": 26,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8709,
+    "offset_from_scan_in": 97,
+    "chain_length": 234,
+    "pattern_count": 13,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2077,
+    "offset_from_scan_in": 118,
+    "chain_length": 234,
+    "pattern_count": 13,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.7949,
+    "offset_from_scan_in": 99,
+    "chain_length": 234,
+    "pattern_count": 11,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4491,
+    "offset_from_scan_in": 216,
+    "chain_length": 234,
+    "pattern_count": 22,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5726,
+    "offset_from_scan_in": 109,
+    "chain_length": 234,
+    "pattern_count": 6,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9902,
+    "offset_from_scan_in": 224,
+    "chain_length": 234,
+    "pattern_count": 19,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.2274,
+    "offset_from_scan_in": 117,
+    "chain_length": 234,
+    "pattern_count": 16,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7798,
+    "offset_from_scan_in": 9,
+    "chain_length": 234,
+    "pattern_count": 15,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2628,
+    "offset_from_scan_in": 57,
+    "chain_length": 234,
+    "pattern_count": 31,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3629,
+    "offset_from_scan_in": 45,
+    "chain_length": 234,
+    "pattern_count": 17,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1757,
+    "offset_from_scan_in": 62,
+    "chain_length": 234,
+    "pattern_count": 9,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6842,
+    "offset_from_scan_in": 95,
+    "chain_length": 234,
+    "pattern_count": 23,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4299,
+    "offset_from_scan_in": 174,
+    "chain_length": 234,
+    "pattern_count": 19,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5343,
+    "offset_from_scan_in": 124,
+    "chain_length": 234,
+    "pattern_count": 27,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9186,
+    "offset_from_scan_in": 71,
+    "chain_length": 234,
+    "pattern_count": 20,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5489,
+    "offset_from_scan_in": 198,
+    "chain_length": 234,
+    "pattern_count": 19,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9256,
+    "offset_from_scan_in": 147,
+    "chain_length": 234,
+    "pattern_count": 22,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2724,
+    "offset_from_scan_in": 60,
+    "chain_length": 234,
+    "pattern_count": 1,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.3768,
+    "offset_from_scan_in": 33,
+    "chain_length": 234,
+    "pattern_count": 21,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7327,
+    "offset_from_scan_in": 123,
+    "chain_length": 234,
+    "pattern_count": 22,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5298,
+    "offset_from_scan_in": 230,
+    "chain_length": 234,
+    "pattern_count": 26,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9669,
+    "offset_from_scan_in": 145,
+    "chain_length": 234,
+    "pattern_count": 27,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7592,
+    "offset_from_scan_in": 189,
+    "chain_length": 234,
+    "pattern_count": 15,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9728,
+    "offset_from_scan_in": 25,
+    "chain_length": 234,
+    "pattern_count": 34,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.775,
+    "offset_from_scan_in": 149,
+    "chain_length": 234,
+    "pattern_count": 12,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7996,
+    "offset_from_scan_in": 225,
+    "chain_length": 234,
+    "pattern_count": 17,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9801,
+    "offset_from_scan_in": 56,
+    "chain_length": 234,
+    "pattern_count": 14,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5999,
+    "offset_from_scan_in": 126,
+    "chain_length": 234,
+    "pattern_count": 28,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1333,
+    "offset_from_scan_in": 12,
+    "chain_length": 234,
+    "pattern_count": 13,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7078,
+    "offset_from_scan_in": 178,
+    "chain_length": 234,
+    "pattern_count": 25,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7655,
+    "offset_from_scan_in": 92,
+    "chain_length": 234,
+    "pattern_count": 28,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6597,
+    "offset_from_scan_in": 54,
+    "chain_length": 234,
+    "pattern_count": 30,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7096,
+    "offset_from_scan_in": 124,
+    "chain_length": 234,
+    "pattern_count": 2,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.7045,
+    "offset_from_scan_in": 59,
+    "chain_length": 234,
+    "pattern_count": 9,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.868,
+    "offset_from_scan_in": 211,
+    "chain_length": 234,
+    "pattern_count": 11,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3473,
+    "offset_from_scan_in": 128,
+    "chain_length": 234,
+    "pattern_count": 31,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4077,
+    "offset_from_scan_in": 105,
+    "chain_length": 234,
+    "pattern_count": 25,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.3667,
+    "offset_from_scan_in": 181,
+    "chain_length": 234,
+    "pattern_count": 14,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9978,
+    "offset_from_scan_in": 200,
+    "chain_length": 234,
+    "pattern_count": 24,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9238,
+    "offset_from_scan_in": 51,
+    "chain_length": 234,
+    "pattern_count": 17,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1605,
+    "offset_from_scan_in": 82,
+    "chain_length": 234,
+    "pattern_count": 7,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6711,
+    "offset_from_scan_in": 206,
+    "chain_length": 234,
+    "pattern_count": 12,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.7768,
+    "offset_from_scan_in": 117,
+    "chain_length": 234,
+    "pattern_count": 19,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3116,
+    "offset_from_scan_in": 131,
+    "chain_length": 234,
+    "pattern_count": 12,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7681,
+    "offset_from_scan_in": 50,
+    "chain_length": 234,
+    "pattern_count": 21,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3172,
+    "offset_from_scan_in": 70,
+    "chain_length": 234,
+    "pattern_count": 11,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3549,
+    "offset_from_scan_in": 14,
+    "chain_length": 234,
+    "pattern_count": 20,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4945,
+    "offset_from_scan_in": 201,
+    "chain_length": 234,
+    "pattern_count": 17,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8332,
+    "offset_from_scan_in": 157,
+    "chain_length": 234,
+    "pattern_count": 31,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.606,
+    "offset_from_scan_in": 74,
+    "chain_length": 234,
+    "pattern_count": 4,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.5615,
+    "offset_from_scan_in": 218,
+    "chain_length": 234,
+    "pattern_count": 15,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.1927,
+    "offset_from_scan_in": 68,
+    "chain_length": 234,
+    "pattern_count": 2,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5096,
+    "offset_from_scan_in": 61,
+    "chain_length": 234,
+    "pattern_count": 18,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2004,
+    "offset_from_scan_in": 148,
+    "chain_length": 234,
+    "pattern_count": 14,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2863,
+    "offset_from_scan_in": 228,
+    "chain_length": 234,
+    "pattern_count": 11,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1015,
+    "offset_from_scan_in": 67,
+    "chain_length": 234,
+    "pattern_count": 4,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5574,
+    "offset_from_scan_in": 64,
+    "chain_length": 234,
+    "pattern_count": 17,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8025,
+    "offset_from_scan_in": 109,
+    "chain_length": 234,
+    "pattern_count": 29,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3182,
+    "offset_from_scan_in": 213,
+    "chain_length": 234,
+    "pattern_count": 17,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3977,
+    "offset_from_scan_in": 57,
+    "chain_length": 234,
+    "pattern_count": 32,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7404,
+    "offset_from_scan_in": 44,
+    "chain_length": 234,
+    "pattern_count": 6,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9269,
+    "offset_from_scan_in": 21,
+    "chain_length": 234,
+    "pattern_count": 1,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1996,
+    "offset_from_scan_in": 165,
+    "chain_length": 234,
+    "pattern_count": 22,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6312,
+    "offset_from_scan_in": 160,
+    "chain_length": 234,
+    "pattern_count": 29,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6572,
+    "offset_from_scan_in": 107,
+    "chain_length": 234,
+    "pattern_count": 6,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.3288,
+    "offset_from_scan_in": 58,
+    "chain_length": 234,
+    "pattern_count": 32,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9862,
+    "offset_from_scan_in": 18,
+    "chain_length": 234,
+    "pattern_count": 13,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8193,
+    "offset_from_scan_in": 26,
+    "chain_length": 234,
+    "pattern_count": 21,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3859,
+    "offset_from_scan_in": 192,
+    "chain_length": 234,
+    "pattern_count": 3,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1171,
+    "offset_from_scan_in": 164,
+    "chain_length": 234,
+    "pattern_count": 6,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.7647,
+    "offset_from_scan_in": 193,
+    "chain_length": 234,
+    "pattern_count": 11,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2134,
+    "offset_from_scan_in": 181,
+    "chain_length": 234,
+    "pattern_count": 5,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5566,
+    "offset_from_scan_in": 28,
+    "chain_length": 234,
+    "pattern_count": 34,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9938,
+    "offset_from_scan_in": 135,
+    "chain_length": 234,
+    "pattern_count": 20,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8923,
+    "offset_from_scan_in": 97,
+    "chain_length": 234,
+    "pattern_count": 19,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1455,
+    "offset_from_scan_in": 104,
+    "chain_length": 234,
+    "pattern_count": 21,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8526,
+    "offset_from_scan_in": 44,
+    "chain_length": 234,
+    "pattern_count": 1,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8865,
+    "offset_from_scan_in": 196,
+    "chain_length": 234,
+    "pattern_count": 9,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4565,
+    "offset_from_scan_in": 175,
+    "chain_length": 234,
+    "pattern_count": 24,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7826,
+    "offset_from_scan_in": 167,
+    "chain_length": 234,
+    "pattern_count": 34,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1112,
+    "offset_from_scan_in": 8,
+    "chain_length": 234,
+    "pattern_count": 28,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1847,
+    "offset_from_scan_in": 180,
+    "chain_length": 234,
+    "pattern_count": 31,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2344,
+    "offset_from_scan_in": 84,
+    "chain_length": 234,
+    "pattern_count": 33,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8731,
+    "offset_from_scan_in": 230,
+    "chain_length": 234,
+    "pattern_count": 32,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7601,
+    "offset_from_scan_in": 150,
+    "chain_length": 234,
+    "pattern_count": 30,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7675,
+    "offset_from_scan_in": 152,
+    "chain_length": 234,
+    "pattern_count": 25,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1942,
+    "offset_from_scan_in": 182,
+    "chain_length": 234,
+    "pattern_count": 31,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.1899,
+    "offset_from_scan_in": 0,
+    "chain_length": 234,
+    "pattern_count": 7,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9813,
+    "offset_from_scan_in": 231,
+    "chain_length": 234,
+    "pattern_count": 13,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4552,
+    "offset_from_scan_in": 146,
+    "chain_length": 234,
+    "pattern_count": 11,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4682,
+    "offset_from_scan_in": 2,
+    "chain_length": 234,
+    "pattern_count": 21,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2771,
+    "offset_from_scan_in": 79,
+    "chain_length": 234,
+    "pattern_count": 13,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2466,
+    "offset_from_scan_in": 72,
+    "chain_length": 234,
+    "pattern_count": 24,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3192,
+    "offset_from_scan_in": 46,
+    "chain_length": 234,
+    "pattern_count": 4,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.3503,
+    "offset_from_scan_in": 111,
+    "chain_length": 234,
+    "pattern_count": 7,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5216,
+    "offset_from_scan_in": 106,
+    "chain_length": 234,
+    "pattern_count": 9,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9634,
+    "offset_from_scan_in": 57,
+    "chain_length": 234,
+    "pattern_count": 23,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3272,
+    "offset_from_scan_in": 31,
+    "chain_length": 234,
+    "pattern_count": 11,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.9115,
+    "offset_from_scan_in": 24,
+    "chain_length": 234,
+    "pattern_count": 34,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1646,
+    "offset_from_scan_in": 95,
+    "chain_length": 234,
+    "pattern_count": 5,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1873,
+    "offset_from_scan_in": 191,
+    "chain_length": 234,
+    "pattern_count": 29,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2488,
+    "offset_from_scan_in": 19,
+    "chain_length": 234,
+    "pattern_count": 9,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6258,
+    "offset_from_scan_in": 122,
+    "chain_length": 234,
+    "pattern_count": 25,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4644,
+    "offset_from_scan_in": 25,
+    "chain_length": 234,
+    "pattern_count": 26,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9474,
+    "offset_from_scan_in": 95,
+    "chain_length": 234,
+    "pattern_count": 5,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3381,
+    "offset_from_scan_in": 41,
+    "chain_length": 234,
+    "pattern_count": 29,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5049,
+    "offset_from_scan_in": 43,
+    "chain_length": 234,
+    "pattern_count": 9,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.8871,
+    "offset_from_scan_in": 174,
+    "chain_length": 234,
+    "pattern_count": 12,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3203,
+    "offset_from_scan_in": 69,
+    "chain_length": 234,
+    "pattern_count": 6,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.7996,
+    "offset_from_scan_in": 76,
+    "chain_length": 234,
+    "pattern_count": 18,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5829,
+    "offset_from_scan_in": 193,
+    "chain_length": 234,
+    "pattern_count": 15,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.957,
+    "offset_from_scan_in": 20,
+    "chain_length": 234,
+    "pattern_count": 17,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.599,
+    "offset_from_scan_in": 224,
+    "chain_length": 234,
+    "pattern_count": 8,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2071,
+    "offset_from_scan_in": 36,
+    "chain_length": 234,
+    "pattern_count": 32,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5185,
+    "offset_from_scan_in": 227,
+    "chain_length": 234,
+    "pattern_count": 14,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9897,
+    "offset_from_scan_in": 33,
+    "chain_length": 234,
+    "pattern_count": 28,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2376,
+    "offset_from_scan_in": 193,
+    "chain_length": 234,
+    "pattern_count": 32,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4082,
+    "offset_from_scan_in": 13,
+    "chain_length": 234,
+    "pattern_count": 28,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8143,
+    "offset_from_scan_in": 193,
+    "chain_length": 234,
+    "pattern_count": 8,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6751,
+    "offset_from_scan_in": 176,
+    "chain_length": 234,
+    "pattern_count": 1,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1559,
+    "offset_from_scan_in": 93,
+    "chain_length": 234,
+    "pattern_count": 16,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6691,
+    "offset_from_scan_in": 116,
+    "chain_length": 234,
+    "pattern_count": 14,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7536,
+    "offset_from_scan_in": 168,
+    "chain_length": 234,
+    "pattern_count": 16,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5255,
+    "offset_from_scan_in": 143,
+    "chain_length": 234,
+    "pattern_count": 33,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7103,
+    "offset_from_scan_in": 230,
+    "chain_length": 234,
+    "pattern_count": 29,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9032,
+    "offset_from_scan_in": 174,
+    "chain_length": 234,
+    "pattern_count": 26,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.694,
+    "offset_from_scan_in": 40,
+    "chain_length": 234,
+    "pattern_count": 11,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7647,
+    "offset_from_scan_in": 92,
+    "chain_length": 234,
+    "pattern_count": 14,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.558,
+    "offset_from_scan_in": 169,
+    "chain_length": 234,
+    "pattern_count": 31,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4081,
+    "offset_from_scan_in": 162,
+    "chain_length": 234,
+    "pattern_count": 14,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1826,
+    "offset_from_scan_in": 76,
+    "chain_length": 234,
+    "pattern_count": 23,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1178,
+    "offset_from_scan_in": 207,
+    "chain_length": 234,
+    "pattern_count": 12,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.8746,
+    "offset_from_scan_in": 175,
+    "chain_length": 234,
+    "pattern_count": 9,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3476,
+    "offset_from_scan_in": 179,
+    "chain_length": 234,
+    "pattern_count": 5,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9193,
+    "offset_from_scan_in": 173,
+    "chain_length": 234,
+    "pattern_count": 7,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9576,
+    "offset_from_scan_in": 136,
+    "chain_length": 234,
+    "pattern_count": 21,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3884,
+    "offset_from_scan_in": 168,
+    "chain_length": 234,
+    "pattern_count": 34,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1209,
+    "offset_from_scan_in": 126,
+    "chain_length": 234,
+    "pattern_count": 14,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.4995,
+    "offset_from_scan_in": 41,
+    "chain_length": 234,
+    "pattern_count": 32,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5901,
+    "offset_from_scan_in": 164,
+    "chain_length": 234,
+    "pattern_count": 17,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3198,
+    "offset_from_scan_in": 94,
+    "chain_length": 234,
+    "pattern_count": 32,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9804,
+    "offset_from_scan_in": 4,
+    "chain_length": 234,
+    "pattern_count": 26,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5325,
+    "offset_from_scan_in": 146,
+    "chain_length": 234,
+    "pattern_count": 16,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3604,
+    "offset_from_scan_in": 71,
+    "chain_length": 234,
+    "pattern_count": 9,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.297,
+    "offset_from_scan_in": 153,
+    "chain_length": 234,
+    "pattern_count": 28,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1068,
+    "offset_from_scan_in": 9,
+    "chain_length": 234,
+    "pattern_count": 12,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.2245,
+    "offset_from_scan_in": 163,
+    "chain_length": 234,
+    "pattern_count": 27,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9987,
+    "offset_from_scan_in": 67,
+    "chain_length": 234,
+    "pattern_count": 7,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6577,
+    "offset_from_scan_in": 205,
+    "chain_length": 234,
+    "pattern_count": 32,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2242,
+    "offset_from_scan_in": 137,
+    "chain_length": 234,
+    "pattern_count": 27,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6971,
+    "offset_from_scan_in": 105,
+    "chain_length": 234,
+    "pattern_count": 4,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4811,
+    "offset_from_scan_in": 118,
+    "chain_length": 234,
+    "pattern_count": 19,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6874,
+    "offset_from_scan_in": 0,
+    "chain_length": 234,
+    "pattern_count": 34,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1857,
+    "offset_from_scan_in": 159,
+    "chain_length": 234,
+    "pattern_count": 25,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5151,
+    "offset_from_scan_in": 41,
+    "chain_length": 234,
+    "pattern_count": 15,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.418,
+    "offset_from_scan_in": 75,
+    "chain_length": 234,
+    "pattern_count": 27,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.475,
+    "offset_from_scan_in": 92,
+    "chain_length": 234,
+    "pattern_count": 11,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.5421,
+    "offset_from_scan_in": 51,
+    "chain_length": 234,
+    "pattern_count": 31,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1865,
+    "offset_from_scan_in": 76,
+    "chain_length": 234,
+    "pattern_count": 6,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1475,
+    "offset_from_scan_in": 53,
+    "chain_length": 234,
+    "pattern_count": 1,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.1314,
+    "offset_from_scan_in": 79,
+    "chain_length": 234,
+    "pattern_count": 23,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2322,
+    "offset_from_scan_in": 15,
+    "chain_length": 234,
+    "pattern_count": 30,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8373,
+    "offset_from_scan_in": 10,
+    "chain_length": 234,
+    "pattern_count": 4,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3317,
+    "offset_from_scan_in": 76,
+    "chain_length": 234,
+    "pattern_count": 26,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5182,
+    "offset_from_scan_in": 72,
+    "chain_length": 234,
+    "pattern_count": 13,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7763,
+    "offset_from_scan_in": 225,
+    "chain_length": 234,
+    "pattern_count": 5,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2578,
+    "offset_from_scan_in": 10,
+    "chain_length": 234,
+    "pattern_count": 28,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.2235,
+    "offset_from_scan_in": 231,
+    "chain_length": 234,
+    "pattern_count": 23,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8876,
+    "offset_from_scan_in": 222,
+    "chain_length": 234,
+    "pattern_count": 34,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2987,
+    "offset_from_scan_in": 110,
+    "chain_length": 234,
+    "pattern_count": 23,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6098,
+    "offset_from_scan_in": 174,
+    "chain_length": 234,
+    "pattern_count": 19,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1239,
+    "offset_from_scan_in": 124,
+    "chain_length": 234,
+    "pattern_count": 2,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.3342,
+    "offset_from_scan_in": 67,
+    "chain_length": 234,
+    "pattern_count": 15,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.6051,
+    "offset_from_scan_in": 36,
+    "chain_length": 234,
+    "pattern_count": 14,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3833,
+    "offset_from_scan_in": 105,
+    "chain_length": 234,
+    "pattern_count": 20,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.101,
+    "offset_from_scan_in": 2,
+    "chain_length": 234,
+    "pattern_count": 8,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2548,
+    "offset_from_scan_in": 196,
+    "chain_length": 234,
+    "pattern_count": 31,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.942,
+    "offset_from_scan_in": 111,
+    "chain_length": 234,
+    "pattern_count": 3,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2759,
+    "offset_from_scan_in": 70,
+    "chain_length": 234,
+    "pattern_count": 24,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2863,
+    "offset_from_scan_in": 24,
+    "chain_length": 234,
+    "pattern_count": 15,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8743,
+    "offset_from_scan_in": 42,
+    "chain_length": 234,
+    "pattern_count": 11,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4216,
+    "offset_from_scan_in": 80,
+    "chain_length": 234,
+    "pattern_count": 10,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8995,
+    "offset_from_scan_in": 7,
+    "chain_length": 234,
+    "pattern_count": 32,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2038,
+    "offset_from_scan_in": 107,
+    "chain_length": 234,
+    "pattern_count": 22,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7788,
+    "offset_from_scan_in": 24,
+    "chain_length": 234,
+    "pattern_count": 28,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.1398,
+    "offset_from_scan_in": 49,
+    "chain_length": 234,
+    "pattern_count": 14,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.6192,
+    "offset_from_scan_in": 214,
+    "chain_length": 234,
+    "pattern_count": 28,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.5488,
+    "offset_from_scan_in": 124,
+    "chain_length": 234,
+    "pattern_count": 17,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4578,
+    "offset_from_scan_in": 185,
+    "chain_length": 234,
+    "pattern_count": 20,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2739,
+    "offset_from_scan_in": 229,
+    "chain_length": 234,
+    "pattern_count": 4,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.4228,
+    "offset_from_scan_in": 156,
+    "chain_length": 234,
+    "pattern_count": 14,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9341,
+    "offset_from_scan_in": 187,
+    "chain_length": 234,
+    "pattern_count": 32,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5059,
+    "offset_from_scan_in": 226,
+    "chain_length": 234,
+    "pattern_count": 20,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.599,
+    "offset_from_scan_in": 86,
+    "chain_length": 234,
+    "pattern_count": 11,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1852,
+    "offset_from_scan_in": 71,
+    "chain_length": 234,
+    "pattern_count": 6,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2931,
+    "offset_from_scan_in": 182,
+    "chain_length": 234,
+    "pattern_count": 20,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8441,
+    "offset_from_scan_in": 227,
+    "chain_length": 234,
+    "pattern_count": 32,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1473,
+    "offset_from_scan_in": 153,
+    "chain_length": 234,
+    "pattern_count": 33,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.6211,
+    "offset_from_scan_in": 229,
+    "chain_length": 234,
+    "pattern_count": 1,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.6064,
+    "offset_from_scan_in": 19,
+    "chain_length": 234,
+    "pattern_count": 1,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.5468,
+    "offset_from_scan_in": 47,
+    "chain_length": 234,
+    "pattern_count": 16,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3976,
+    "offset_from_scan_in": 206,
+    "chain_length": 234,
+    "pattern_count": 30,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3433,
+    "offset_from_scan_in": 157,
+    "chain_length": 234,
+    "pattern_count": 6,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.5828,
+    "offset_from_scan_in": 56,
+    "chain_length": 234,
+    "pattern_count": 33,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2688,
+    "offset_from_scan_in": 217,
+    "chain_length": 234,
+    "pattern_count": 21,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.191,
+    "offset_from_scan_in": 91,
+    "chain_length": 234,
+    "pattern_count": 28,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9839,
+    "offset_from_scan_in": 170,
+    "chain_length": 234,
+    "pattern_count": 21,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4759,
+    "offset_from_scan_in": 30,
+    "chain_length": 234,
+    "pattern_count": 5,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.356,
+    "offset_from_scan_in": 165,
+    "chain_length": 234,
+    "pattern_count": 11,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5684,
+    "offset_from_scan_in": 118,
+    "chain_length": 234,
+    "pattern_count": 16,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7015,
+    "offset_from_scan_in": 26,
+    "chain_length": 234,
+    "pattern_count": 13,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5156,
+    "offset_from_scan_in": 224,
+    "chain_length": 234,
+    "pattern_count": 18,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2696,
+    "offset_from_scan_in": 115,
+    "chain_length": 234,
+    "pattern_count": 12,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.4645,
+    "offset_from_scan_in": 52,
+    "chain_length": 234,
+    "pattern_count": 28,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6865,
+    "offset_from_scan_in": 231,
+    "chain_length": 234,
+    "pattern_count": 30,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.488,
+    "offset_from_scan_in": 85,
+    "chain_length": 234,
+    "pattern_count": 2,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.9628,
+    "offset_from_scan_in": 154,
+    "chain_length": 234,
+    "pattern_count": 2,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9127,
+    "offset_from_scan_in": 90,
+    "chain_length": 234,
+    "pattern_count": 2,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2058,
+    "offset_from_scan_in": 66,
+    "chain_length": 234,
+    "pattern_count": 3,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5814,
+    "offset_from_scan_in": 16,
+    "chain_length": 234,
+    "pattern_count": 32,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5005,
+    "offset_from_scan_in": 231,
+    "chain_length": 234,
+    "pattern_count": 3,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2704,
+    "offset_from_scan_in": 120,
+    "chain_length": 234,
+    "pattern_count": 10,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8806,
+    "offset_from_scan_in": 29,
+    "chain_length": 234,
+    "pattern_count": 25,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8579,
+    "offset_from_scan_in": 84,
+    "chain_length": 234,
+    "pattern_count": 33,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5911,
+    "offset_from_scan_in": 90,
+    "chain_length": 234,
+    "pattern_count": 19,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.7344,
+    "offset_from_scan_in": 178,
+    "chain_length": 234,
+    "pattern_count": 17,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4254,
+    "offset_from_scan_in": 45,
+    "chain_length": 234,
+    "pattern_count": 14,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8019,
+    "offset_from_scan_in": 169,
+    "chain_length": 234,
+    "pattern_count": 16,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1317,
+    "offset_from_scan_in": 73,
+    "chain_length": 234,
+    "pattern_count": 6,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.2968,
+    "offset_from_scan_in": 89,
+    "chain_length": 234,
+    "pattern_count": 18,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.3127,
+    "offset_from_scan_in": 131,
+    "chain_length": 234,
+    "pattern_count": 2,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2756,
+    "offset_from_scan_in": 34,
+    "chain_length": 234,
+    "pattern_count": 20,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6634,
+    "offset_from_scan_in": 186,
+    "chain_length": 234,
+    "pattern_count": 7,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8777,
+    "offset_from_scan_in": 146,
+    "chain_length": 234,
+    "pattern_count": 33,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3033,
+    "offset_from_scan_in": 95,
+    "chain_length": 234,
+    "pattern_count": 15,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7937,
+    "offset_from_scan_in": 28,
+    "chain_length": 234,
+    "pattern_count": 19,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6879,
+    "offset_from_scan_in": 40,
+    "chain_length": 234,
+    "pattern_count": 23,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7497,
+    "offset_from_scan_in": 211,
+    "chain_length": 234,
+    "pattern_count": 6,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1966,
+    "offset_from_scan_in": 137,
+    "chain_length": 234,
+    "pattern_count": 17,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.493,
+    "offset_from_scan_in": 64,
+    "chain_length": 234,
+    "pattern_count": 34,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4796,
+    "offset_from_scan_in": 227,
+    "chain_length": 234,
+    "pattern_count": 3,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6738,
+    "offset_from_scan_in": 143,
+    "chain_length": 234,
+    "pattern_count": 2,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9071,
+    "offset_from_scan_in": 66,
+    "chain_length": 234,
+    "pattern_count": 17,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6834,
+    "offset_from_scan_in": 174,
+    "chain_length": 234,
+    "pattern_count": 27,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8706,
+    "offset_from_scan_in": 180,
+    "chain_length": 234,
+    "pattern_count": 22,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7047,
+    "offset_from_scan_in": 217,
+    "chain_length": 234,
+    "pattern_count": 33,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8309,
+    "offset_from_scan_in": 86,
+    "chain_length": 234,
+    "pattern_count": 18,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2939,
+    "offset_from_scan_in": 139,
+    "chain_length": 234,
+    "pattern_count": 26,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6641,
+    "offset_from_scan_in": 26,
+    "chain_length": 234,
+    "pattern_count": 26,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1997,
+    "offset_from_scan_in": 23,
+    "chain_length": 234,
+    "pattern_count": 33,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3622,
+    "offset_from_scan_in": 76,
+    "chain_length": 234,
+    "pattern_count": 18,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7373,
+    "offset_from_scan_in": 195,
+    "chain_length": 234,
+    "pattern_count": 6,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2327,
+    "offset_from_scan_in": 91,
+    "chain_length": 234,
+    "pattern_count": 10,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5952,
+    "offset_from_scan_in": 194,
+    "chain_length": 234,
+    "pattern_count": 24,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.804,
+    "offset_from_scan_in": 136,
+    "chain_length": 234,
+    "pattern_count": 26,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8385,
+    "offset_from_scan_in": 64,
+    "chain_length": 234,
+    "pattern_count": 9,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5207,
+    "offset_from_scan_in": 80,
+    "chain_length": 234,
+    "pattern_count": 14,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3825,
+    "offset_from_scan_in": 42,
+    "chain_length": 234,
+    "pattern_count": 10,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3727,
+    "offset_from_scan_in": 201,
+    "chain_length": 234,
+    "pattern_count": 13,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.937,
+    "offset_from_scan_in": 85,
+    "chain_length": 234,
+    "pattern_count": 17,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9989,
+    "offset_from_scan_in": 110,
+    "chain_length": 234,
+    "pattern_count": 21,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8123,
+    "offset_from_scan_in": 83,
+    "chain_length": 234,
+    "pattern_count": 16,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5295,
+    "offset_from_scan_in": 109,
+    "chain_length": 234,
+    "pattern_count": 17,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5969,
+    "offset_from_scan_in": 150,
+    "chain_length": 234,
+    "pattern_count": 29,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8137,
+    "offset_from_scan_in": 16,
+    "chain_length": 234,
+    "pattern_count": 29,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9009,
+    "offset_from_scan_in": 37,
+    "chain_length": 234,
+    "pattern_count": 11,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6457,
+    "offset_from_scan_in": 147,
+    "chain_length": 234,
+    "pattern_count": 32,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3667,
+    "offset_from_scan_in": 50,
+    "chain_length": 234,
+    "pattern_count": 6,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9544,
+    "offset_from_scan_in": 179,
+    "chain_length": 234,
+    "pattern_count": 14,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2727,
+    "offset_from_scan_in": 173,
+    "chain_length": 234,
+    "pattern_count": 6,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.922,
+    "offset_from_scan_in": 180,
+    "chain_length": 234,
+    "pattern_count": 5,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.3117,
+    "offset_from_scan_in": 224,
+    "chain_length": 234,
+    "pattern_count": 10,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.487,
+    "offset_from_scan_in": 230,
+    "chain_length": 234,
+    "pattern_count": 15,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7947,
+    "offset_from_scan_in": 135,
+    "chain_length": 234,
+    "pattern_count": 13,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1039,
+    "offset_from_scan_in": 133,
+    "chain_length": 234,
+    "pattern_count": 20,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2872,
+    "offset_from_scan_in": 210,
+    "chain_length": 234,
+    "pattern_count": 18,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4557,
+    "offset_from_scan_in": 79,
+    "chain_length": 234,
+    "pattern_count": 26,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2759,
+    "offset_from_scan_in": 132,
+    "chain_length": 234,
+    "pattern_count": 14,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.678,
+    "offset_from_scan_in": 172,
+    "chain_length": 234,
+    "pattern_count": 24,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.463,
+    "offset_from_scan_in": 56,
+    "chain_length": 234,
+    "pattern_count": 32,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7791,
+    "offset_from_scan_in": 226,
+    "chain_length": 234,
+    "pattern_count": 4,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2668,
+    "offset_from_scan_in": 94,
+    "chain_length": 234,
+    "pattern_count": 16,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9168,
+    "offset_from_scan_in": 126,
+    "chain_length": 234,
+    "pattern_count": 28,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3293,
+    "offset_from_scan_in": 64,
+    "chain_length": 234,
+    "pattern_count": 5,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3022,
+    "offset_from_scan_in": 94,
+    "chain_length": 234,
+    "pattern_count": 29,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2457,
+    "offset_from_scan_in": 184,
+    "chain_length": 234,
+    "pattern_count": 22,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9257,
+    "offset_from_scan_in": 143,
+    "chain_length": 234,
+    "pattern_count": 29,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1455,
+    "offset_from_scan_in": 200,
+    "chain_length": 234,
+    "pattern_count": 30,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.784,
+    "offset_from_scan_in": 140,
+    "chain_length": 234,
+    "pattern_count": 5,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.7555,
+    "offset_from_scan_in": 228,
+    "chain_length": 234,
+    "pattern_count": 16,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7703,
+    "offset_from_scan_in": 10,
+    "chain_length": 234,
+    "pattern_count": 28,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2061,
+    "offset_from_scan_in": 230,
+    "chain_length": 234,
+    "pattern_count": 9,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.6244,
+    "offset_from_scan_in": 200,
+    "chain_length": 234,
+    "pattern_count": 14,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.3221,
+    "offset_from_scan_in": 181,
+    "chain_length": 234,
+    "pattern_count": 26,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2697,
+    "offset_from_scan_in": 78,
+    "chain_length": 234,
+    "pattern_count": 28,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9261,
+    "offset_from_scan_in": 36,
+    "chain_length": 234,
+    "pattern_count": 34,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5265,
+    "offset_from_scan_in": 16,
+    "chain_length": 234,
+    "pattern_count": 34,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.888,
+    "offset_from_scan_in": 22,
+    "chain_length": 234,
+    "pattern_count": 10,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.982,
+    "offset_from_scan_in": 112,
+    "chain_length": 234,
+    "pattern_count": 31,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4032,
+    "offset_from_scan_in": 55,
+    "chain_length": 234,
+    "pattern_count": 21,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.122,
+    "offset_from_scan_in": 106,
+    "chain_length": 234,
+    "pattern_count": 8,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.546,
+    "offset_from_scan_in": 110,
+    "chain_length": 234,
+    "pattern_count": 2,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.1278,
+    "offset_from_scan_in": 196,
+    "chain_length": 234,
+    "pattern_count": 14,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7747,
+    "offset_from_scan_in": 126,
+    "chain_length": 234,
+    "pattern_count": 9,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8971,
+    "offset_from_scan_in": 69,
+    "chain_length": 234,
+    "pattern_count": 8,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3211,
+    "offset_from_scan_in": 186,
+    "chain_length": 234,
+    "pattern_count": 8,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.739,
+    "offset_from_scan_in": 25,
+    "chain_length": 234,
+    "pattern_count": 22,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5285,
+    "offset_from_scan_in": 28,
+    "chain_length": 234,
+    "pattern_count": 16,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8993,
+    "offset_from_scan_in": 195,
+    "chain_length": 234,
+    "pattern_count": 28,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2269,
+    "offset_from_scan_in": 61,
+    "chain_length": 234,
+    "pattern_count": 34,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.3989,
+    "offset_from_scan_in": 193,
+    "chain_length": 234,
+    "pattern_count": 6,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2081,
+    "offset_from_scan_in": 89,
+    "chain_length": 234,
+    "pattern_count": 3,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2193,
+    "offset_from_scan_in": 123,
+    "chain_length": 234,
+    "pattern_count": 29,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6678,
+    "offset_from_scan_in": 95,
+    "chain_length": 234,
+    "pattern_count": 30,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7415,
+    "offset_from_scan_in": 97,
+    "chain_length": 234,
+    "pattern_count": 16,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2527,
+    "offset_from_scan_in": 98,
+    "chain_length": 234,
+    "pattern_count": 28,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3217,
+    "offset_from_scan_in": 187,
+    "chain_length": 234,
+    "pattern_count": 29,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8708,
+    "offset_from_scan_in": 206,
+    "chain_length": 234,
+    "pattern_count": 3,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.295,
+    "offset_from_scan_in": 105,
+    "chain_length": 234,
+    "pattern_count": 24,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.612,
+    "offset_from_scan_in": 58,
+    "chain_length": 234,
+    "pattern_count": 10,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6493,
+    "offset_from_scan_in": 36,
+    "chain_length": 234,
+    "pattern_count": 22,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7073,
+    "offset_from_scan_in": 130,
+    "chain_length": 234,
+    "pattern_count": 24,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4681,
+    "offset_from_scan_in": 101,
+    "chain_length": 234,
+    "pattern_count": 3,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7686,
+    "offset_from_scan_in": 180,
+    "chain_length": 234,
+    "pattern_count": 9,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7844,
+    "offset_from_scan_in": 224,
+    "chain_length": 234,
+    "pattern_count": 17,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9352,
+    "offset_from_scan_in": 217,
+    "chain_length": 234,
+    "pattern_count": 17,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7638,
+    "offset_from_scan_in": 28,
+    "chain_length": 234,
+    "pattern_count": 3,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9295,
+    "offset_from_scan_in": 78,
+    "chain_length": 234,
+    "pattern_count": 17,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5055,
+    "offset_from_scan_in": 137,
+    "chain_length": 234,
+    "pattern_count": 7,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1005,
+    "offset_from_scan_in": 151,
+    "chain_length": 234,
+    "pattern_count": 15,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.1289,
+    "offset_from_scan_in": 50,
+    "chain_length": 234,
+    "pattern_count": 20,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.2506,
+    "offset_from_scan_in": 93,
+    "chain_length": 234,
+    "pattern_count": 22,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.471,
+    "offset_from_scan_in": 67,
+    "chain_length": 234,
+    "pattern_count": 26,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5502,
+    "offset_from_scan_in": 36,
+    "chain_length": 234,
+    "pattern_count": 26,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.3016,
+    "offset_from_scan_in": 169,
+    "chain_length": 234,
+    "pattern_count": 10,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6242,
+    "offset_from_scan_in": 175,
+    "chain_length": 234,
+    "pattern_count": 34,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6751,
+    "offset_from_scan_in": 168,
+    "chain_length": 234,
+    "pattern_count": 30,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5757,
+    "offset_from_scan_in": 156,
+    "chain_length": 234,
+    "pattern_count": 29,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9871,
+    "offset_from_scan_in": 105,
+    "chain_length": 234,
+    "pattern_count": 34,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3422,
+    "offset_from_scan_in": 8,
+    "chain_length": 234,
+    "pattern_count": 11,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.555,
+    "offset_from_scan_in": 134,
+    "chain_length": 234,
+    "pattern_count": 22,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4002,
+    "offset_from_scan_in": 99,
+    "chain_length": 234,
+    "pattern_count": 12,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8655,
+    "offset_from_scan_in": 230,
+    "chain_length": 234,
+    "pattern_count": 16,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5986,
+    "offset_from_scan_in": 41,
+    "chain_length": 234,
+    "pattern_count": 1,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6903,
+    "offset_from_scan_in": 208,
+    "chain_length": 234,
+    "pattern_count": 10,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6236,
+    "offset_from_scan_in": 188,
+    "chain_length": 234,
+    "pattern_count": 1,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6459,
+    "offset_from_scan_in": 53,
+    "chain_length": 234,
+    "pattern_count": 16,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8225,
+    "offset_from_scan_in": 146,
+    "chain_length": 234,
+    "pattern_count": 31,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9135,
+    "offset_from_scan_in": 78,
+    "chain_length": 234,
+    "pattern_count": 19,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.694,
+    "offset_from_scan_in": 32,
+    "chain_length": 234,
+    "pattern_count": 25,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5447,
+    "offset_from_scan_in": 130,
+    "chain_length": 234,
+    "pattern_count": 11,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.302,
+    "offset_from_scan_in": 171,
+    "chain_length": 234,
+    "pattern_count": 2,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.1166,
+    "offset_from_scan_in": 76,
+    "chain_length": 234,
+    "pattern_count": 15,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.799,
+    "offset_from_scan_in": 122,
+    "chain_length": 234,
+    "pattern_count": 28,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5275,
+    "offset_from_scan_in": 145,
+    "chain_length": 234,
+    "pattern_count": 21,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3012,
+    "offset_from_scan_in": 134,
+    "chain_length": 234,
+    "pattern_count": 16,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.842,
+    "offset_from_scan_in": 132,
+    "chain_length": 234,
+    "pattern_count": 32,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1161,
+    "offset_from_scan_in": 71,
+    "chain_length": 234,
+    "pattern_count": 32,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7867,
+    "offset_from_scan_in": 167,
+    "chain_length": 234,
+    "pattern_count": 33,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.5953,
+    "offset_from_scan_in": 184,
+    "chain_length": 234,
+    "pattern_count": 3,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.6533,
+    "offset_from_scan_in": 112,
+    "chain_length": 234,
+    "pattern_count": 15,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7658,
+    "offset_from_scan_in": 165,
+    "chain_length": 234,
+    "pattern_count": 3,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.5252,
+    "offset_from_scan_in": 169,
+    "chain_length": 234,
+    "pattern_count": 18,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.7598,
+    "offset_from_scan_in": 5,
+    "chain_length": 234,
+    "pattern_count": 13,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5175,
+    "offset_from_scan_in": 138,
+    "chain_length": 234,
+    "pattern_count": 33,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8736,
+    "offset_from_scan_in": 153,
+    "chain_length": 234,
+    "pattern_count": 13,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6568,
+    "offset_from_scan_in": 111,
+    "chain_length": 234,
+    "pattern_count": 32,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9886,
+    "offset_from_scan_in": 126,
+    "chain_length": 234,
+    "pattern_count": 6,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4058,
+    "offset_from_scan_in": 72,
+    "chain_length": 234,
+    "pattern_count": 3,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.3566,
+    "offset_from_scan_in": 119,
+    "chain_length": 234,
+    "pattern_count": 12,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8585,
+    "offset_from_scan_in": 8,
+    "chain_length": 234,
+    "pattern_count": 16,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2043,
+    "offset_from_scan_in": 82,
+    "chain_length": 234,
+    "pattern_count": 31,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2374,
+    "offset_from_scan_in": 43,
+    "chain_length": 234,
+    "pattern_count": 24,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2258,
+    "offset_from_scan_in": 49,
+    "chain_length": 234,
+    "pattern_count": 15,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3517,
+    "offset_from_scan_in": 99,
+    "chain_length": 234,
+    "pattern_count": 2,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6862,
+    "offset_from_scan_in": 177,
+    "chain_length": 234,
+    "pattern_count": 4,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5109,
+    "offset_from_scan_in": 75,
+    "chain_length": 234,
+    "pattern_count": 14,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5774,
+    "offset_from_scan_in": 48,
+    "chain_length": 234,
+    "pattern_count": 21,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4103,
+    "offset_from_scan_in": 199,
+    "chain_length": 234,
+    "pattern_count": 15,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9482,
+    "offset_from_scan_in": 75,
+    "chain_length": 234,
+    "pattern_count": 1,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3563,
+    "offset_from_scan_in": 180,
+    "chain_length": 234,
+    "pattern_count": 27,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.9829,
+    "offset_from_scan_in": 172,
+    "chain_length": 234,
+    "pattern_count": 2,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2321,
+    "offset_from_scan_in": 185,
+    "chain_length": 234,
+    "pattern_count": 12,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5073,
+    "offset_from_scan_in": 24,
+    "chain_length": 234,
+    "pattern_count": 29,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9802,
+    "offset_from_scan_in": 68,
+    "chain_length": 234,
+    "pattern_count": 17,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9509,
+    "offset_from_scan_in": 230,
+    "chain_length": 234,
+    "pattern_count": 10,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4813,
+    "offset_from_scan_in": 1,
+    "chain_length": 234,
+    "pattern_count": 32,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.333,
+    "offset_from_scan_in": 206,
+    "chain_length": 234,
+    "pattern_count": 18,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3515,
+    "offset_from_scan_in": 96,
+    "chain_length": 234,
+    "pattern_count": 30,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9789,
+    "offset_from_scan_in": 53,
+    "chain_length": 234,
+    "pattern_count": 7,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4527,
+    "offset_from_scan_in": 131,
+    "chain_length": 234,
+    "pattern_count": 7,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7073,
+    "offset_from_scan_in": 87,
+    "chain_length": 234,
+    "pattern_count": 9,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7451,
+    "offset_from_scan_in": 107,
+    "chain_length": 234,
+    "pattern_count": 16,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6148,
+    "offset_from_scan_in": 62,
+    "chain_length": 234,
+    "pattern_count": 8,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1351,
+    "offset_from_scan_in": 132,
+    "chain_length": 234,
+    "pattern_count": 17,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7724,
+    "offset_from_scan_in": 80,
+    "chain_length": 234,
+    "pattern_count": 5,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.6459,
+    "offset_from_scan_in": 35,
+    "chain_length": 234,
+    "pattern_count": 25,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.4074,
+    "offset_from_scan_in": 123,
+    "chain_length": 234,
+    "pattern_count": 6,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2601,
+    "offset_from_scan_in": 105,
+    "chain_length": 234,
+    "pattern_count": 21,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3381,
+    "offset_from_scan_in": 60,
+    "chain_length": 234,
+    "pattern_count": 2,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3465,
+    "offset_from_scan_in": 192,
+    "chain_length": 234,
+    "pattern_count": 2,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4408,
+    "offset_from_scan_in": 97,
+    "chain_length": 234,
+    "pattern_count": 14,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1808,
+    "offset_from_scan_in": 141,
+    "chain_length": 234,
+    "pattern_count": 1,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.9917,
+    "offset_from_scan_in": 82,
+    "chain_length": 234,
+    "pattern_count": 32,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3831,
+    "offset_from_scan_in": 7,
+    "chain_length": 234,
+    "pattern_count": 27,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.906,
+    "offset_from_scan_in": 39,
+    "chain_length": 234,
+    "pattern_count": 15,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3776,
+    "offset_from_scan_in": 15,
+    "chain_length": 234,
+    "pattern_count": 32,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.7931,
+    "offset_from_scan_in": 8,
+    "chain_length": 234,
+    "pattern_count": 4,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7932,
+    "offset_from_scan_in": 172,
+    "chain_length": 234,
+    "pattern_count": 28,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1881,
+    "offset_from_scan_in": 175,
+    "chain_length": 234,
+    "pattern_count": 10,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5034,
+    "offset_from_scan_in": 108,
+    "chain_length": 234,
+    "pattern_count": 10,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8915,
+    "offset_from_scan_in": 43,
+    "chain_length": 234,
+    "pattern_count": 10,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.395,
+    "offset_from_scan_in": 173,
+    "chain_length": 234,
+    "pattern_count": 18,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5524,
+    "offset_from_scan_in": 11,
+    "chain_length": 234,
+    "pattern_count": 6,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4721,
+    "offset_from_scan_in": 113,
+    "chain_length": 234,
+    "pattern_count": 29,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8062,
+    "offset_from_scan_in": 116,
+    "chain_length": 234,
+    "pattern_count": 33,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5738,
+    "offset_from_scan_in": 130,
+    "chain_length": 234,
+    "pattern_count": 6,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3371,
+    "offset_from_scan_in": 38,
+    "chain_length": 234,
+    "pattern_count": 32,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7489,
+    "offset_from_scan_in": 60,
+    "chain_length": 234,
+    "pattern_count": 3,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1608,
+    "offset_from_scan_in": 119,
+    "chain_length": 234,
+    "pattern_count": 18,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2068,
+    "offset_from_scan_in": 93,
+    "chain_length": 234,
+    "pattern_count": 32,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3909,
+    "offset_from_scan_in": 28,
+    "chain_length": 234,
+    "pattern_count": 20,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2407,
+    "offset_from_scan_in": 166,
+    "chain_length": 234,
+    "pattern_count": 4,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.8853,
+    "offset_from_scan_in": 60,
+    "chain_length": 234,
+    "pattern_count": 17,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2026,
+    "offset_from_scan_in": 136,
+    "chain_length": 234,
+    "pattern_count": 32,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4196,
+    "offset_from_scan_in": 159,
+    "chain_length": 234,
+    "pattern_count": 16,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9085,
+    "offset_from_scan_in": 200,
+    "chain_length": 234,
+    "pattern_count": 9,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1349,
+    "offset_from_scan_in": 27,
+    "chain_length": 234,
+    "pattern_count": 23,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1846,
+    "offset_from_scan_in": 186,
+    "chain_length": 234,
+    "pattern_count": 33,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.2228,
+    "offset_from_scan_in": 199,
+    "chain_length": 234,
+    "pattern_count": 11,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3672,
+    "offset_from_scan_in": 195,
+    "chain_length": 234,
+    "pattern_count": 3,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4473,
+    "offset_from_scan_in": 44,
+    "chain_length": 234,
+    "pattern_count": 7,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4493,
+    "offset_from_scan_in": 57,
+    "chain_length": 234,
+    "pattern_count": 12,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.441,
+    "offset_from_scan_in": 67,
+    "chain_length": 234,
+    "pattern_count": 20,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9188,
+    "offset_from_scan_in": 213,
+    "chain_length": 234,
+    "pattern_count": 27,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7285,
+    "offset_from_scan_in": 126,
+    "chain_length": 234,
+    "pattern_count": 34,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6058,
+    "offset_from_scan_in": 7,
+    "chain_length": 234,
+    "pattern_count": 5,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7511,
+    "offset_from_scan_in": 195,
+    "chain_length": 234,
+    "pattern_count": 30,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7791,
+    "offset_from_scan_in": 138,
+    "chain_length": 234,
+    "pattern_count": 29,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6006,
+    "offset_from_scan_in": 165,
+    "chain_length": 234,
+    "pattern_count": 8,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4782,
+    "offset_from_scan_in": 4,
+    "chain_length": 234,
+    "pattern_count": 7,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2839,
+    "offset_from_scan_in": 161,
+    "chain_length": 234,
+    "pattern_count": 4,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.2798,
+    "offset_from_scan_in": 64,
+    "chain_length": 234,
+    "pattern_count": 10,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6495,
+    "offset_from_scan_in": 50,
+    "chain_length": 234,
+    "pattern_count": 11,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7556,
+    "offset_from_scan_in": 144,
+    "chain_length": 234,
+    "pattern_count": 2,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.954,
+    "offset_from_scan_in": 73,
+    "chain_length": 234,
+    "pattern_count": 26,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4925,
+    "offset_from_scan_in": 21,
+    "chain_length": 234,
+    "pattern_count": 12,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6384,
+    "offset_from_scan_in": 148,
+    "chain_length": 234,
+    "pattern_count": 31,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4462,
+    "offset_from_scan_in": 0,
+    "chain_length": 234,
+    "pattern_count": 7,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2571,
+    "offset_from_scan_in": 23,
+    "chain_length": 234,
+    "pattern_count": 26,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1293,
+    "offset_from_scan_in": 222,
+    "chain_length": 234,
+    "pattern_count": 3,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3365,
+    "offset_from_scan_in": 92,
+    "chain_length": 234,
+    "pattern_count": 34,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6163,
+    "offset_from_scan_in": 98,
+    "chain_length": 234,
+    "pattern_count": 17,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8441,
+    "offset_from_scan_in": 71,
+    "chain_length": 234,
+    "pattern_count": 5,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8814,
+    "offset_from_scan_in": 194,
+    "chain_length": 234,
+    "pattern_count": 13,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2533,
+    "offset_from_scan_in": 163,
+    "chain_length": 234,
+    "pattern_count": 3,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.7514,
+    "offset_from_scan_in": 0,
+    "chain_length": 234,
+    "pattern_count": 3,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.18,
+    "offset_from_scan_in": 70,
+    "chain_length": 234,
+    "pattern_count": 1,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.3112,
+    "offset_from_scan_in": 110,
+    "chain_length": 234,
+    "pattern_count": 19,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.54,
+    "offset_from_scan_in": 6,
+    "chain_length": 234,
+    "pattern_count": 18,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8476,
+    "offset_from_scan_in": 221,
+    "chain_length": 234,
+    "pattern_count": 2,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.6987,
+    "offset_from_scan_in": 214,
+    "chain_length": 234,
+    "pattern_count": 24,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4299,
+    "offset_from_scan_in": 81,
+    "chain_length": 234,
+    "pattern_count": 18,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3749,
+    "offset_from_scan_in": 179,
+    "chain_length": 234,
+    "pattern_count": 9,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8849,
+    "offset_from_scan_in": 49,
+    "chain_length": 234,
+    "pattern_count": 21,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8629,
+    "offset_from_scan_in": 22,
+    "chain_length": 234,
+    "pattern_count": 9,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1425,
+    "offset_from_scan_in": 69,
+    "chain_length": 234,
+    "pattern_count": 26,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7733,
+    "offset_from_scan_in": 24,
+    "chain_length": 234,
+    "pattern_count": 3,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4233,
+    "offset_from_scan_in": 131,
+    "chain_length": 234,
+    "pattern_count": 1,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.3319,
+    "offset_from_scan_in": 92,
+    "chain_length": 234,
+    "pattern_count": 7,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6368,
+    "offset_from_scan_in": 51,
+    "chain_length": 234,
+    "pattern_count": 27,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8252,
+    "offset_from_scan_in": 47,
+    "chain_length": 234,
+    "pattern_count": 9,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3968,
+    "offset_from_scan_in": 124,
+    "chain_length": 234,
+    "pattern_count": 32,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.4752,
+    "offset_from_scan_in": 46,
+    "chain_length": 234,
+    "pattern_count": 19,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.313,
+    "offset_from_scan_in": 228,
+    "chain_length": 234,
+    "pattern_count": 18,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.2115,
+    "offset_from_scan_in": 22,
+    "chain_length": 234,
+    "pattern_count": 7,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9103,
+    "offset_from_scan_in": 217,
+    "chain_length": 234,
+    "pattern_count": 25,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6685,
+    "offset_from_scan_in": 61,
+    "chain_length": 234,
+    "pattern_count": 26,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6276,
+    "offset_from_scan_in": 109,
+    "chain_length": 234,
+    "pattern_count": 11,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.6288,
+    "offset_from_scan_in": 44,
+    "chain_length": 234,
+    "pattern_count": 23,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9979,
+    "offset_from_scan_in": 116,
+    "chain_length": 234,
+    "pattern_count": 6,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5332,
+    "offset_from_scan_in": 196,
+    "chain_length": 234,
+    "pattern_count": 20,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6247,
+    "offset_from_scan_in": 177,
+    "chain_length": 234,
+    "pattern_count": 20,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6774,
+    "offset_from_scan_in": 66,
+    "chain_length": 234,
+    "pattern_count": 27,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6456,
+    "offset_from_scan_in": 181,
+    "chain_length": 234,
+    "pattern_count": 4,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8857,
+    "offset_from_scan_in": 129,
+    "chain_length": 234,
+    "pattern_count": 24,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2996,
+    "offset_from_scan_in": 3,
+    "chain_length": 234,
+    "pattern_count": 25,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6322,
+    "offset_from_scan_in": 69,
+    "chain_length": 234,
+    "pattern_count": 12,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.751,
+    "offset_from_scan_in": 86,
+    "chain_length": 234,
+    "pattern_count": 18,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2287,
+    "offset_from_scan_in": 87,
+    "chain_length": 234,
+    "pattern_count": 7,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.5546,
+    "offset_from_scan_in": 230,
+    "chain_length": 234,
+    "pattern_count": 8,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8342,
+    "offset_from_scan_in": 200,
+    "chain_length": 234,
+    "pattern_count": 14,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1997,
+    "offset_from_scan_in": 216,
+    "chain_length": 234,
+    "pattern_count": 21,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1458,
+    "offset_from_scan_in": 226,
+    "chain_length": 234,
+    "pattern_count": 32,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.597,
+    "offset_from_scan_in": 150,
+    "chain_length": 234,
+    "pattern_count": 8,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1305,
+    "offset_from_scan_in": 146,
+    "chain_length": 234,
+    "pattern_count": 24,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.3495,
+    "offset_from_scan_in": 197,
+    "chain_length": 234,
+    "pattern_count": 2,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.5792,
+    "offset_from_scan_in": 182,
+    "chain_length": 234,
+    "pattern_count": 22,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2075,
+    "offset_from_scan_in": 59,
+    "chain_length": 234,
+    "pattern_count": 4,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.2312,
+    "offset_from_scan_in": 4,
+    "chain_length": 234,
+    "pattern_count": 8,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2469,
+    "offset_from_scan_in": 93,
+    "chain_length": 234,
+    "pattern_count": 20,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.921,
+    "offset_from_scan_in": 101,
+    "chain_length": 234,
+    "pattern_count": 6,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8462,
+    "offset_from_scan_in": 59,
+    "chain_length": 234,
+    "pattern_count": 22,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7214,
+    "offset_from_scan_in": 123,
+    "chain_length": 234,
+    "pattern_count": 1,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8033,
+    "offset_from_scan_in": 33,
+    "chain_length": 234,
+    "pattern_count": 13,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5565,
+    "offset_from_scan_in": 0,
+    "chain_length": 234,
+    "pattern_count": 15,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5748,
+    "offset_from_scan_in": 207,
+    "chain_length": 234,
+    "pattern_count": 13,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3877,
+    "offset_from_scan_in": 219,
+    "chain_length": 234,
+    "pattern_count": 10,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6794,
+    "offset_from_scan_in": 177,
+    "chain_length": 234,
+    "pattern_count": 33,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1225,
+    "offset_from_scan_in": 55,
+    "chain_length": 234,
+    "pattern_count": 9,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6559,
+    "offset_from_scan_in": 143,
+    "chain_length": 234,
+    "pattern_count": 24,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6436,
+    "offset_from_scan_in": 75,
+    "chain_length": 234,
+    "pattern_count": 14,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6895,
+    "offset_from_scan_in": 18,
+    "chain_length": 234,
+    "pattern_count": 34,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7759,
+    "offset_from_scan_in": 111,
+    "chain_length": 234,
+    "pattern_count": 29,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7271,
+    "offset_from_scan_in": 187,
+    "chain_length": 234,
+    "pattern_count": 30,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1234,
+    "offset_from_scan_in": 67,
+    "chain_length": 234,
+    "pattern_count": 29,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1035,
+    "offset_from_scan_in": 140,
+    "chain_length": 234,
+    "pattern_count": 16,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.506,
+    "offset_from_scan_in": 20,
+    "chain_length": 234,
+    "pattern_count": 14,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.6873,
+    "offset_from_scan_in": 201,
+    "chain_length": 234,
+    "pattern_count": 5,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.1799,
+    "offset_from_scan_in": 86,
+    "chain_length": 234,
+    "pattern_count": 14,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.4701,
+    "offset_from_scan_in": 195,
+    "chain_length": 234,
+    "pattern_count": 23,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1284,
+    "offset_from_scan_in": 23,
+    "chain_length": 234,
+    "pattern_count": 5,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6994,
+    "offset_from_scan_in": 12,
+    "chain_length": 234,
+    "pattern_count": 12,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5436,
+    "offset_from_scan_in": 72,
+    "chain_length": 234,
+    "pattern_count": 27,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2777,
+    "offset_from_scan_in": 88,
+    "chain_length": 234,
+    "pattern_count": 30,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.8897,
+    "offset_from_scan_in": 212,
+    "chain_length": 234,
+    "pattern_count": 33,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6141,
+    "offset_from_scan_in": 34,
+    "chain_length": 234,
+    "pattern_count": 15,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3597,
+    "offset_from_scan_in": 156,
+    "chain_length": 234,
+    "pattern_count": 9,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.899,
+    "offset_from_scan_in": 127,
+    "chain_length": 234,
+    "pattern_count": 22,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.518,
+    "offset_from_scan_in": 143,
+    "chain_length": 234,
+    "pattern_count": 8,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.745,
+    "offset_from_scan_in": 193,
+    "chain_length": 234,
+    "pattern_count": 26,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3619,
+    "offset_from_scan_in": 193,
+    "chain_length": 234,
+    "pattern_count": 30,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.6981,
+    "offset_from_scan_in": 39,
+    "chain_length": 234,
+    "pattern_count": 29,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8325,
+    "offset_from_scan_in": 92,
+    "chain_length": 234,
+    "pattern_count": 26,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.455,
+    "offset_from_scan_in": 95,
+    "chain_length": 234,
+    "pattern_count": 20,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8566,
+    "offset_from_scan_in": 161,
+    "chain_length": 234,
+    "pattern_count": 14,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5424,
+    "offset_from_scan_in": 131,
+    "chain_length": 234,
+    "pattern_count": 28,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6173,
+    "offset_from_scan_in": 91,
+    "chain_length": 234,
+    "pattern_count": 16,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4588,
+    "offset_from_scan_in": 116,
+    "chain_length": 234,
+    "pattern_count": 17,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5249,
+    "offset_from_scan_in": 183,
+    "chain_length": 234,
+    "pattern_count": 28,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8205,
+    "offset_from_scan_in": 136,
+    "chain_length": 234,
+    "pattern_count": 30,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3568,
+    "offset_from_scan_in": 183,
+    "chain_length": 234,
+    "pattern_count": 26,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3296,
+    "offset_from_scan_in": 113,
+    "chain_length": 234,
+    "pattern_count": 18,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8882,
+    "offset_from_scan_in": 55,
+    "chain_length": 234,
+    "pattern_count": 34,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8377,
+    "offset_from_scan_in": 127,
+    "chain_length": 234,
+    "pattern_count": 2,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7199,
+    "offset_from_scan_in": 157,
+    "chain_length": 234,
+    "pattern_count": 19,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7386,
+    "offset_from_scan_in": 5,
+    "chain_length": 234,
+    "pattern_count": 16,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2534,
+    "offset_from_scan_in": 130,
+    "chain_length": 234,
+    "pattern_count": 22,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3247,
+    "offset_from_scan_in": 193,
+    "chain_length": 234,
+    "pattern_count": 5,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5529,
+    "offset_from_scan_in": 123,
+    "chain_length": 234,
+    "pattern_count": 34,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5611,
+    "offset_from_scan_in": 215,
+    "chain_length": 234,
+    "pattern_count": 28,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2511,
+    "offset_from_scan_in": 59,
+    "chain_length": 234,
+    "pattern_count": 26,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4541,
+    "offset_from_scan_in": 121,
+    "chain_length": 234,
+    "pattern_count": 31,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5995,
+    "offset_from_scan_in": 7,
+    "chain_length": 234,
+    "pattern_count": 12,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2634,
+    "offset_from_scan_in": 13,
+    "chain_length": 234,
+    "pattern_count": 19,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1838,
+    "offset_from_scan_in": 70,
+    "chain_length": 234,
+    "pattern_count": 29,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4245,
+    "offset_from_scan_in": 110,
+    "chain_length": 234,
+    "pattern_count": 27,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5473,
+    "offset_from_scan_in": 231,
+    "chain_length": 234,
+    "pattern_count": 2,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.8536,
+    "offset_from_scan_in": 25,
+    "chain_length": 234,
+    "pattern_count": 3,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8827,
+    "offset_from_scan_in": 119,
+    "chain_length": 234,
+    "pattern_count": 24,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6875,
+    "offset_from_scan_in": 175,
+    "chain_length": 234,
+    "pattern_count": 32,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1652,
+    "offset_from_scan_in": 138,
+    "chain_length": 234,
+    "pattern_count": 33,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.857,
+    "offset_from_scan_in": 191,
+    "chain_length": 234,
+    "pattern_count": 34,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8987,
+    "offset_from_scan_in": 36,
+    "chain_length": 234,
+    "pattern_count": 2,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6837,
+    "offset_from_scan_in": 129,
+    "chain_length": 234,
+    "pattern_count": 18,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2053,
+    "offset_from_scan_in": 184,
+    "chain_length": 234,
+    "pattern_count": 4,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.295,
+    "offset_from_scan_in": 178,
+    "chain_length": 234,
+    "pattern_count": 24,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9415,
+    "offset_from_scan_in": 106,
+    "chain_length": 234,
+    "pattern_count": 14,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7658,
+    "offset_from_scan_in": 52,
+    "chain_length": 234,
+    "pattern_count": 34,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6641,
+    "offset_from_scan_in": 198,
+    "chain_length": 234,
+    "pattern_count": 13,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.9984,
+    "offset_from_scan_in": 2,
+    "chain_length": 234,
+    "pattern_count": 17,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2071,
+    "offset_from_scan_in": 64,
+    "chain_length": 234,
+    "pattern_count": 9,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2654,
+    "offset_from_scan_in": 211,
+    "chain_length": 234,
+    "pattern_count": 6,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.7242,
+    "offset_from_scan_in": 97,
+    "chain_length": 234,
+    "pattern_count": 2,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3543,
+    "offset_from_scan_in": 179,
+    "chain_length": 234,
+    "pattern_count": 21,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.359,
+    "offset_from_scan_in": 157,
+    "chain_length": 234,
+    "pattern_count": 24,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.9827,
+    "offset_from_scan_in": 217,
+    "chain_length": 234,
+    "pattern_count": 26,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8313,
+    "offset_from_scan_in": 122,
+    "chain_length": 234,
+    "pattern_count": 26,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5165,
+    "offset_from_scan_in": 47,
+    "chain_length": 234,
+    "pattern_count": 29,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6848,
+    "offset_from_scan_in": 115,
+    "chain_length": 234,
+    "pattern_count": 10,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8082,
+    "offset_from_scan_in": 89,
+    "chain_length": 234,
+    "pattern_count": 15,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2885,
+    "offset_from_scan_in": 86,
+    "chain_length": 234,
+    "pattern_count": 20,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7908,
+    "offset_from_scan_in": 168,
+    "chain_length": 234,
+    "pattern_count": 13,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8335,
+    "offset_from_scan_in": 96,
+    "chain_length": 234,
+    "pattern_count": 11,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.6948,
+    "offset_from_scan_in": 223,
+    "chain_length": 234,
+    "pattern_count": 15,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.473,
+    "offset_from_scan_in": 160,
+    "chain_length": 234,
+    "pattern_count": 18,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4734,
+    "offset_from_scan_in": 195,
+    "chain_length": 234,
+    "pattern_count": 5,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9376,
+    "offset_from_scan_in": 52,
+    "chain_length": 234,
+    "pattern_count": 2,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1182,
+    "offset_from_scan_in": 101,
+    "chain_length": 234,
+    "pattern_count": 9,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3471,
+    "offset_from_scan_in": 33,
+    "chain_length": 234,
+    "pattern_count": 14,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2457,
+    "offset_from_scan_in": 45,
+    "chain_length": 234,
+    "pattern_count": 4,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5936,
+    "offset_from_scan_in": 77,
+    "chain_length": 234,
+    "pattern_count": 8,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1975,
+    "offset_from_scan_in": 165,
+    "chain_length": 234,
+    "pattern_count": 5,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.6559,
+    "offset_from_scan_in": 151,
+    "chain_length": 234,
+    "pattern_count": 21,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9771,
+    "offset_from_scan_in": 94,
+    "chain_length": 234,
+    "pattern_count": 7,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4456,
+    "offset_from_scan_in": 102,
+    "chain_length": 234,
+    "pattern_count": 32,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.4412,
+    "offset_from_scan_in": 156,
+    "chain_length": 234,
+    "pattern_count": 23,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9306,
+    "offset_from_scan_in": 92,
+    "chain_length": 234,
+    "pattern_count": 20,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.58,
+    "offset_from_scan_in": 35,
+    "chain_length": 234,
+    "pattern_count": 23,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3197,
+    "offset_from_scan_in": 59,
+    "chain_length": 234,
+    "pattern_count": 30,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9995,
+    "offset_from_scan_in": 129,
+    "chain_length": 234,
+    "pattern_count": 1,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.154,
+    "offset_from_scan_in": 39,
+    "chain_length": 234,
+    "pattern_count": 21,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4287,
+    "offset_from_scan_in": 80,
+    "chain_length": 234,
+    "pattern_count": 24,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6068,
+    "offset_from_scan_in": 168,
+    "chain_length": 234,
+    "pattern_count": 30,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3894,
+    "offset_from_scan_in": 166,
+    "chain_length": 234,
+    "pattern_count": 3,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.988,
+    "offset_from_scan_in": 195,
+    "chain_length": 234,
+    "pattern_count": 8,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3552,
+    "offset_from_scan_in": 174,
+    "chain_length": 234,
+    "pattern_count": 15,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9619,
+    "offset_from_scan_in": 152,
+    "chain_length": 234,
+    "pattern_count": 30,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2332,
+    "offset_from_scan_in": 109,
+    "chain_length": 234,
+    "pattern_count": 32,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2413,
+    "offset_from_scan_in": 122,
+    "chain_length": 234,
+    "pattern_count": 1,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.8175,
+    "offset_from_scan_in": 153,
+    "chain_length": 234,
+    "pattern_count": 33,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3314,
+    "offset_from_scan_in": 216,
+    "chain_length": 234,
+    "pattern_count": 19,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6165,
+    "offset_from_scan_in": 232,
+    "chain_length": 234,
+    "pattern_count": 7,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2154,
+    "offset_from_scan_in": 61,
+    "chain_length": 234,
+    "pattern_count": 32,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6885,
+    "offset_from_scan_in": 159,
+    "chain_length": 234,
+    "pattern_count": 25,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6522,
+    "offset_from_scan_in": 194,
+    "chain_length": 234,
+    "pattern_count": 10,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1597,
+    "offset_from_scan_in": 174,
+    "chain_length": 234,
+    "pattern_count": 9,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2443,
+    "offset_from_scan_in": 48,
+    "chain_length": 234,
+    "pattern_count": 21,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.3786,
+    "offset_from_scan_in": 213,
+    "chain_length": 234,
+    "pattern_count": 19,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6896,
+    "offset_from_scan_in": 31,
+    "chain_length": 234,
+    "pattern_count": 8,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8463,
+    "offset_from_scan_in": 149,
+    "chain_length": 234,
+    "pattern_count": 21,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.176,
+    "offset_from_scan_in": 92,
+    "chain_length": 234,
+    "pattern_count": 27,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1716,
+    "offset_from_scan_in": 177,
+    "chain_length": 234,
+    "pattern_count": 26,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.7859,
+    "offset_from_scan_in": 105,
+    "chain_length": 234,
+    "pattern_count": 24,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9533,
+    "offset_from_scan_in": 58,
+    "chain_length": 234,
+    "pattern_count": 4,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4539,
+    "offset_from_scan_in": 82,
+    "chain_length": 234,
+    "pattern_count": 26,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3827,
+    "offset_from_scan_in": 97,
+    "chain_length": 234,
+    "pattern_count": 5,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6422,
+    "offset_from_scan_in": 149,
+    "chain_length": 234,
+    "pattern_count": 13,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3285,
+    "offset_from_scan_in": 89,
+    "chain_length": 234,
+    "pattern_count": 8,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.656,
+    "offset_from_scan_in": 213,
+    "chain_length": 234,
+    "pattern_count": 1,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4417,
+    "offset_from_scan_in": 55,
+    "chain_length": 234,
+    "pattern_count": 32,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7746,
+    "offset_from_scan_in": 49,
+    "chain_length": 234,
+    "pattern_count": 34,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9268,
+    "offset_from_scan_in": 184,
+    "chain_length": 234,
+    "pattern_count": 9,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6836,
+    "offset_from_scan_in": 5,
+    "chain_length": 234,
+    "pattern_count": 27,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6556,
+    "offset_from_scan_in": 46,
+    "chain_length": 234,
+    "pattern_count": 6,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.638,
+    "offset_from_scan_in": 187,
+    "chain_length": 234,
+    "pattern_count": 16,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4365,
+    "offset_from_scan_in": 16,
+    "chain_length": 234,
+    "pattern_count": 16,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7585,
+    "offset_from_scan_in": 15,
+    "chain_length": 234,
+    "pattern_count": 16,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8342,
+    "offset_from_scan_in": 126,
+    "chain_length": 234,
+    "pattern_count": 25,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4037,
+    "offset_from_scan_in": 1,
+    "chain_length": 234,
+    "pattern_count": 21,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2998,
+    "offset_from_scan_in": 52,
+    "chain_length": 234,
+    "pattern_count": 4,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.7849,
+    "offset_from_scan_in": 126,
+    "chain_length": 234,
+    "pattern_count": 11,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5921,
+    "offset_from_scan_in": 187,
+    "chain_length": 234,
+    "pattern_count": 32,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8652,
+    "offset_from_scan_in": 91,
+    "chain_length": 234,
+    "pattern_count": 33,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1752,
+    "offset_from_scan_in": 75,
+    "chain_length": 234,
+    "pattern_count": 14,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9579,
+    "offset_from_scan_in": 51,
+    "chain_length": 234,
+    "pattern_count": 7,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6769,
+    "offset_from_scan_in": 13,
+    "chain_length": 234,
+    "pattern_count": 23,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.268,
+    "offset_from_scan_in": 5,
+    "chain_length": 234,
+    "pattern_count": 32,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.74,
+    "offset_from_scan_in": 139,
+    "chain_length": 234,
+    "pattern_count": 23,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2435,
+    "offset_from_scan_in": 178,
+    "chain_length": 234,
+    "pattern_count": 23,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.246,
+    "offset_from_scan_in": 214,
+    "chain_length": 234,
+    "pattern_count": 12,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2714,
+    "offset_from_scan_in": 159,
+    "chain_length": 234,
+    "pattern_count": 7,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.72,
+    "offset_from_scan_in": 171,
+    "chain_length": 234,
+    "pattern_count": 33,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1885,
+    "offset_from_scan_in": 161,
+    "chain_length": 234,
+    "pattern_count": 2,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.8588,
+    "offset_from_scan_in": 131,
+    "chain_length": 234,
+    "pattern_count": 2,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.373,
+    "offset_from_scan_in": 139,
+    "chain_length": 234,
+    "pattern_count": 6,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8443,
+    "offset_from_scan_in": 94,
+    "chain_length": 234,
+    "pattern_count": 22,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8726,
+    "offset_from_scan_in": 69,
+    "chain_length": 234,
+    "pattern_count": 7,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4185,
+    "offset_from_scan_in": 188,
+    "chain_length": 234,
+    "pattern_count": 5,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1632,
+    "offset_from_scan_in": 199,
+    "chain_length": 234,
+    "pattern_count": 2,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.984,
+    "offset_from_scan_in": 28,
+    "chain_length": 234,
+    "pattern_count": 33,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6407,
+    "offset_from_scan_in": 15,
+    "chain_length": 234,
+    "pattern_count": 24,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.169,
+    "offset_from_scan_in": 187,
+    "chain_length": 234,
+    "pattern_count": 21,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.7397,
+    "offset_from_scan_in": 130,
+    "chain_length": 234,
+    "pattern_count": 34,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8803,
+    "offset_from_scan_in": 172,
+    "chain_length": 234,
+    "pattern_count": 13,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9433,
+    "offset_from_scan_in": 177,
+    "chain_length": 234,
+    "pattern_count": 9,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1519,
+    "offset_from_scan_in": 231,
+    "chain_length": 234,
+    "pattern_count": 3,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.229,
+    "offset_from_scan_in": 134,
+    "chain_length": 234,
+    "pattern_count": 10,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5981,
+    "offset_from_scan_in": 113,
+    "chain_length": 234,
+    "pattern_count": 24,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5995,
+    "offset_from_scan_in": 135,
+    "chain_length": 234,
+    "pattern_count": 4,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.7854,
+    "offset_from_scan_in": 72,
+    "chain_length": 234,
+    "pattern_count": 32,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9354,
+    "offset_from_scan_in": 198,
+    "chain_length": 234,
+    "pattern_count": 15,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1985,
+    "offset_from_scan_in": 229,
+    "chain_length": 234,
+    "pattern_count": 4,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.8116,
+    "offset_from_scan_in": 228,
+    "chain_length": 234,
+    "pattern_count": 21,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4193,
+    "offset_from_scan_in": 142,
+    "chain_length": 234,
+    "pattern_count": 1,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3468,
+    "offset_from_scan_in": 126,
+    "chain_length": 234,
+    "pattern_count": 28,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2251,
+    "offset_from_scan_in": 184,
+    "chain_length": 234,
+    "pattern_count": 28,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6833,
+    "offset_from_scan_in": 80,
+    "chain_length": 234,
+    "pattern_count": 17,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5665,
+    "offset_from_scan_in": 85,
+    "chain_length": 234,
+    "pattern_count": 4,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9587,
+    "offset_from_scan_in": 56,
+    "chain_length": 234,
+    "pattern_count": 10,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9084,
+    "offset_from_scan_in": 221,
+    "chain_length": 234,
+    "pattern_count": 20,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2034,
+    "offset_from_scan_in": 206,
+    "chain_length": 234,
+    "pattern_count": 19,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8915,
+    "offset_from_scan_in": 70,
+    "chain_length": 234,
+    "pattern_count": 17,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3438,
+    "offset_from_scan_in": 221,
+    "chain_length": 234,
+    "pattern_count": 17,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1913,
+    "offset_from_scan_in": 189,
+    "chain_length": 234,
+    "pattern_count": 11,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1714,
+    "offset_from_scan_in": 37,
+    "chain_length": 234,
+    "pattern_count": 24,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4048,
+    "offset_from_scan_in": 14,
+    "chain_length": 234,
+    "pattern_count": 8,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9564,
+    "offset_from_scan_in": 76,
+    "chain_length": 234,
+    "pattern_count": 5,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6775,
+    "offset_from_scan_in": 161,
+    "chain_length": 234,
+    "pattern_count": 25,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5351,
+    "offset_from_scan_in": 97,
+    "chain_length": 234,
+    "pattern_count": 19,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6982,
+    "offset_from_scan_in": 111,
+    "chain_length": 234,
+    "pattern_count": 2,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2717,
+    "offset_from_scan_in": 196,
+    "chain_length": 234,
+    "pattern_count": 22,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1812,
+    "offset_from_scan_in": 31,
+    "chain_length": 234,
+    "pattern_count": 15,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6211,
+    "offset_from_scan_in": 127,
+    "chain_length": 234,
+    "pattern_count": 17,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.7807,
+    "offset_from_scan_in": 223,
+    "chain_length": 234,
+    "pattern_count": 17,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9483,
+    "offset_from_scan_in": 111,
+    "chain_length": 234,
+    "pattern_count": 11,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.7468,
+    "offset_from_scan_in": 78,
+    "chain_length": 234,
+    "pattern_count": 2,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6397,
+    "offset_from_scan_in": 75,
+    "chain_length": 234,
+    "pattern_count": 3,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.5914,
+    "offset_from_scan_in": 183,
+    "chain_length": 234,
+    "pattern_count": 21,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7637,
+    "offset_from_scan_in": 203,
+    "chain_length": 234,
+    "pattern_count": 4,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1112,
+    "offset_from_scan_in": 227,
+    "chain_length": 234,
+    "pattern_count": 15,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.6439,
+    "offset_from_scan_in": 46,
+    "chain_length": 234,
+    "pattern_count": 29,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5558,
+    "offset_from_scan_in": 135,
+    "chain_length": 234,
+    "pattern_count": 8,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1236,
+    "offset_from_scan_in": 18,
+    "chain_length": 234,
+    "pattern_count": 9,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5722,
+    "offset_from_scan_in": 131,
+    "chain_length": 234,
+    "pattern_count": 31,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4061,
+    "offset_from_scan_in": 173,
+    "chain_length": 234,
+    "pattern_count": 28,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5527,
+    "offset_from_scan_in": 105,
+    "chain_length": 234,
+    "pattern_count": 23,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7965,
+    "offset_from_scan_in": 77,
+    "chain_length": 234,
+    "pattern_count": 14,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1349,
+    "offset_from_scan_in": 5,
+    "chain_length": 234,
+    "pattern_count": 12,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6045,
+    "offset_from_scan_in": 218,
+    "chain_length": 234,
+    "pattern_count": 17,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3863,
+    "offset_from_scan_in": 41,
+    "chain_length": 234,
+    "pattern_count": 12,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3832,
+    "offset_from_scan_in": 161,
+    "chain_length": 234,
+    "pattern_count": 12,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.2215,
+    "offset_from_scan_in": 87,
+    "chain_length": 234,
+    "pattern_count": 15,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8696,
+    "offset_from_scan_in": 2,
+    "chain_length": 234,
+    "pattern_count": 6,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1091,
+    "offset_from_scan_in": 154,
+    "chain_length": 234,
+    "pattern_count": 32,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.3581,
+    "offset_from_scan_in": 32,
+    "chain_length": 234,
+    "pattern_count": 30,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2824,
+    "offset_from_scan_in": 131,
+    "chain_length": 234,
+    "pattern_count": 24,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.4953,
+    "offset_from_scan_in": 33,
+    "chain_length": 234,
+    "pattern_count": 10,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9767,
+    "offset_from_scan_in": 151,
+    "chain_length": 234,
+    "pattern_count": 1,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.1673,
+    "offset_from_scan_in": 170,
+    "chain_length": 234,
+    "pattern_count": 4,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.1619,
+    "offset_from_scan_in": 123,
+    "chain_length": 234,
+    "pattern_count": 29,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.8902,
+    "offset_from_scan_in": 191,
+    "chain_length": 234,
+    "pattern_count": 28,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5554,
+    "offset_from_scan_in": 169,
+    "chain_length": 234,
+    "pattern_count": 4,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5601,
+    "offset_from_scan_in": 125,
+    "chain_length": 234,
+    "pattern_count": 2,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.658,
+    "offset_from_scan_in": 14,
+    "chain_length": 234,
+    "pattern_count": 27,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8747,
+    "offset_from_scan_in": 116,
+    "chain_length": 234,
+    "pattern_count": 12,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2388,
+    "offset_from_scan_in": 82,
+    "chain_length": 234,
+    "pattern_count": 18,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9319,
+    "offset_from_scan_in": 100,
+    "chain_length": 234,
+    "pattern_count": 28,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9861,
+    "offset_from_scan_in": 104,
+    "chain_length": 234,
+    "pattern_count": 9,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3959,
+    "offset_from_scan_in": 103,
+    "chain_length": 234,
+    "pattern_count": 11,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3376,
+    "offset_from_scan_in": 178,
+    "chain_length": 234,
+    "pattern_count": 7,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8911,
+    "offset_from_scan_in": 34,
+    "chain_length": 234,
+    "pattern_count": 12,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3953,
+    "offset_from_scan_in": 219,
+    "chain_length": 234,
+    "pattern_count": 28,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1009,
+    "offset_from_scan_in": 7,
+    "chain_length": 234,
+    "pattern_count": 2,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.9438,
+    "offset_from_scan_in": 46,
+    "chain_length": 234,
+    "pattern_count": 31,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.506,
+    "offset_from_scan_in": 110,
+    "chain_length": 234,
+    "pattern_count": 27,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7762,
+    "offset_from_scan_in": 21,
+    "chain_length": 234,
+    "pattern_count": 27,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3793,
+    "offset_from_scan_in": 185,
+    "chain_length": 234,
+    "pattern_count": 33,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5971,
+    "offset_from_scan_in": 109,
+    "chain_length": 234,
+    "pattern_count": 14,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.844,
+    "offset_from_scan_in": 100,
+    "chain_length": 234,
+    "pattern_count": 31,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4979,
+    "offset_from_scan_in": 79,
+    "chain_length": 234,
+    "pattern_count": 24,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.73,
+    "offset_from_scan_in": 46,
+    "chain_length": 234,
+    "pattern_count": 26,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2878,
+    "offset_from_scan_in": 144,
+    "chain_length": 234,
+    "pattern_count": 17,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8704,
+    "offset_from_scan_in": 123,
+    "chain_length": 234,
+    "pattern_count": 21,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7454,
+    "offset_from_scan_in": 175,
+    "chain_length": 234,
+    "pattern_count": 26,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4726,
+    "offset_from_scan_in": 226,
+    "chain_length": 234,
+    "pattern_count": 20,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7464,
+    "offset_from_scan_in": 6,
+    "chain_length": 234,
+    "pattern_count": 20,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7132,
+    "offset_from_scan_in": 108,
+    "chain_length": 234,
+    "pattern_count": 10,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9891,
+    "offset_from_scan_in": 57,
+    "chain_length": 234,
+    "pattern_count": 34,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6485,
+    "offset_from_scan_in": 198,
+    "chain_length": 234,
+    "pattern_count": 6,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5688,
+    "offset_from_scan_in": 142,
+    "chain_length": 234,
+    "pattern_count": 30,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5554,
+    "offset_from_scan_in": 231,
+    "chain_length": 234,
+    "pattern_count": 15,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8539,
+    "offset_from_scan_in": 226,
+    "chain_length": 234,
+    "pattern_count": 17,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5261,
+    "offset_from_scan_in": 0,
+    "chain_length": 234,
+    "pattern_count": 6,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3055,
+    "offset_from_scan_in": 166,
+    "chain_length": 234,
+    "pattern_count": 21,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8999,
+    "offset_from_scan_in": 171,
+    "chain_length": 234,
+    "pattern_count": 19,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.397,
+    "offset_from_scan_in": 152,
+    "chain_length": 234,
+    "pattern_count": 17,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.203,
+    "offset_from_scan_in": 57,
+    "chain_length": 234,
+    "pattern_count": 29,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4096,
+    "offset_from_scan_in": 34,
+    "chain_length": 234,
+    "pattern_count": 18,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5485,
+    "offset_from_scan_in": 125,
+    "chain_length": 234,
+    "pattern_count": 32,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.74,
+    "offset_from_scan_in": 141,
+    "chain_length": 234,
+    "pattern_count": 18,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.976,
+    "offset_from_scan_in": 75,
+    "chain_length": 234,
+    "pattern_count": 28,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8535,
+    "offset_from_scan_in": 52,
+    "chain_length": 234,
+    "pattern_count": 11,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3763,
+    "offset_from_scan_in": 208,
+    "chain_length": 234,
+    "pattern_count": 16,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8381,
+    "offset_from_scan_in": 98,
+    "chain_length": 234,
+    "pattern_count": 9,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7892,
+    "offset_from_scan_in": 146,
+    "chain_length": 234,
+    "pattern_count": 27,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9236,
+    "offset_from_scan_in": 210,
+    "chain_length": 234,
+    "pattern_count": 28,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8014,
+    "offset_from_scan_in": 90,
+    "chain_length": 234,
+    "pattern_count": 10,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8254,
+    "offset_from_scan_in": 109,
+    "chain_length": 234,
+    "pattern_count": 3,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.8825,
+    "offset_from_scan_in": 173,
+    "chain_length": 234,
+    "pattern_count": 31,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3582,
+    "offset_from_scan_in": 61,
+    "chain_length": 234,
+    "pattern_count": 5,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.942,
+    "offset_from_scan_in": 180,
+    "chain_length": 234,
+    "pattern_count": 1,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2791,
+    "offset_from_scan_in": 58,
+    "chain_length": 234,
+    "pattern_count": 8,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6535,
+    "offset_from_scan_in": 3,
+    "chain_length": 234,
+    "pattern_count": 31,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.429,
+    "offset_from_scan_in": 82,
+    "chain_length": 234,
+    "pattern_count": 6,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.6596,
+    "offset_from_scan_in": 57,
+    "chain_length": 234,
+    "pattern_count": 10,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7016,
+    "offset_from_scan_in": 79,
+    "chain_length": 234,
+    "pattern_count": 20,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6785,
+    "offset_from_scan_in": 33,
+    "chain_length": 234,
+    "pattern_count": 7,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.639,
+    "offset_from_scan_in": 181,
+    "chain_length": 234,
+    "pattern_count": 15,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8399,
+    "offset_from_scan_in": 17,
+    "chain_length": 234,
+    "pattern_count": 8,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3489,
+    "offset_from_scan_in": 166,
+    "chain_length": 234,
+    "pattern_count": 2,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1466,
+    "offset_from_scan_in": 157,
+    "chain_length": 234,
+    "pattern_count": 26,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3224,
+    "offset_from_scan_in": 100,
+    "chain_length": 234,
+    "pattern_count": 30,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3783,
+    "offset_from_scan_in": 126,
+    "chain_length": 234,
+    "pattern_count": 7,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2427,
+    "offset_from_scan_in": 208,
+    "chain_length": 234,
+    "pattern_count": 15,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2914,
+    "offset_from_scan_in": 213,
+    "chain_length": 234,
+    "pattern_count": 31,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3164,
+    "offset_from_scan_in": 58,
+    "chain_length": 234,
+    "pattern_count": 15,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.442,
+    "offset_from_scan_in": 25,
+    "chain_length": 234,
+    "pattern_count": 20,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3666,
+    "offset_from_scan_in": 8,
+    "chain_length": 234,
+    "pattern_count": 12,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.3898,
+    "offset_from_scan_in": 216,
+    "chain_length": 234,
+    "pattern_count": 20,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7641,
+    "offset_from_scan_in": 0,
+    "chain_length": 234,
+    "pattern_count": 6,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.266,
+    "offset_from_scan_in": 178,
+    "chain_length": 234,
+    "pattern_count": 4,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.6536,
+    "offset_from_scan_in": 81,
+    "chain_length": 234,
+    "pattern_count": 13,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.183,
+    "offset_from_scan_in": 184,
+    "chain_length": 234,
+    "pattern_count": 19,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.3695,
+    "offset_from_scan_in": 138,
+    "chain_length": 234,
+    "pattern_count": 2,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.895,
+    "offset_from_scan_in": 20,
+    "chain_length": 234,
+    "pattern_count": 9,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1547,
+    "offset_from_scan_in": 18,
+    "chain_length": 234,
+    "pattern_count": 6,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4951,
+    "offset_from_scan_in": 206,
+    "chain_length": 234,
+    "pattern_count": 25,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.993,
+    "offset_from_scan_in": 135,
+    "chain_length": 234,
+    "pattern_count": 26,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7572,
+    "offset_from_scan_in": 96,
+    "chain_length": 234,
+    "pattern_count": 28,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6745,
+    "offset_from_scan_in": 132,
+    "chain_length": 234,
+    "pattern_count": 18,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8378,
+    "offset_from_scan_in": 182,
+    "chain_length": 234,
+    "pattern_count": 28,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7387,
+    "offset_from_scan_in": 23,
+    "chain_length": 234,
+    "pattern_count": 26,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6162,
+    "offset_from_scan_in": 154,
+    "chain_length": 234,
+    "pattern_count": 20,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3295,
+    "offset_from_scan_in": 111,
+    "chain_length": 234,
+    "pattern_count": 25,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2901,
+    "offset_from_scan_in": 108,
+    "chain_length": 234,
+    "pattern_count": 7,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1811,
+    "offset_from_scan_in": 26,
+    "chain_length": 234,
+    "pattern_count": 25,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3786,
+    "offset_from_scan_in": 135,
+    "chain_length": 234,
+    "pattern_count": 7,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5057,
+    "offset_from_scan_in": 37,
+    "chain_length": 234,
+    "pattern_count": 26,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3355,
+    "offset_from_scan_in": 66,
+    "chain_length": 234,
+    "pattern_count": 10,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9894,
+    "offset_from_scan_in": 111,
+    "chain_length": 234,
+    "pattern_count": 12,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1526,
+    "offset_from_scan_in": 99,
+    "chain_length": 234,
+    "pattern_count": 27,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6958,
+    "offset_from_scan_in": 68,
+    "chain_length": 234,
+    "pattern_count": 22,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7126,
+    "offset_from_scan_in": 154,
+    "chain_length": 234,
+    "pattern_count": 28,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.734,
+    "offset_from_scan_in": 144,
+    "chain_length": 234,
+    "pattern_count": 3,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.1765,
+    "offset_from_scan_in": 114,
+    "chain_length": 234,
+    "pattern_count": 29,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5723,
+    "offset_from_scan_in": 161,
+    "chain_length": 234,
+    "pattern_count": 32,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4141,
+    "offset_from_scan_in": 145,
+    "chain_length": 234,
+    "pattern_count": 24,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.121,
+    "offset_from_scan_in": 193,
+    "chain_length": 234,
+    "pattern_count": 6,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.684,
+    "offset_from_scan_in": 115,
+    "chain_length": 234,
+    "pattern_count": 27,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.114,
+    "offset_from_scan_in": 63,
+    "chain_length": 234,
+    "pattern_count": 8,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1181,
+    "offset_from_scan_in": 11,
+    "chain_length": 234,
+    "pattern_count": 6,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.9421,
+    "offset_from_scan_in": 59,
+    "chain_length": 234,
+    "pattern_count": 28,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6077,
+    "offset_from_scan_in": 51,
+    "chain_length": 234,
+    "pattern_count": 3,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.485,
+    "offset_from_scan_in": 18,
+    "chain_length": 234,
+    "pattern_count": 10,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7917,
+    "offset_from_scan_in": 97,
+    "chain_length": 234,
+    "pattern_count": 22,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7506,
+    "offset_from_scan_in": 86,
+    "chain_length": 234,
+    "pattern_count": 19,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.942,
+    "offset_from_scan_in": 148,
+    "chain_length": 234,
+    "pattern_count": 22,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4724,
+    "offset_from_scan_in": 132,
+    "chain_length": 234,
+    "pattern_count": 16,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.717,
+    "offset_from_scan_in": 230,
+    "chain_length": 234,
+    "pattern_count": 2,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7143,
+    "offset_from_scan_in": 201,
+    "chain_length": 234,
+    "pattern_count": 22,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9632,
+    "offset_from_scan_in": 208,
+    "chain_length": 234,
+    "pattern_count": 18,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.3126,
+    "offset_from_scan_in": 17,
+    "chain_length": 234,
+    "pattern_count": 10,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4301,
+    "offset_from_scan_in": 198,
+    "chain_length": 234,
+    "pattern_count": 14,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8239,
+    "offset_from_scan_in": 33,
+    "chain_length": 234,
+    "pattern_count": 15,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.523,
+    "offset_from_scan_in": 189,
+    "chain_length": 234,
+    "pattern_count": 1,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.9543,
+    "offset_from_scan_in": 129,
+    "chain_length": 234,
+    "pattern_count": 12,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.6581,
+    "offset_from_scan_in": 156,
+    "chain_length": 234,
+    "pattern_count": 16,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2004,
+    "offset_from_scan_in": 191,
+    "chain_length": 234,
+    "pattern_count": 5,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.1017,
+    "offset_from_scan_in": 36,
+    "chain_length": 234,
+    "pattern_count": 33,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.7457,
+    "offset_from_scan_in": 122,
+    "chain_length": 234,
+    "pattern_count": 32,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.977,
+    "offset_from_scan_in": 53,
+    "chain_length": 234,
+    "pattern_count": 2,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.936,
+    "offset_from_scan_in": 98,
+    "chain_length": 234,
+    "pattern_count": 9,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5643,
+    "offset_from_scan_in": 166,
+    "chain_length": 234,
+    "pattern_count": 18,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.38,
+    "offset_from_scan_in": 8,
+    "chain_length": 234,
+    "pattern_count": 14,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.229,
+    "offset_from_scan_in": 171,
+    "chain_length": 234,
+    "pattern_count": 28,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4369,
+    "offset_from_scan_in": 118,
+    "chain_length": 234,
+    "pattern_count": 23,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5923,
+    "offset_from_scan_in": 162,
+    "chain_length": 234,
+    "pattern_count": 28,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8789,
+    "offset_from_scan_in": 66,
+    "chain_length": 234,
+    "pattern_count": 14,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5668,
+    "offset_from_scan_in": 215,
+    "chain_length": 234,
+    "pattern_count": 19,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.2961,
+    "offset_from_scan_in": 202,
+    "chain_length": 234,
+    "pattern_count": 30,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.2866,
+    "offset_from_scan_in": 73,
+    "chain_length": 234,
+    "pattern_count": 20,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.225,
+    "offset_from_scan_in": 22,
+    "chain_length": 234,
+    "pattern_count": 31,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5591,
+    "offset_from_scan_in": 164,
+    "chain_length": 234,
+    "pattern_count": 2,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4084,
+    "offset_from_scan_in": 67,
+    "chain_length": 234,
+    "pattern_count": 23,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1657,
+    "offset_from_scan_in": 216,
+    "chain_length": 234,
+    "pattern_count": 7,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.26,
+    "offset_from_scan_in": 49,
+    "chain_length": 234,
+    "pattern_count": 30,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.8882,
+    "offset_from_scan_in": 200,
+    "chain_length": 234,
+    "pattern_count": 11,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.9499,
+    "offset_from_scan_in": 175,
+    "chain_length": 234,
+    "pattern_count": 25,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9902,
+    "offset_from_scan_in": 31,
+    "chain_length": 234,
+    "pattern_count": 33,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.384,
+    "offset_from_scan_in": 123,
+    "chain_length": 234,
+    "pattern_count": 5,
+    "root_cause_type": "HOLD",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4104,
+    "offset_from_scan_in": 78,
+    "chain_length": 234,
+    "pattern_count": 4,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4889,
+    "offset_from_scan_in": 16,
+    "chain_length": 234,
+    "pattern_count": 5,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.5697,
+    "offset_from_scan_in": 167,
+    "chain_length": 234,
+    "pattern_count": 7,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1493,
+    "offset_from_scan_in": 152,
+    "chain_length": 234,
+    "pattern_count": 5,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 0
+  },
+  {
+    "pattern_consistency": 0.1786,
+    "offset_from_scan_in": 139,
+    "chain_length": 234,
+    "pattern_count": 15,
+    "root_cause_type": "SETUP",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.4349,
+    "offset_from_scan_in": 51,
+    "chain_length": 234,
+    "pattern_count": 3,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.9914,
+    "offset_from_scan_in": 110,
+    "chain_length": 234,
+    "pattern_count": 34,
+    "root_cause_type": "DEFECT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1726,
+    "offset_from_scan_in": 196,
+    "chain_length": 234,
+    "pattern_count": 12,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  },
+  {
+    "pattern_consistency": 0.1857,
+    "offset_from_scan_in": 198,
+    "chain_length": 234,
+    "pattern_count": 16,
+    "root_cause_type": "SHIFT",
+    "pfa_confirmed": 1
+  }
+]

@@ -1,0 +1,1 @@
+{"timestamp": "2026-07-01T06:33:20.297169+00:00", "run_id": "2026-07-01T06-33-20Z_cceb66de", "level": "WARNING", "logger": "sca:2026-07-01T06-33-20Z_cceb66de", "message": "Root-cause classifier skipped: module 'ml_pipeline' has no attribute 'load_classifier_metrics'"}
