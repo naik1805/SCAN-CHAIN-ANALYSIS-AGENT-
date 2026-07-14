@@ -125,10 +125,9 @@ def _connectivity_summary_table(graph: dict) -> str:
     system_nodes = [n for n in nodes if n.get("type") != "scan_cell"]
     system_edges = [
         e for e in edges
-        if not str(e.get("source", "")).endswith(":cell:0")
-        and ":cell:" not in str(e.get("source", ""))
+        if ":cell:" not in str(e.get("source", ""))
         and ":cell:" not in str(e.get("target", ""))
-    ][:40]
+    ]
 
     node_rows = "".join(
         f"<tr><td class='mono'>{_esc(n.get('id'))}</td>"
@@ -144,15 +143,15 @@ def _connectivity_summary_table(graph: dict) -> str:
     )
     return f"""
     <p class="section-desc">
-        System-level DFT connectivity (JTAG → TAP → EDT → chains). Full cell-level graph:
-        {graph.get('node_count', 0):,} nodes, {graph.get('edge_count', 0):,} edges.
+        System-level DFT connectivity (JTAG → TAP → EDT → chains). Full cell-level graph
+        is omitted here ({graph.get('node_count', 0):,} nodes, {graph.get('edge_count', 0):,} edges).
     </p>
     <h4>System Nodes ({len(system_nodes)})</h4>
     <table>
         <thead><tr><th>Node ID</th><th>Type</th><th>Label</th></tr></thead>
         <tbody>{node_rows}</tbody>
     </table>
-    <h4>System Edges (sample of {len(system_edges)})</h4>
+    <h4>System Edges ({len(system_edges)})</h4>
     <table>
         <thead><tr><th>Source</th><th>Target</th><th>Edge Type</th></tr></thead>
         <tbody>{edge_rows}</tbody>

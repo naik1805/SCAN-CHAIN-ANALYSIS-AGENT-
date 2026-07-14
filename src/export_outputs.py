@@ -19,6 +19,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 import pandas as pd
+import numpy as np
 
 from parser import discover_logs, parse_log_to_dataframe
 from stil_parser import parse_stil_scan_structures, parse_hardware_topology_md, find_topology_md_file, resolve_chain, resolve_active_stil_file
@@ -172,30 +173,27 @@ def build_fr001(df: pd.DataFrame, paths: list[Path]) -> dict:
 
 def build_fr004(df: pd.DataFrame, paths: list[Path]) -> dict:
     """Build the SCD-FR-004 result: chains ranked by failure frequency."""
+    from chain_ranking import available_ranking_features, rank_chains_by_frequency
+
     total = len(df)
-    freq = (
-        df.groupby("chain").size()
-        .reset_index(name="fail_count")
-        .sort_values("fail_count", ascending=False)
-        .reset_index(drop=True)
-    )
-    freq["fail_pct"] = (freq["fail_count"] / total * 100).round(3) if total else 0.0
-    freq["cumulative_pct"] = freq["fail_pct"].cumsum().round(3)
+    freq = rank_chains_by_frequency(df, method="dense")
+    ranking_features = available_ranking_features()
 
     ranking = []
-    for i, row in freq.iterrows():
+    for _, row in freq.iterrows():
         ranking.append(
             {
-                "rank": int(i) + 1,
+                "rank": int(row["rank"]),
                 "chain": row["chain"],
                 "fail_count": int(row["fail_count"]),
                 "fail_pct": float(row["fail_pct"]),
                 "cumulative_pct": float(row["cumulative_pct"]),
+                "rank_method": row.get("rank_method", ranking_features["default_method"]),
             }
         )
 
     # Pareto 80/20: how many chains account for 80% of failures.
-    chains_to_80 = int((freq["cumulative_pct"] <= 80.0).sum())
+    chains_to_80 = int((freq["cumulative_pct"] <= 80.0).sum()) if not freq.empty else 0
     chains_to_80 = max(chains_to_80, 1) if ranking else 0
 
     return {
@@ -208,12 +206,14 @@ def build_fr004(df: pd.DataFrame, paths: list[Path]) -> dict:
             "logs_parsed": len(paths),
             "lots": sorted(df["lot_id"].dropna().unique().tolist()) if not df.empty else [],
         },
+        "ranking_feature": ranking_features,
         "summary": {
             "total_fail_records": int(total),
             "distinct_failing_chains": int(df["chain"].nunique()) if not df.empty else 0,
             "top_chain": ranking[0]["chain"] if ranking else None,
             "top_chain_fail_count": ranking[0]["fail_count"] if ranking else 0,
             "chains_covering_80pct": chains_to_80,
+            "rank_method": ranking_features["default_method"],
         },
         "ranking": ranking,
     }
@@ -439,13 +439,14 @@ def build_fr005(df: pd.DataFrame, paths: list[Path]) -> dict:
 
 
 def build_fr006(df: pd.DataFrame, paths: list[Path]) -> dict:
-    """Build the SCD-FR-006 result: scan chain breaks identified and highlighted."""
-    breaks = []
+    """Build the SCD-FR-006 result: exact scan chain break locations."""
+    from chain_breaks import detect_chain_breaks_detailed
+
     if df.empty:
         return {
             "requirement_id": "SCD-FR-006",
             "requirement": "Identify scan chain breaks",
-            "acceptance_criteria": "Chain breaks detected and highlighted.",
+            "acceptance_criteria": "Exact chain break locations detected and highlighted.",
             "status": "no_failures_found",
             "generated_at": datetime.now(timezone.utc).isoformat(),
             "inputs": {
@@ -455,7 +456,6 @@ def build_fr006(df: pd.DataFrame, paths: list[Path]) -> dict:
             "breaks": []
         }
 
-    # Load chain map
     md_topo_file = find_topology_md_file(DATA_DIR)
     if md_topo_file and md_topo_file.exists():
         chain_map = parse_hardware_topology_md(md_topo_file)
@@ -465,98 +465,41 @@ def build_fr006(df: pd.DataFrame, paths: list[Path]) -> dict:
         chain_map = parse_stil_scan_structures(active_stil) if active_stil else {}
         stil_name = active_stil.name if active_stil else None
 
-    # Enrich df with bit positions and cell names
-    enriched = enrich_with_positions(df, chain_map)
-    if enriched.empty:
-        return {
-            "requirement_id": "SCD-FR-006",
-            "requirement": "Identify scan chain breaks",
-            "acceptance_criteria": "Chain breaks detected and highlighted.",
-            "status": "no_failing_cells_located",
-            "generated_at": datetime.now(timezone.utc).isoformat(),
-            "inputs": {
-                "logs_parsed": len(paths),
-                "total_fail_records": len(df)
-            },
-            "breaks": []
-        }
+    breaks = detect_chain_breaks_detailed(df, chain_map)
+    # Ensure JSON-safe None for UNCERTAIN exact bit (pandas NaN → null)
+    for b in breaks:
+        exact_bit = b.get("exact_break_bit_position")
+        if exact_bit is not None and isinstance(exact_bit, float) and np.isnan(exact_bit):
+            b["exact_break_bit_position"] = None
+        if b.get("location_status") != "CERTAIN":
+            b["exact_break_bit_position"] = None
+            b["exact_break_cell"] = "LOCATION_UNCERTAIN"
 
-    # Group by source_file and chain
-    grouped = enriched.groupby(["source_file", "lot_id", "chain"])
-    
-    for (sf, lot, ch), sub in grouped:
-        min_pos = sub["bit_position"].min()
-        max_pos = sub["bit_position"].max()
-        unique_pos = sub["bit_position"].nunique()
-        total_fails = len(sub)
-        
-        c_len = sub["chain_length"].iloc[0] if "chain_length" in sub.columns else 234
-        
-        # Calculate max possible care position (non-X character)
-        exp_bs = sub["expected_output"].iloc[0] if "expected_output" in sub.columns and pd.notna(sub["expected_output"].iloc[0]) else None
-        if exp_bs and isinstance(exp_bs, str):
-            last_care = len(exp_bs) - 1
-            while last_care >= 0 and exp_bs[last_care] == 'X':
-                last_care -= 1
-            max_possible_pos = last_care if last_care >= 0 else (c_len - 1)
-        else:
-            max_possible_pos = c_len - 1
-
-        # Check scan chain break criteria:
-        # - failures start at some min_pos > 0 (downstream shifts pass)
-        # - failures reach close to the end of the care bits (max_pos >= max_possible_pos - 5)
-        # - consistent failures (unique_pos >= 5)
-        if min_pos > 0 and max_pos >= (max_possible_pos - 5) and unique_pos >= 5:
-            match_cell = sub[sub["bit_position"] == min_pos]
-            cell_name = match_cell["cell_name"].iloc[0] if not match_cell.empty else f"Unknown_FF[{int(min_pos)}]"
-            
-            # Find the full chain_id from log
-            chain_id = sub["chain_id"].iloc[0] if not sub.empty else ""
-            
-            # Find decompressor/compactor pins
-            info = resolve_chain(chain_map, chain_id, ch)
-            scan_in = info.get("scan_in") if info else "Unknown"
-            scan_out = info.get("scan_out") if info else "Unknown"
-            
-            # Get expected-vs-actual bitstream per shift cycle details
-            bitstream_patterns = []
-            grouped_p = sub.groupby("pattern_id")
-            for p_id, p_sub in grouped_p:
-                exp_bs = p_sub["expected_output"].iloc[0] if "expected_output" in p_sub.columns and pd.notna(p_sub["expected_output"].iloc[0]) else None
-                act_bs = p_sub["actual_output"].iloc[0] if "actual_output" in p_sub.columns and pd.notna(p_sub["actual_output"].iloc[0]) else None
-                mismatches = sorted(p_sub["bit_position"].dropna().unique().astype(int).tolist()) if "bit_position" in p_sub.columns else []
-                
-                bitstream_patterns.append({
-                    "pattern_id": str(p_id),
-                    "expected_bitstream": exp_bs,
-                    "actual_bitstream": act_bs,
-                    "mismatches": mismatches
-                })
-            
-            breaks.append({
-                "source_file": sf,
-                "lot_id": lot,
-                "chain": ch,
-                "chain_id": chain_id,
-                "chain_length": int(c_len),
-                "break_bit_position": int(min_pos),
-                "suspected_break_cell": cell_name,
-                "fail_count": int(total_fails),
-                "unique_failing_positions": int(unique_pos),
-                "scan_in": scan_in,
-                "scan_out": scan_out,
-                "expected_actual_bitstreams": bitstream_patterns
-            })
-
-    # Sort breaks by lot, file, and chain
-    breaks.sort(key=lambda x: (x["lot_id"], x["source_file"], x["chain"]))
+    confidences = [b.get("location_confidence", 0.0) for b in breaks]
+    n_certain = sum(1 for b in breaks if b.get("location_status") == "CERTAIN")
+    n_uncertain = len(breaks) - n_certain
 
     return {
         "requirement_id": "SCD-FR-006",
         "requirement": "Identify scan chain breaks",
-        "acceptance_criteria": "Chain breaks detected and highlighted.",
+        "acceptance_criteria": (
+            "Chain break signatures detected; Exact Break Cell claimed only when "
+            "location_status is CERTAIN (soft agreement ≥70% with ≥2 patterns)."
+        ),
         "status": "satisfied" if breaks else "no_breaks_detected",
         "generated_at": datetime.now(timezone.utc).isoformat(),
+        "localization": {
+            "method": "per_pattern_first_mismatch_consensus",
+            "description": (
+                "Candidate break bit = consensus of per-pattern first EXPECTED vs ACTUAL "
+                "mismatch indices from ScanOut; mapped to STIL ScanCells. "
+                "Exact fields are populated only when location_status is CERTAIN "
+                "(soft agreement ≥70% and ≥2 patterns); otherwise exact_break_cell is "
+                "LOCATION_UNCERTAIN and candidate_* fields hold the review localization."
+            ),
+            "certain_soft_agreement_min": 0.70,
+            "certain_min_patterns": 2,
+        },
         "inputs": {
             "logs_parsed": len(paths),
             "total_fail_records": len(df),
@@ -564,8 +507,12 @@ def build_fr006(df: pd.DataFrame, paths: list[Path]) -> dict:
         },
         "summary": {
             "total_detected_breaks": len(breaks),
+            "location_certain_count": n_certain,
+            "location_uncertain_count": n_uncertain,
             "unique_lots_affected": len({b["lot_id"] for b in breaks}),
             "unique_dice_affected": len({(b["lot_id"], b["source_file"]) for b in breaks}),
+            "mean_location_confidence": round(float(np.mean(confidences)), 4) if confidences else 0.0,
+            "exact_locations_reported": n_certain,
         },
         "breaks": breaks
     }

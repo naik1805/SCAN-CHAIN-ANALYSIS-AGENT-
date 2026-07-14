@@ -28,6 +28,7 @@ from parser import discover_logs, parse_log_to_dataframe
 from stil_parser import parse_stil_scan_structures, resolve_chain, chain_summary_rows
 from locate_cells import locate_failing_cells, enrich_with_positions
 from config import get_config
+from chain_ranking import available_ranking_features, rank_chains_by_frequency
 
 # Set up logging
 logging.basicConfig(
@@ -139,22 +140,23 @@ def run_full_diagnosis():
 
     # ── SCD-FR-004: Rank scan chains by failure frequency ───────────────────
     log.info("Processing SCD-FR-004: Failure Frequency Ranking...")
-    if df.empty:
-        ranking = []
-    else:
-        total_fails = len(df)
-        grp = df.groupby("chain")
-        ranking = []
-        for name, sub in grp:
+    freq = rank_chains_by_frequency(df, method="dense")
+    ranking_features = available_ranking_features()
+    ranking = []
+    if not freq.empty:
+        for _, row in freq.iterrows():
+            chain = row["chain"]
+            sub = df[df["chain"] == chain]
             ranking.append({
-                "chain": name,
-                "fail_count": int(len(sub)),
-                "fail_pct": round(len(sub) / total_fails * 100, 3) if total_fails else 0.0,
-                "lots_affected": int(sub["lot_id"].nunique()),
-                "example_chain_id": sub["chain_id"].iloc[0] if not sub.empty else ""
+                "rank": int(row["rank"]),
+                "chain": chain,
+                "fail_count": int(row["fail_count"]),
+                "fail_pct": float(row["fail_pct"]),
+                "cumulative_pct": float(row["cumulative_pct"]),
+                "rank_method": row.get("rank_method", ranking_features["default_method"]),
+                "lots_affected": int(sub["lot_id"].nunique()) if "lot_id" in sub.columns else 0,
+                "example_chain_id": sub["chain_id"].iloc[0] if not sub.empty and "chain_id" in sub.columns else "",
             })
-        # Sort by count descending
-        ranking.sort(key=lambda x: x["fail_count"], reverse=True)
 
     fr004_report = {
         "requirement_id": "SCD-FR-004",
@@ -162,10 +164,12 @@ def run_full_diagnosis():
         "acceptance_criteria": "Chains ranked based on failure frequency.",
         "status": "satisfied" if ranking else "no_failures_found",
         "generated_at": datetime.now(timezone.utc).isoformat(),
+        "ranking_feature": ranking_features,
         "summary": {
             "total_fail_records": len(df),
             "distinct_failing_chains": len(ranking),
             "top_failing_chain": ranking[0]["chain"] if ranking else None,
+            "rank_method": ranking_features["default_method"],
         },
         "ranking": ranking
     }

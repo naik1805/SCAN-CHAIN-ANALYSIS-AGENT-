@@ -212,12 +212,18 @@ def generate_html_report(
     active_stil = active_stil_path.name if active_stil_path else "Unknown STIL"
 
     # -------------------------------------------------------------
-    # 2. FR-001 / FR-004 PARETO WORST CHAINS
+    # 2. FR-001 / FR-004 PARETO WORST CHAINS (native Series.rank)
     # -------------------------------------------------------------
-    counts = df["chain"].value_counts().reset_index()
-    counts.columns = ["chain", "failures"]
-    counts["percentage"] = (counts["failures"] / total_records) * 100
-    counts["cum_percentage"] = counts["percentage"].cumsum()
+    from chain_ranking import rank_chains_by_frequency
+
+    ranked_freq = rank_chains_by_frequency(df, method="dense")
+    counts = ranked_freq.rename(columns={
+        "fail_count": "failures",
+        "fail_pct": "percentage",
+        "cumulative_pct": "cum_percentage",
+    }).copy() if not ranked_freq.empty else pd.DataFrame(
+        columns=["chain", "failures", "percentage", "cum_percentage", "rank"]
+    )
 
     topology_section_html = render_topology_section_html(
         topology,
@@ -226,53 +232,68 @@ def generate_html_report(
     )
 
     # -------------------------------------------------------------
-    # 4. FR-006 SCAN CHAIN BREAKS
+    # 4. FR-006 SCAN CHAIN BREAKS (exact localization)
     # -------------------------------------------------------------
-    enriched = enrich_with_positions(df, chain_map)
+    from chain_breaks import detect_chain_breaks
+
+    breaks_df_full = detect_chain_breaks(df, chain_map)
     broken_chains = set()
     breaks_list = []
-    
-    if not enriched.empty:
-        grouped = enriched.groupby(["source_file", "lot_id", "chain"])
-        for (sf, lot, ch), sub in grouped:
-            min_pos = sub["bit_position"].min()
-            max_pos = sub["bit_position"].max()
-            unique_pos = sub["bit_position"].nunique()
-            c_len = sub["chain_length"].iloc[0] if "chain_length" in sub.columns else 234
-            
-            exp_bs = sub["expected_output"].iloc[0] if "expected_output" in sub.columns and pd.notna(sub["expected_output"].iloc[0]) else None
-            if exp_bs and isinstance(exp_bs, str):
-                last_care = len(exp_bs) - 1
-                while last_care >= 0 and exp_bs[last_care] == 'X':
-                    last_care -= 1
-                max_possible_pos = last_care if last_care >= 0 else (c_len - 1)
-            else:
-                max_possible_pos = c_len - 1
-
-            if min_pos > 0 and max_pos >= (max_possible_pos - 5) and unique_pos >= 5:
-                broken_chains.add((sf, lot, ch))
-                
-                # Fetch suspected break cell
-                match_cell = sub[sub["bit_position"] == min_pos]
-                cell_name = match_cell["cell_name"].iloc[0] if not match_cell.empty else f"Unknown_FF[{int(min_pos)}]"
-                
-                chain_id = sub["chain_id"].iloc[0] if not sub.empty else ""
-                info = resolve_chain(chain_map, chain_id, ch)
-                scan_in = info.get("scan_in") if info else "Unknown"
-                scan_out = info.get("scan_out") if info else "Unknown"
-                
-                breaks_list.append({
-                    "lot_id": lot,
-                    "source_file": Path(sf).name,
-                    "chain": ch,
-                    "break_bit_position": int(min_pos),
-                    "suspected_break_cell": cell_name,
-                    "fail_count": len(sub),
-                    "unique_failing_positions": int(unique_pos),
-                    "scan_in": scan_in,
-                    "scan_out": scan_out
-                })
+    if not breaks_df_full.empty:
+        for _, br in breaks_df_full.iterrows():
+            sf = br["source_file"]
+            lot = br["lot_id"]
+            ch = br["chain"]
+            # Match FR-007 shift tagging: use source_file as stored on failures
+            broken_chains.add((sf, lot, ch))
+            # Also allow basename match used elsewhere
+            broken_chains.add((Path(str(sf)).name, lot, ch))
+            loc_status = str(br.get("location_status") or "UNCERTAIN")
+            cand_bit = br.get("candidate_break_bit_position")
+            if cand_bit is None or (isinstance(cand_bit, float) and pd.isna(cand_bit)):
+                cand_bit = br.get("break_bit_position")
+            exact_bit = br.get("exact_break_bit_position")
+            if exact_bit is not None and isinstance(exact_bit, float) and pd.isna(exact_bit):
+                exact_bit = None
+            exact_cell = br.get("exact_break_cell")
+            cand_cell = br.get("candidate_break_cell") or br.get("suspected_break_cell")
+            breaks_list.append({
+                "lot_id": lot,
+                "source_file": Path(str(sf)).name,
+                "chain": ch,
+                "location_status": loc_status,
+                "location_status_reason": br.get("location_status_reason"),
+                "break_bit_position": int(cand_bit) if cand_bit is not None else None,
+                "exact_break_bit_position": int(exact_bit) if exact_bit is not None else None,
+                "exact_break_cell": exact_cell if loc_status == "CERTAIN" else "LOCATION_UNCERTAIN",
+                "candidate_break_bit_position": int(cand_bit) if cand_bit is not None else None,
+                "candidate_break_cell": cand_cell,
+                "suspected_break_cell": cand_cell,
+                "location_confidence": float(br.get("location_confidence", 0.0) or 0.0),
+                "exact_agreement": float(br.get("exact_agreement", 0.0) or 0.0),
+                "soft_agreement": float(br.get("soft_agreement", 0.0) or 0.0),
+                "localization_method": br.get("localization_method"),
+                "fail_count": int(br["fail_count"]),
+                "unique_failing_positions": int(br["unique_failing_positions"]),
+                "scan_in": br.get("scan_in"),
+                "scan_out": br.get("scan_out"),
+            })
     breaks_df = pd.DataFrame(breaks_list)
+
+    enriched = enrich_with_positions(df, chain_map)
+    # Rebuild broken_chains keys to match enriched source_file values
+    if not enriched.empty and not breaks_df_full.empty:
+        broken_chains = set()
+        for _, br in breaks_df_full.iterrows():
+            ch = br["chain"]
+            lot = br["lot_id"]
+            sf_name = Path(str(br["source_file"])).name
+            for sf_val in enriched.loc[
+                (enriched["lot_id"] == lot) & (enriched["chain"] == ch), "source_file"
+            ].unique():
+                if Path(str(sf_val)).name == sf_name or str(sf_val) == str(br["source_file"]):
+                    broken_chains.add((sf_val, lot, ch))
+
 
     # -------------------------------------------------------------
     # 5. FR-007 SHIFT VS CAPTURE DIAGNOSTICS
@@ -448,6 +469,75 @@ def generate_html_report(
             pass
 
     capture_diagnoses = [d for d in diagnoses if d["classification"] != "SHIFT_ISSUE"]
+
+    # FR-006 break table rows (CERTAIN vs UNCERTAIN — never claim exact for UNCERTAIN)
+    if breaks_df.empty:
+        breaks_section_html = "<p>No scan chain breaks detected in this dataset.</p>"
+    else:
+        break_rows_html = []
+        for _, r in breaks_df.iterrows():
+            loc = str(r.get("location_status") or "UNCERTAIN")
+            certain = loc == "CERTAIN"
+            exact_bit = r.get("exact_break_bit_position")
+            if exact_bit is not None and isinstance(exact_bit, float) and pd.isna(exact_bit):
+                exact_bit = None
+            exact_bit_disp = exact_bit if certain and exact_bit is not None else "—"
+            exact_cell_disp = r.get("exact_break_cell") if certain else "LOCATION_UNCERTAIN"
+            cand_bit = r.get("candidate_break_bit_position")
+            if cand_bit is None or (isinstance(cand_bit, float) and pd.isna(cand_bit)):
+                cand_bit = r.get("break_bit_position")
+            if cand_bit is None or (isinstance(cand_bit, float) and pd.isna(cand_bit)):
+                cand_bit_disp = "—"
+            else:
+                cand_bit_disp = int(cand_bit)
+            cand_cell = r.get("candidate_break_cell") or r.get("suspected_break_cell") or "—"
+            status_color = "#059669" if certain else "#d97706"
+            cell_style = "color: #dc2626; font-weight: bold;" if certain else "color: #64748b;"
+            # Emphasize candidate bit for UNCERTAIN (exact bit stays —).
+            cand_bit_style = (
+                "font-weight: 700; color: #d97706;" if not certain else ""
+            )
+            break_rows_html.append(
+                f"""
+            <tr>
+                <td class="mono">{r['lot_id']}</td>
+                <td class="mono">{r['source_file']}</td>
+                <td class="mono" style="font-weight: bold;">{r['chain']}</td>
+                <td class="mono" style="font-weight: 700; color: {status_color};">{loc}</td>
+                <td class="mono" style="{cand_bit_style}">{cand_bit_disp}</td>
+                <td class="mono">{cand_cell}</td>
+                <td class="mono">{exact_bit_disp}</td>
+                <td class="mono" style="{cell_style}">{exact_cell_disp}</td>
+                <td class="mono">{float(r.get('location_confidence', 0) or 0):.1%}</td>
+                <td class="mono">{float(r.get('exact_agreement', 0) or 0):.1%}</td>
+                <td class="mono">{r['fail_count']:,}</td>
+                <td class="mono">{r['scan_in']} / {r['scan_out']}</td>
+            </tr>
+            """
+            )
+        breaks_section_html = f"""
+    <table>
+        <thead>
+            <tr>
+                <th>Lot ID</th>
+                <th>Die File</th>
+                <th>Chain</th>
+                <th>Location Status</th>
+                <th>Candidate Bit</th>
+                <th>Candidate Cell</th>
+                <th>Exact Break Bit</th>
+                <th>Exact Break Cell</th>
+                <th>Confidence (soft ±5)</th>
+                <th>Exact Agree</th>
+                <th>Fail Count</th>
+                <th>Scan In/Out</th>
+            </tr>
+        </thead>
+        <tbody>
+            {"".join(break_rows_html)}
+        </tbody>
+    </table>
+    """
 
     # -------------------------------------------------------------
     # HTML SVG RENDERINGS
@@ -750,7 +840,7 @@ def generate_html_report(
         <tbody>
             {"".join(f"""
             <tr>
-                <td>#{idx+1}</td>
+                <td>#{int(r['rank']) if 'rank' in r and pd.notna(r['rank']) else idx+1}</td>
                 <td class="mono">{r['chain']}</td>
                 <td class="mono">{r['failures']:,}</td>
                 <td>{r['percentage']:.2f}%</td>
@@ -763,38 +853,22 @@ def generate_html_report(
     {topology_section_html}
 
     <h2>4. Identified Scan Chain Breaks (FR-006)</h2>
-    <p class="section-desc">Shift path breaks blocking scan chain flow (blocking values from cells upstream of the break bit position).</p>
-    {f"<p>No scan chain breaks detected in this dataset.</p>" if breaks_df.empty else f"""
-    <table>
-        <thead>
-            <tr>
-                <th>Lot ID</th>
-                <th>Die File</th>
-                <th>Chain</th>
-                <th>Break Pos</th>
-                <th>Suspected Break Cell</th>
-                <th>Fail Count</th>
-                <th>Scan In/Out</th>
-            </tr>
-        </thead>
-        <tbody>
-            {"".join(f'''
-            <tr>
-                <td class="mono">{r['lot_id']}</td>
-                <td class="mono">{r['source_file']}</td>
-                <td class="mono" style="font-weight: bold;">{r['chain']}</td>
-                <td class="mono">{r['break_bit_position']}</td>
-                <td class="mono" style="color: #dc2626; font-weight: bold;">{r['suspected_break_cell']}</td>
-                <td class="mono">{r['fail_count']:,}</td>
-                <td class="mono">{r['scan_in']} / {r['scan_out']}</td>
-            </tr>
-            ''' for _, r in breaks_df.iterrows())}
-        </tbody>
-    </table>
-    """}
+    <p class="section-desc">
+        Break signatures are <strong>identified automatically</strong> by the diagnosis agent — no manual bit/cell selection is required.
+        For each failing die and scan chain, the agent compares EXPECTED vs ACTUAL unload bitstreams per pattern,
+        takes the first mismatch bit from ScanOut, forms a cross-pattern consensus, and maps the consensus bit index
+        to the STIL <code>ScanCells</code> instance.
+        <strong>Location status</strong> is gated for production honesty:
+        <strong>CERTAIN</strong> only when soft agreement ≥ 70% (±5 bits) <em>and</em> ≥ 2 patterns agree;
+        otherwise status is <strong>UNCERTAIN</strong> and Exact Break Cell is not claimed
+        (<code>LOCATION_UNCERTAIN</code>) — <strong>Candidate Bit</strong> and Candidate Cell
+        are still shown for review (Exact Break Bit stays <code>—</code>).
+        Soft agreement itself has no artificial floor; low agreement stays low and keeps the row UNCERTAIN.
+    </p>
+    {breaks_section_html}
 
     <h2>5. Worst Scan Chains Pareto Ranking (FR-004)</h2>
-    <p class="section-desc">Pareto ordering showing individual and cumulative contribution of worst failing chains.</p>
+    <p class="section-desc">Pareto ordering via native pandas Series.rank(method='dense', ascending=False) on failure counts.</p>
     <table>
         <thead>
             <tr>
@@ -809,13 +883,13 @@ def generate_html_report(
         <tbody>
             {"".join(f"""
             <tr>
-                <td>#{idx+1}</td>
+                <td>#{int(r['rank']) if 'rank' in r and pd.notna(r['rank']) else idx+1}</td>
                 <td class="mono" style="font-weight: bold;">{r['chain']}</td>
                 <td class="mono">{r['failures']:,}</td>
                 <td>{r['percentage']:.2f}%</td>
                 <td>{r['cum_percentage']:.2f}%</td>
                 <td>
-                    <span style="color: {'#e11d48; font-weight: 700;' if r['cum_percentage'] <= 80.0 or idx == 0 else '#475569;'}">
+                    <span style="color: {'#e11d48; font-weight: 700;' if r['cum_percentage'] <= 80.0 or ( 'rank' in r and int(r['rank']) == 1) or idx == 0 else '#475569;'}">
                         { 'Vital Few (<= 80%)' if r['cum_percentage'] <= 80.0 or idx == 0 else 'Trivial Many (> 80%)' }
                     </span>
                 </td>
@@ -825,14 +899,24 @@ def generate_html_report(
     </table>
 
     <h2>6. Suspected Failing Cells (FR-002)</h2>
-    <p class="section-desc">Top localized register cells sorted by diagnostic confidence.</p>
+    <p class="section-desc">
+        <strong>Exact failing scan cell / flip-flop localization is performed automatically by this
+        Scan Chain Diagnosis Agent (SCD-FR-002)</strong> — not by SmarTest.
+        SmarTest / ATE logs provide failure signatures and chain/cycle correlation evidence;
+        diagnosis tools are responsible for mapping those signatures to a specific scan cell.
+        This agent does that by (1) extracting per-bit EXPECTED vs ACTUAL mismatches as
+        <code>fail_flop_id</code> / bit position, (2) mapping the bit through STIL
+        <code>ScanStructures</code> / <code>ScanCells</code> to a netlist cell name, and
+        (3) scoring confidence from corroborating pattern observations on that chain.
+        The table below lists the localized cell name, flip-flop ID, bit position, and confidence.
+    </p>
     {f"<p>No suspected failing cell localizations found.</p>" if suspects.empty else f"""
     <table>
         <thead>
             <tr>
                 <th>Scan Chain</th>
                 <th>Instance</th>
-                <th>Cell Naming Identifier</th>
+                <th>Exact Cell Name</th>
                 <th>Flip-Flop ID</th>
                 <th>Bit Position</th>
                 <th>Offset from Scan In</th>

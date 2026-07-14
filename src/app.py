@@ -3,12 +3,12 @@ Scan Chain Diagnosis Agent
 ==========================
 
 Phases:
-    SCD-FR-001  Identify failing scan chains  (block-structured log parser)
-    SCD-FR-004  Rank scan chains by failure frequency  (groupby + Pareto chart)
-    SCD-FR-002  Locate failing scan cells  (STIL chain map + position + confidence)
-    SCD-FR-003  Scan topology visualisation
-    SCD-FR-005  Failure correlation analysis
-    SCD-FR-006  Chain break detection
+    SCD-FR-001  Identify failing scan chains  (Phase 1)
+    SCD-FR-004  Rank scan chains by failure frequency  (Phase 2 — dense Series.rank)
+    SCD-FR-002  Locate failing scan cells  (Phase 3)
+    SCD-FR-003  Scan topology visualisation  (Phase 4)
+    SCD-FR-005  Failure correlation analysis  (Phase 5)
+    SCD-FR-006  Chain break detection  (Phase 6)
 
 Industry-level features:
     - scikit-learn RandomForest root-cause classifier (cross-validated)
@@ -146,77 +146,14 @@ def parse_md_topology_cached(path_str: str, mtime: float, size: int) -> dict:
     return parse_hardware_topology_md(path_str)
 
 
-@st.cache_data(show_spinner=False)
-def detect_breaks_cached(df: pd.DataFrame, chain_map: dict) -> pd.DataFrame:
-    """Detect scan chain breaks on the active dataframe (cached)."""
-    if df.empty:
-        return pd.DataFrame(columns=[
-            "source_file", "lot_id", "chain", "chain_id", 
-            "break_bit_position", "suspected_break_cell", 
-            "fail_count", "unique_failing_positions", 
-            "scan_in", "scan_out"
-        ])
-    
-    from locate_cells import enrich_with_positions
-    enriched = enrich_with_positions(df, chain_map)
-    if enriched.empty:
-        return pd.DataFrame(columns=[
-            "source_file", "lot_id", "chain", "chain_id", 
-            "break_bit_position", "suspected_break_cell", 
-            "fail_count", "unique_failing_positions", 
-            "scan_in", "scan_out"
-        ])
-    
-    breaks = []
-    # Group by source_file and chain
-    grouped = enriched.groupby(["source_file", "lot_id", "chain"])
-    for (sf, lot, ch), sub in grouped:
-        min_pos = sub["bit_position"].min()
-        max_pos = sub["bit_position"].max()
-        unique_pos = sub["bit_position"].nunique()
-        total_fails = len(sub)
-        
-        c_len = sub["chain_length"].iloc[0] if "chain_length" in sub.columns else 234
-        
-        # Calculate max possible care position (non-X character)
-        exp_bs = sub["expected_output"].iloc[0] if "expected_output" in sub.columns and pd.notna(sub["expected_output"].iloc[0]) else None
-        if exp_bs and isinstance(exp_bs, str):
-            last_care = len(exp_bs) - 1
-            while last_care >= 0 and exp_bs[last_care] == 'X':
-                last_care -= 1
-            max_possible_pos = last_care if last_care >= 0 else (c_len - 1)
-        else:
-            max_possible_pos = c_len - 1
-        
-        # Break signature: failing from min_pos > 0 up to end of care bits with at least 5 failures
-        if min_pos > 0 and max_pos >= (max_possible_pos - 5) and unique_pos >= 5:
-            match_cell = sub[sub["bit_position"] == min_pos]
-            cell_name = match_cell["cell_name"].iloc[0] if not match_cell.empty else f"Unknown_FF[{int(min_pos)}]"
-            chain_id = sub["chain_id"].iloc[0] if not sub.empty else ""
-            
-            from stil_parser import resolve_chain
-            info = resolve_chain(chain_map, chain_id, ch)
-            scan_in = info.get("scan_in") if info else "Unknown"
-            scan_out = info.get("scan_out") if info else "Unknown"
-            
-            breaks.append({
-                "source_file": sf,
-                "lot_id": lot,
-                "chain": ch,
-                "chain_id": chain_id,
-                "break_bit_position": int(min_pos),
-                "suspected_break_cell": cell_name,
-                "fail_count": int(total_fails),
-                "unique_failing_positions": int(unique_pos),
-                "scan_in": scan_in,
-                "scan_out": scan_out
-            })
-            
-    res = pd.DataFrame(breaks)
-    if not res.empty:
-        res = res.sort_values(by=["lot_id", "source_file", "chain"]).reset_index(drop=True)
-    return res
+def detect_breaks_cached(df: pd.DataFrame, chain_map: dict, _algo_version: str = "exact_v2") -> pd.DataFrame:
+    """Detect exact scan chain break locations on the active dataframe.
 
+    ``_algo_version`` is part of the Streamlit cache key so algorithm updates
+    invalidate stale cached results (e.g. old single-break outputs).
+    """
+    from chain_breaks import detect_chain_breaks
+    return detect_chain_breaks(df, chain_map)
 
 @st.cache_data(show_spinner=False)
 def _parse_and_enrich(paths_info: list[tuple[str, float, int]]) -> pd.DataFrame:
@@ -449,22 +386,9 @@ def generate_mock_dataframe(num_failures: int = 600, seed: int = 7) -> pd.DataFr
 
 
 # ---------------------------------------------------------------------------
-# SCD-FR-004 : frequency aggregation
+# SCD-FR-004 : native pandas Series.rank() (see chain_ranking.py)
 # ---------------------------------------------------------------------------
-def rank_chains_by_frequency(df: pd.DataFrame) -> pd.DataFrame:
-    if df.empty:
-        return pd.DataFrame(columns=["chain", "fail_count", "fail_pct", "cumulative_pct"])
-    freq = (
-        df.groupby("chain")
-        .size()
-        .reset_index(name="fail_count")
-        .sort_values("fail_count", ascending=False)
-        .reset_index(drop=True)
-    )
-    total = freq["fail_count"].sum()
-    freq["fail_pct"] = (freq["fail_count"] / total * 100).round(2)
-    freq["cumulative_pct"] = freq["fail_pct"].cumsum().round(2)
-    return freq
+from chain_ranking import rank_chains_by_frequency, available_ranking_features  # noqa: E402
 
 
 def _chain_sort_key(chain: str):
@@ -617,8 +541,8 @@ else:
 # ===========================================================================
 st.title("Scan Chain Diagnosis Agent")
 st.markdown(
-    "**Phase 1** — Core log parser & ranked Pareto of failing scan chains "
-    "(`SCD-FR-001`, `SCD-FR-004`)."
+    "**Phase 1** — Identify failing scan chains (`SCD-FR-001`).  \n"
+    "**Phase 2** — Rank chains by failure frequency with native dense ranking (`SCD-FR-004`)."
 )
 
 if source_mode == "Local data folder" and not selected_paths:
@@ -656,34 +580,92 @@ elif resolve_active_stil_file(failures) is not None:
     s_stat = sf.stat()
     chain_map = parse_stil_cached_v2(str(sf), s_stat.st_mtime, s_stat.st_size)
 
-tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs([
-    "Phase 1 — Failing chains (FR-001 / FR-004)",
-    "Phase 2 — Suspected cells (FR-002)",
-    "Phase 3 — Scan Topology (FR-003)",
-    "Phase 4 — Failure Correlation (FR-005)",
-    "Phase 5 — Chain Breaks (FR-006)",
-    "Phase 6 — Shift/Capture (FR-007)",
-    "Phase 7 — Reports (FR-008)",
-    "Phase 8 — Debug Locations (FR-009)",
-    "Phase 9 — Diagnosis Confidence (FR-010)",
+tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10 = st.tabs([
+    "Phase 1 — Failing chains (FR-001)",
+    "Phase 2 — Chain ranking (FR-004)",
+    "Phase 3 — Suspected cells (FR-002)",
+    "Phase 4 — Scan Topology (FR-003)",
+    "Phase 5 — Failure Correlation (FR-005)",
+    "Phase 6 — Chain Breaks (FR-006)",
+    "Phase 7 — Shift/Capture (FR-007)",
+    "Phase 8 — Reports (FR-008)",
+    "Phase 9 — Debug Locations (FR-009)",
+    "Phase 10 — Diagnosis Confidence (FR-010)",
 ])
 
 # ===========================================================================
-# Phase 1 tab — SCD-FR-004 ranked Pareto
+# Phase 1 tab — SCD-FR-001 identify failing scan chains
 # ===========================================================================
 with tab1:
-    ranked = rank_chains_by_frequency(failures)
-    
-    # Prepend rank number: "#1: channel12", "#2: channel1", etc. for chart labels
-    ranked_for_chart = ranked.copy()
-    ranked_for_chart["chain_with_rank"] = [f"#{i+1}: {c}" for i, c in enumerate(ranked_for_chart["chain"])]
+    st.subheader("Identify Failing Scan Chains (SCD-FR-001)")
+    st.caption(
+        "Parse ATE / ATPG failure logs and list every scan chain that produced FAIL records."
+    )
 
-    st.subheader("Failing Scan Chains — Ranked by Failure Frequency (Pareto)")
-    
-    # Create subplots with secondary y-axis
+    if failures.empty:
+        st.info("No FAIL records found.")
+    else:
+        grp = failures.groupby("chain")
+        identified = []
+        total = len(failures)
+        for chain, sub in grp:
+            identified.append({
+                "chain": chain,
+                "fail_count": int(len(sub)),
+                "fail_pct": round(len(sub) / total * 100, 2) if total else 0.0,
+                "distinct_patterns": int(sub["pattern_id"].nunique()),
+                "distinct_fail_flops": int(sub["fail_flop_id"].nunique()),
+                "lots_affected": int(sub["lot_id"].nunique()),
+                "example_chain_id": sub["chain_id"].iloc[0] if "chain_id" in sub.columns and not sub.empty else "",
+            })
+        identified_df = pd.DataFrame(identified).sort_values(
+            "fail_count", ascending=False
+        ).reset_index(drop=True)
+
+        m1, m2, m3 = st.columns(3)
+        m1.metric("Failing chains identified", failures["chain"].nunique())
+        m2.metric("Total FAIL records", f"{total:,}")
+        m3.metric("Distinct failing flops", failures["fail_flop_id"].nunique())
+
+        st.subheader("Identified failing chains")
+        st.dataframe(identified_df, use_container_width=True, hide_index=True)
+
+        with st.expander("Show parsed failure records (raw extraction)"):
+            st.caption(f"{len(failures):,} FAIL records parsed (SCD-FR-001).")
+            disp_df = failures.head(2000).copy()
+            if "ai_severity_score" in disp_df.columns:
+                disp_df["ai_severity_score"] = disp_df["ai_severity_score"].map(format_severity)
+            st.dataframe(disp_df, use_container_width=True, hide_index=True)
+            st.download_button(
+                "Download parsed failures (CSV)",
+                data=failures.to_csv(index=False).encode("utf-8"),
+                file_name="parsed_scan_failures.csv",
+                mime="text/csv",
+            )
+
+# ===========================================================================
+# Phase 2 tab — SCD-FR-004 ranked Pareto (native dense ranking)
+# ===========================================================================
+with tab2:
+    ranked = rank_chains_by_frequency(failures, method="dense")
+    ranking_info = available_ranking_features()
+
+    ranked_for_chart = ranked.copy()
+    if not ranked_for_chart.empty:
+        ranked_for_chart["chain_with_rank"] = [
+            f"#{int(r)}: {c}" for r, c in zip(ranked_for_chart["rank"], ranked_for_chart["chain"])
+        ]
+    else:
+        ranked_for_chart["chain_with_rank"] = []
+
+    st.subheader("Failing Scan Chains — Ranked by Failure Frequency (SCD-FR-004)")
+    st.caption(
+        f"Native ranking: `pandas.Series.rank(method='{ranking_info['default_method']}', ascending=False)` "
+        f"on fail_count — rank 1 = highest failure frequency."
+    )
+
     fig = make_subplots(specs=[[{"secondary_y": True}]])
-    
-    # Add bars (left y-axis)
+
     fig.add_trace(
         go.Bar(
             x=ranked_for_chart["chain_with_rank"],
@@ -699,8 +681,7 @@ with tab1:
         ),
         secondary_y=False
     )
-    
-    # Add line (right y-axis)
+
     fig.add_trace(
         go.Scatter(
             x=ranked_for_chart["chain_with_rank"],
@@ -713,8 +694,7 @@ with tab1:
         ),
         secondary_y=True
     )
-    
-    # Add horizontal dashed line at 80% (secondary y-axis)
+
     fig.add_trace(
         go.Scatter(
             x=ranked_for_chart["chain_with_rank"],
@@ -727,8 +707,7 @@ with tab1:
         ),
         secondary_y=True
     )
-    
-    # Layout styling
+
     fig.update_layout(
         hovermode="x unified",
         showlegend=True,
@@ -742,48 +721,49 @@ with tab1:
         height=500,
         margin=dict(l=10, r=10, t=30, b=10),
     )
-    
-    # Set y-axes titles
+
     fig.update_yaxes(title_text="Failure Count", secondary_y=False)
     fig.update_yaxes(title_text="Cumulative Percentage (%)", secondary_y=True, range=[0, 105])
-    
+
     st.plotly_chart(fig, use_container_width=True)
 
     st.subheader("Ranked frequency table")
+    st.caption("Columns include native `rank` from Series.rank() and `rank_method` (dense).")
     st.dataframe(ranked, use_container_width=True, hide_index=True)
 
-    with st.expander("Show parsed failure records (raw extraction)"):
-        st.caption(f"{len(failures):,} FAIL records parsed (SCD-FR-001).")
-        disp_df = failures.head(2000).copy()
-        if "ai_severity_score" in disp_df.columns:
-            disp_df["ai_severity_score"] = disp_df["ai_severity_score"].map(format_severity)
-        st.dataframe(disp_df, use_container_width=True, hide_index=True)
-        st.download_button(
-            "Download parsed failures (CSV)",
-            data=failures.to_csv(index=False).encode("utf-8"),
-            file_name="parsed_scan_failures.csv",
-            mime="text/csv",
-        )
+    with st.expander("Available native ranking features (pandas Series.rank)"):
+        st.markdown("**Methods**")
+        for name, desc in ranking_info["methods"].items():
+            marker = " ← **FR-004 default**" if name == ranking_info["default_method"] else ""
+            st.markdown(f"- `{name}`: {desc}{marker}")
+        st.markdown("**Options**")
+        for name, desc in ranking_info["options"].items():
+            st.markdown(f"- `{name}`: {desc}")
 
 # ===========================================================================
-# Phase 2 tab — SCD-FR-002 locate failing scan cells
+# Phase 3 tab — SCD-FR-002 locate failing scan cells
 # ===========================================================================
-with tab2:
-    st.subheader("Suspected Failing Scan Cells")
+with tab3:
+    st.subheader("Suspected Failing Scan Cells (SCD-FR-002)")
     st.caption(
-        "Failing flop → bit position (via STIL chain length) → cell name, with a "
-        "confidence score = corroborating observations ÷ chain's total failures."
+        "Diagnosis-tool localization (not SmarTest): failing flop → bit position "
+        "(via STIL chain length) → exact scan cell name, with confidence = "
+        "corroborating observations ÷ chain total failures."
     )
 
     with st.expander("📋 Methodology: Exact Scan Cell & Flip-Flop Localization", expanded=False):
         st.markdown(
             """
-            This section documents the algorithm used by the agent to pinpoint the exact failing scan cell and flip-flop in the netlist:
+            **Client note:** Chain/cycle correlation alone does not localize the failing cell.
+            **SmarTest / ATE logs provide failure signatures; this diagnosis agent performs
+            the exact scan-cell / flip-flop localization** (SCD-FR-002).
+
+            Algorithm used by the agent to pinpoint the exact failing scan cell and flip-flop:
             
-            1. **ATE Mismatch Extraction**: Failing patterns are parsed from the tester logs. For each failing pattern, the `EXPECTED_OUTPUT` waveform is compared bit-by-bit against the `ACTUAL_OUTPUT` waveform. The exact 0-based bit index where a mismatch is detected represents the logical failure shift cycle.
-            2. **STIL Scan-Chain Mapping**: The logical shift position is mapped to the physical netlist structure using the active STIL file. The STIL's `ScanStructures` block specifies the precise list of registers (`ScanCells`) ordered from Scan-In to Scan-Out. The physical cell name is localized by mapping:
-               $$\\text{Scan-In Offset} = \\text{Chain Length} - 1 - \\text{Shift Cycle Position}$$
-            3. **Diagnostic Confidence**: Calculated as the proportion of total failures on the scan chain that converge at this exact flip-flop:
+            1. **ATE Mismatch Extraction**: Failing patterns are parsed from the tester logs. For each failing pattern, the `EXPECTED_OUTPUT` waveform is compared bit-by-bit against the `ACTUAL_OUTPUT` waveform. The exact 0-based bit index where a mismatch is detected represents the logical failure shift cycle / failing flop.
+            2. **STIL Scan-Chain Mapping**: The logical shift position is mapped to the netlist using the active STIL file. The STIL `ScanStructures` block lists registers (`ScanCells`) ordered from Scan-In to Scan-Out. The physical cell name is localized by:
+               $$\\text{Scan-In Offset} = \\text{Chain Length} - 1 - \\text{Bit Position}$$
+            3. **Diagnostic Confidence**: Proportion of chain failures that converge on this exact flip-flop/cell:
                $$\\text{Confidence} = \\frac{\\text{Cell Fail Observations}}{\\text{Total Chain Fail Observations}}$$
             """
         )
@@ -865,9 +845,9 @@ with tab2:
                 )
 
 # ===========================================================================
-# Phase 3 tab — SCD-FR-003 scan topology
+# Phase 4 tab — SCD-FR-003 scan topology
 # ===========================================================================
-with tab3:
+with tab4:
     st.subheader("Scan Chain Topology Analysis (SCD-FR-003)")
     st.caption(
         "Complete topology analysis from STIL scan structures and all ATE logs — "
@@ -1151,9 +1131,9 @@ with tab3:
             st.warning("No chain data available for schematic rendering.")
 
 # ===========================================================================
-# Phase 4 tab — SCD-FR-005 failure correlation
+# Phase 5 tab — SCD-FR-005 failure correlation
 # ===========================================================================
-with tab4:
+with tab5:
     st.subheader("Scan Chain Failure Correlation Analysis")
     st.caption(
         "Correlate failing scan chains with physical features (IR Drop, Temperature, timing slack) "
@@ -1419,26 +1399,47 @@ with tab4:
 
 
 # ===========================================================================
-# Phase 5 tab — SCD-FR-006 Scan Chain Breaks
+# Phase 6 tab — SCD-FR-006 Scan Chain Breaks
 # ===========================================================================
-with tab5:
-    st.subheader("Identify Scan Chain Breaks (SCD-FR-006)")
+with tab6:
+    st.subheader("Exact Scan Chain Break Locations (SCD-FR-006)")
     st.caption(
-        "Detect, catalog, and visually highlight physical shift path breaks on individual die test logs. "
-        "A scan chain break is a physical defect that blocks the shift path at some flip-flop N, causing all upstream cells (N+1 to L-1) to fail while downstream cells (0 to N-1) shift out correctly."
+        "Automatically pin the **exact** shift-path break bit/cell. "
+        "Exact location = consensus of per-pattern first EXPECTED vs ACTUAL mismatch "
+        "from ScanOut (bits 0..N-1 pass, N..L-1 fail), mapped to STIL ScanCells."
     )
 
-    # Run break detection on current failures using active topology
-    breaks_df = detect_breaks_cached(failures, chain_map)
+    # Run exact break detection on current failures using active topology
+    # (uncached path + versioned helper so UI never sticks on a stale 1-break result)
+    from chain_breaks import detect_chain_breaks
+    with st.spinner("Localizing exact scan-chain break positions…"):
+        breaks_df = detect_chain_breaks(failures, chain_map)
+
+    n_groups = (
+        failures.groupby(["source_file", "lot_id", "chain"]).ngroups
+        if not failures.empty else 0
+    )
+    n_dice = (
+        failures.groupby(["lot_id", "source_file"]).ngroups
+        if not failures.empty else 0
+    )
+    st.caption(
+        f"Analyzed **{len(failures):,}** FAIL records across **{n_dice}** dice / "
+        f"**{n_groups}** die×chain groups → **{len(breaks_df)}** break signatures. "
+        "Exact cell is claimed only when soft agreement ≥ 70% (≥2 patterns); otherwise status is UNCERTAIN. "
+        "If counts look low, raise **Max logs per lot** to 15 and keep all lots selected."
+    )
 
     if breaks_df.empty:
         st.info("No scan chain breaks detected in the active dataset.")
     else:
-        # Show key metrics
-        m1, m2, m3 = st.columns(3)
-        m1.metric("Total Breaks Detected", f"{len(breaks_df)}")
-        m2.metric("Lots Affected", f"{breaks_df['lot_id'].nunique()}")
-        m3.metric("Dice Affected", f"{len(breaks_df.groupby(['lot_id', 'source_file']))}")
+        n_certain = int((breaks_df["location_status"] == "CERTAIN").sum()) if "location_status" in breaks_df.columns else 0
+        n_uncertain = len(breaks_df) - n_certain
+        m1, m2, m3, m4 = st.columns(4)
+        m1.metric("Break Signatures", f"{len(breaks_df)}")
+        m2.metric("Exact Location CERTAIN", f"{n_certain}")
+        m3.metric("Location UNCERTAIN", f"{n_uncertain}")
+        m4.metric("Dice Affected", f"{len(breaks_df.groupby(['lot_id', 'source_file']))}")
 
         # Breakdown table per lot
         st.write("### Breaks Distribution by Lot")
@@ -1465,18 +1466,76 @@ with tab5:
         )
 
         break_row = die_breaks[die_breaks["chain"] == chosen_chain].iloc[0]
-        N = break_row["break_bit_position"]
-        cell_name = break_row["suspected_break_cell"]
+        status = str(break_row.get("location_status", "UNCERTAIN"))
+        N = int(
+            break_row.get("candidate_break_bit_position")
+            if pd.notna(break_row.get("candidate_break_bit_position"))
+            else break_row.get("break_bit_position", 0)
+        )
+        candidate_cell = break_row.get("candidate_break_cell") or break_row.get("suspected_break_cell")
+        exact_bit_raw = break_row.get("exact_break_bit_position")
+        exact_bit_disp = (
+            str(int(exact_bit_raw))
+            if status == "CERTAIN" and pd.notna(exact_bit_raw)
+            else "—"
+        )
+        cell_name = (
+            break_row.get("exact_break_cell")
+            if status == "CERTAIN"
+            else f"UNCERTAIN (candidate: {candidate_cell} @ bit {N})"
+        )
         scan_in = break_row["scan_in"]
         scan_out = break_row["scan_out"]
         fail_count = break_row["fail_count"]
         unique_pos = break_row["unique_failing_positions"]
+        loc_conf = float(break_row.get("location_confidence", 0) or 0)
+        loc_method = break_row.get("localization_method", "exact")
 
-        d1, d2, d3, d4 = st.columns(4)
-        d1.metric("Suspected Break Cell", cell_name)
-        d2.metric("Break Bit Position", f"{N}")
-        d3.metric("Failing Records on Chain", f"{fail_count}")
-        d4.metric("Unique Failing Positions", f"{unique_pos}")
+        if status == "CERTAIN":
+            st.success(
+                f"**Location CERTAIN** — soft agreement {loc_conf:.1%}. "
+                f"Exact break cell `{break_row.get('exact_break_cell')}` at bit {N} is safe to use for FA focus."
+            )
+        else:
+            st.warning(
+                f"**Location UNCERTAIN** — soft agreement {loc_conf:.1%}. "
+                f"Chain break signature is present, but patterns do not agree enough to lock FA on one cell. "
+                f"**Candidate bit: {N}** · candidate cell `{candidate_cell}`. "
+                f"{break_row.get('location_status_reason', '')}"
+            )
+
+        d1, d2, d3, d4, d5, d6 = st.columns(6)
+        d1.metric("Location Status", status)
+        d2.metric(
+            "Exact Break Bit",
+            exact_bit_disp,
+            help="Populated only when Location Status is CERTAIN.",
+        )
+        d3.metric(
+            "Candidate Break Bit",
+            f"{N}",
+            help="Always available for review; for UNCERTAIN this is the review localization bit.",
+        )
+        d4.metric(
+            "Exact / Candidate Cell",
+            cell_name if status == "CERTAIN" else candidate_cell,
+        )
+        d5.metric("Soft Confidence", f"{loc_conf:.1%}")
+        d6.metric("Failing Records", f"{fail_count}")
+        if status == "UNCERTAIN":
+            st.caption(
+                f"**UNCERTAIN review localization:** Candidate bit **{N}** · "
+                f"candidate cell `{candidate_cell}` "
+                f"(Exact Break Bit is blank/`—` because the cell is not claimed for FA)."
+            )
+        st.caption(
+            f"Localization method: `{loc_method}` · soft-agreeing patterns (±5 bits): "
+            f"{break_row.get('patterns_agreeing', 'N/A')}/{break_row.get('patterns_analyzed', 'N/A')} "
+            f"(exact matches: {break_row.get('patterns_agreeing_exact', 'N/A')}). "
+            "CERTAIN requires soft agreement ≥ 70% with ≥ 2 patterns. "
+            f"Exact agreement: {float(break_row.get('exact_agreement', 0) or 0):.1%} · "
+            f"first-mismatch σ: {break_row.get('first_mismatch_std', 'N/A')}."
+        )
 
         # SVG layout parameters
         L = 234
@@ -1560,7 +1619,10 @@ with tab5:
                 cell_path = f"{path_prefix}[{cell_pos}]" if cell_pos >= 0 else ""
                 tooltip = f"Position: {cell_pos}&#10;Cell: {cell_path}&#10;Status: {cell_type.upper()}"
                 if cell_type == "red":
-                    tooltip += f"&#10;SUSPECTED BREAK CELL"
+                    if status == "CERTAIN":
+                        tooltip += f"&#10;EXACT BREAK CELL (CERTAIN)"
+                    else:
+                        tooltip += f"&#10;CANDIDATE ONLY (UNCERTAIN — not claimed exact FA cell)"
 
                 cells_svg.append(f"""
                     <g {glow}>
@@ -1683,10 +1745,76 @@ with tab5:
         </html>
         """
         st.write("#### Zoomed Scan Chain Break Schematic Diagram")
+        if status == "UNCERTAIN":
+            st.warning(
+                "**Candidate highlight only** — the red cell/bit in the schematic is a localization "
+                "candidate for review, **not** a claimed Exact Break Cell for FA. "
+                f"Status: UNCERTAIN · **Candidate bit: {N}** · candidate cell `{candidate_cell}`."
+            )
+        else:
+            st.caption(
+                f"Highlighted bit {N} (`{break_row.get('exact_break_cell')}`) is the claimed Exact Break Cell "
+                "(location CERTAIN)."
+            )
         st.components.v1.html(break_html, height=195)
 
         st.write("### All Identified Scan Chain Breaks")
-        show_breaks = breaks_df[["lot_id", "source_file", "chain", "break_bit_position", "suspected_break_cell", "fail_count", "unique_failing_positions", "scan_in", "scan_out"]].copy()
+        # Candidate bit/cell first so UNCERTAIN rows still show a bit when Exact is blank.
+        show_cols = [
+            "lot_id", "source_file", "chain",
+            "location_status",
+            "candidate_break_bit_position", "candidate_break_cell",
+            "exact_break_bit_position", "exact_break_cell",
+            "location_confidence", "exact_agreement", "soft_agreement",
+            "first_mismatch_std", "localization_method",
+            "fail_count", "unique_failing_positions", "scan_in", "scan_out",
+        ]
+        available = [c for c in show_cols if c in breaks_df.columns]
+        if "location_status" not in breaks_df.columns and "break_bit_position" in breaks_df.columns:
+            available = ["lot_id", "source_file", "chain", "break_bit_position", "suspected_break_cell",
+                         "fail_count", "unique_failing_positions", "scan_in", "scan_out"]
+            available = [c for c in available if c in breaks_df.columns]
+        show_breaks = breaks_df[available].copy()
+        # Ensure UNCERTAIN rows keep a visible review bit even if exact is null.
+        if (
+            "candidate_break_bit_position" in show_breaks.columns
+            and "break_bit_position" in breaks_df.columns
+        ):
+            show_breaks["candidate_break_bit_position"] = show_breaks[
+                "candidate_break_bit_position"
+            ].fillna(breaks_df["break_bit_position"])
+        if "exact_break_bit_position" in show_breaks.columns:
+            show_breaks["exact_break_bit_position"] = show_breaks[
+                "exact_break_bit_position"
+            ].apply(lambda v: "—" if pd.isna(v) else int(v))
+        if "candidate_break_bit_position" in show_breaks.columns:
+            show_breaks["candidate_break_bit_position"] = show_breaks[
+                "candidate_break_bit_position"
+            ].apply(lambda v: "—" if pd.isna(v) else int(v))
+        rename_map = {
+            "location_status": "Location Status",
+            "exact_break_bit_position": "Exact Break Bit (CERTAIN only)",
+            "exact_break_cell": "Exact Break Cell (CERTAIN only)",
+            "candidate_break_bit_position": "Candidate Break Bit",
+            "candidate_break_cell": "Candidate Break Cell",
+            "location_confidence": "Soft Confidence",
+            "exact_agreement": "Exact Agree",
+            "soft_agreement": "Soft Agree (±5)",
+            "first_mismatch_std": "First-Mismatch σ",
+            "localization_method": "Method",
+            "fail_count": "Fail Count",
+            "unique_failing_positions": "Unique Positions",
+            "lot_id": "Lot ID",
+            "source_file": "Die File",
+            "chain": "Chain",
+            "scan_in": "Scan In",
+            "scan_out": "Scan Out",
+        }
+        show_breaks = show_breaks.rename(columns={k: v for k, v in rename_map.items() if k in show_breaks.columns})
+        st.caption(
+            "For **UNCERTAIN** rows, Exact Break Bit is `—`; use **Candidate Break Bit** "
+            "(and Candidate Break Cell) as the review localization — not a claimed FA cell."
+        )
         st.dataframe(show_breaks, use_container_width=True, hide_index=True)
         st.download_button(
             "Download detected breaks (CSV)",
@@ -1697,9 +1825,9 @@ with tab5:
 
 
 # ===========================================================================
-# Phase 6 tab — SCD-FR-007 Shift vs Capture Diagnostics
+# Phase 7 tab — SCD-FR-007 Shift vs Capture Diagnostics
 # ===========================================================================
-with tab6:
+with tab7:
     st.subheader("Shift vs. Capture Diagnostics (SCD-FR-007)")
     st.caption(
         "Classify failing pattern records into Shift Path Issues, Capture Timing Setup/Hold Violations, "
@@ -1883,9 +2011,9 @@ with tab6:
 
 
 # ===========================================================================
-# Phase 7 tab — SCD-FR-008 Scan Diagnosis Report
+# Phase 8 tab — SCD-FR-008 Scan Diagnosis Report
 # ===========================================================================
-with tab7:
+with tab8:
     st.subheader("Generate & Export Scan Diagnosis Report (SCD-FR-008)")
     st.caption(
         "Compile all findings (FR-001 to FR-007) into a unified, print-ready HTML Scan Diagnosis Report. "
@@ -1948,245 +2076,251 @@ with tab7:
         except Exception as e:
             st.error(f"Failed to generate report: {e}")
 
-    with tab8:
-        st.header("Phase 8 — Debug Location Recommendation (SCD-FR-009)")
-        st.write("Translate logical scan cell defects to physical coordinates on the die/wafer to assist physical debug.")
-        
-        if failures.empty:
-            st.info("No failures loaded to recommend debug locations.")
-        else:
-            from debug_locations import calculate_cell_coordinates, export_pfa_locations
-            try:
-                coords_df = calculate_cell_coordinates(failures, chain_map)
-                
-                if coords_df.empty:
-                    st.warning("No suspected failing cells localized to recommend coordinates.")
-                else:
-                    st.success(f"✅ Localized physical coordinates for {len(coords_df)} suspected scan cells!")
-                    
-                    # Priority stats
-                    prio_counts = coords_df["priority"].value_counts()
-                    col_h, col_m, col_l = st.columns(3)
-                    with col_h:
-                        st.metric("🔴 High Priority Debug Locations", int(prio_counts.get("High", 0)))
-                    with col_m:
-                        st.metric("🟡 Medium Priority Debug Locations", int(prio_counts.get("Medium", 0)))
-                    with col_l:
-                        st.metric("⚪ Low Priority Debug Locations", int(prio_counts.get("Low", 0)))
-                        
-                    st.write("---")
-                    
-                    st.write("### 🛰️ Interactive Silicon Layout Hotspot Map")
-                    st.caption("Hover on coordinate points to inspect the localized gate names and physical offset relative to core bounds [0, 4000] µm.")
-                    
-                    svg_w, svg_h = 500, 500
-                    svg_padding = 40
-                    
-                    svg_elements = [
-                        """
-                        <defs>
-                            <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-                                <feGaussianBlur stdDeviation="6" result="blur" />
-                                <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                            </filter>
-                        </defs>
-                        """,
-                        f'<rect x="{svg_padding}" y="{svg_padding}" width="{svg_w - 2 * svg_padding}" height="{svg_h - 2 * svg_padding}" fill="none" stroke="#475569" stroke-width="2.5" />',
-                        f'<line x1="{svg_w//2}" y1="{svg_padding}" x2="{svg_w//2}" y2="{svg_h - svg_padding}" stroke="#334155" stroke-width="0.5" stroke-dasharray="2 4" />',
-                        f'<line x1="{svg_padding}" y1="{svg_h//2}" x2="{svg_w - svg_padding}" y2="{svg_h//2}" stroke="#334155" stroke-width="0.5" stroke-dasharray="2 4" />',
-                        f'<text x="{svg_padding}" y="{svg_padding - 10}" fill="#94a3b8" font-size="10" font-family="sans-serif" text-anchor="middle">0,4000</text>',
-                        f'<text x="{svg_w - svg_padding}" y="{svg_padding - 10}" fill="#94a3b8" font-size="10" font-family="sans-serif" text-anchor="middle">4000,4000</text>',
-                        f'<text x="{svg_padding}" y="{svg_h - svg_padding + 20}" fill="#94a3b8" font-size="10" font-family="sans-serif" text-anchor="middle">0,0</text>',
-                        f'<text x="{svg_w - svg_padding}" y="{svg_h - svg_padding + 20}" fill="#94a3b8" font-size="10" font-family="sans-serif" text-anchor="middle">4000,0</text>'
-                    ]
-                    
-                    for _, r in coords_df.iterrows():
-                        x_local = r["x_local_um"]
-                        y_local = r["y_local_um"]
-                        
-                        x_pct = x_local / 4000.0
-                        y_pct = (4000.0 - y_local) / 4000.0
-                        
-                        cx = svg_padding + x_pct * (svg_w - 2 * svg_padding)
-                        cy = svg_padding + y_pct * (svg_h - 2 * svg_padding)
-                        
-                        if r["priority"] == "High":
-                            color = "#f43f5e"
-                            radius = 12
-                            glow = 'filter="url(#glow)"'
-                        elif r["priority"] == "Medium":
-                            color = "#fbbf24"
-                            radius = 8
-                            glow = ""
-                        else:
-                            color = "#94a3b8"
-                            radius = 5
-                            glow = ""
-                            
-                        svg_elements.append(f"""
-                        <circle cx="{cx:.1f}" cy="{cy:.1f}" r="{radius}" fill="{color}" {glow} opacity="0.85">
-                            <title>{r['cell_name']} ({r['chain']})&#10;Local: ({r['x_local_um']:.1f}, {r['y_local_um']:.1f}) µm&#10;Fails: {r['distinct_dies_affected']} dies&#10;Priority: {r['priority']}</title>
-                        </circle>
-                        <circle cx="{cx:.1f}" cy="{cy:.1f}" r="2" fill="#ffffff" />
-                        """)
-                        
-                    svg_markup = f'<svg width="{svg_w}" height="{svg_h}" viewBox="0 0 {svg_w} {svg_h}" style="background-color: #0f172a; border-radius: 12px; box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.6);">' + "\n".join(svg_elements) + '</svg>'
-                    
-                    map_col, text_col = st.columns([2, 3])
-                    with map_col:
-                        st.components.v1.html(svg_markup, width=500, height=520)
-                    with text_col:
-                        st.write("#### 📝 Coordinate Registry")
-                        st.caption("Coordinate points show physical location on a 4000µm x 4000µm die. Higher priority targets indicate maximum diagnostic confidence and occurrence rates.")
-                        
-                        tbl_data = []
-                        for _, r in coords_df.iterrows():
-                            tbl_data.append({
-                                "Scan Cell": r["cell_name"],
-                                "Chain": r["chain"],
-                                "Die X (µm)": r["x_local_um"],
-                                "Die Y (µm)": r["y_local_um"],
-                                "Priority": r["priority"],
-                                "Confidence": r["confidence"],
-                                "Dies Impacted": int(r["distinct_dies_affected"])
-                            })
-                        st.dataframe(pd.DataFrame(tbl_data), use_container_width=True)
-                        
-                    st.write("---")
-                    st.write("### 📥 Download microscope navigation coordinate files")
-                    
-                    temp_dir = Path("data/cache")
-                    temp_dir.mkdir(parents=True, exist_ok=True)
-                    pfa_res = export_pfa_locations(coords_df, temp_dir)
-                    
-                    json_bytes = (temp_dir / "SCD-FR-009_debug_locations.json").read_text(encoding="utf-8")
-                    csv_bytes = (temp_dir / "SCD-FR-009_debug_locations.csv").read_text(encoding="utf-8")
-                    
-                    import time
-                    ts_key = int(time.time() * 1000)
-                    
-                    dl_col1, dl_col2 = st.columns(2)
-                    with dl_col1:
-                        st.download_button(
-                            "📥 Download Debug Coordinates (CSV format)",
-                            data=csv_bytes,
-                            file_name="SCD-FR-009_debug_locations.csv",
-                            mime="text/csv",
-                            key=f"dl_csv_{ts_key}"
-                        )
-                    with dl_col2:
-                        st.download_button(
-                            "📥 Download Debug Coordinates (JSON format)",
-                            data=json_bytes,
-                            file_name="SCD-FR-009_debug_locations.json",
-                            mime="application/json",
-                            key=f"dl_json_{ts_key}"
-                        )
-                        
-            except Exception as e:
-                st.error(f"Failed to calculate debug locations: {e}")
-
-    with tab9:
-        st.header("Phase 9 — Diagnosis Confidence & ML Interpretability (SCD-FR-010)")
-        st.write("Understand and sandbox the Logistic Regression ML classifier used to evaluate diagnosis trustworthiness.")
-        
-        from confidence_score import load_confidence_model
+# ===========================================================================
+# Phase 9 tab — SCD-FR-009 Debug Locations
+# ===========================================================================
+with tab9:
+    st.header("Phase 9 — Debug Location Recommendation (SCD-FR-009)")
+    st.write("Translate logical scan cell defects to physical coordinates on the die/wafer to assist physical debug.")
+    
+    if failures.empty:
+        st.info("No failures loaded to recommend debug locations.")
+    else:
+        from debug_locations import calculate_cell_coordinates, export_pfa_locations
         try:
-            model_data = load_confidence_model()
-            suspects = locate_failing_cells(failures, chain_map, min_observations=1)
+            coords_df = calculate_cell_coordinates(failures, chain_map)
             
-            # 1. Model Weights Interpretability Chart
-            st.write("### 🧠 ML Model Feature Importance (Trained Weights)")
-            st.caption("Positive weights increase diagnosis confidence; negative weights represent factors causing high ambiguity (like hold timing issues or being far from the scan-out pin).")
-            
-            w_df = pd.DataFrame({
-                "Feature": model_data["feature_cols"],
-                "Weight": model_data["weights"]
-            }).sort_values(by="Weight", ascending=True)
-            
-            # Map features to reader-friendly descriptions
-            feature_desc = {
-                "pattern_consistency": "Pattern Consistency (observations / total)",
-                "offset_ratio": "Ambiguity Zone Ratio (closer to scan-in)",
-                "log_pattern_count": "Log Pattern Volume (sample size)",
-                "rc_SHIFT": "Root Cause: Scan Shift Break",
-                "rc_SETUP": "Root Cause: Capture Setup Timing",
-                "rc_HOLD": "Root Cause: Capture Hold Timing",
-                "rc_DEFECT": "Root Cause: Systematic Defect / Other"
-            }
-            w_df["Feature Description"] = w_df["Feature"].map(feature_desc)
-            
-            fig_w = px.bar(
-                w_df,
-                x="Weight",
-                y="Feature Description",
-                orientation="h",
-                color="Weight",
-                color_continuous_scale="RdBu",
-                color_continuous_midpoint=0.0,
-                text=w_df["Weight"].map(lambda v: f"{v:+.3f}")
-            )
-            fig_w.update_traces(textposition="outside")
-            fig_w.update_layout(height=350, coloraxis_showscale=False, yaxis_title=None, xaxis_title="Learned Coefficient")
-            st.plotly_chart(fig_w, use_container_width=True)
-            
-            # 2. Overall Agent Diagnosis Confidence Statistics
-            st.write("---")
-            st.write("### 📊 Agent Overall Analysis Confidence Score")
-            st.caption("This score measures the completeness, execution quality, and statistical reliability of our diagnostic run.")
-            
-            if suspects.empty:
-                st.warning("No suspects analyzed to calculate confidence metrics.")
+            if coords_df.empty:
+                st.warning("No suspected failing cells localized to recommend coordinates.")
             else:
-                # Calculate Agent Analysis Execution Quality Score
-                if source_mode == "Local data folder" and 'selected_paths' in globals() and selected_paths:
-                    n_discovered_logs = len(selected_paths)
-                    n_parsed_logs = int(failures.groupby(['lot_id', 'source_file']).ngroups)
-                    e_logs = 1.0
-                else:
-                    n_discovered_logs = 1
-                    n_parsed_logs = 1
-                    e_logs = 1.0
+                st.success(f"✅ Localized physical coordinates for {len(coords_df)} suspected scan cells!")
                 
-                e_topo = 1.0 if chain_map else 0.0
+                # Priority stats
+                prio_counts = coords_df["priority"].value_counts()
+                col_h, col_m, col_l = st.columns(3)
+                with col_h:
+                    st.metric("🔴 High Priority Debug Locations", int(prio_counts.get("High", 0)))
+                with col_m:
+                    st.metric("🟡 Medium Priority Debug Locations", int(prio_counts.get("Medium", 0)))
+                with col_l:
+                    st.metric("⚪ Low Priority Debug Locations", int(prio_counts.get("Low", 0)))
+                    
+                st.write("---")
                 
-                n_failing_chains = failures["chain_id"].nunique()
-                n_localized_chains = suspects["chain_id"].nunique()
-                e_local = min(1.0, n_localized_chains / n_failing_chains) if n_failing_chains > 0 else 1.0
+                st.write("### 🛰️ Interactive Silicon Layout Hotspot Map")
+                st.caption("Hover on coordinate points to inspect the localized gate names and physical offset relative to core bounds [0, 4000] µm.")
                 
-                total_records = len(failures)
-                non_null_slacks = failures["setup_slack_ps"].notna().sum()
-                e_metrics = float(non_null_slacks / total_records) if total_records > 0 else 1.0
+                svg_w, svg_h = 500, 500
+                svg_padding = 40
                 
-                e_ml = 1.0 if (model_data and "weights" in model_data) else 0.0
+                svg_elements = [
+                    """
+                    <defs>
+                        <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+                            <feGaussianBlur stdDeviation="6" result="blur" />
+                            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                        </filter>
+                    </defs>
+                    """,
+                    f'<rect x="{svg_padding}" y="{svg_padding}" width="{svg_w - 2 * svg_padding}" height="{svg_h - 2 * svg_padding}" fill="none" stroke="#475569" stroke-width="2.5" />',
+                    f'<line x1="{svg_w//2}" y1="{svg_padding}" x2="{svg_w//2}" y2="{svg_h - svg_padding}" stroke="#334155" stroke-width="0.5" stroke-dasharray="2 4" />',
+                    f'<line x1="{svg_padding}" y1="{svg_h//2}" x2="{svg_w - svg_padding}" y2="{svg_h//2}" stroke="#334155" stroke-width="0.5" stroke-dasharray="2 4" />',
+                    f'<text x="{svg_padding}" y="{svg_padding - 10}" fill="#94a3b8" font-size="10" font-family="sans-serif" text-anchor="middle">0,4000</text>',
+                    f'<text x="{svg_w - svg_padding}" y="{svg_padding - 10}" fill="#94a3b8" font-size="10" font-family="sans-serif" text-anchor="middle">4000,4000</text>',
+                    f'<text x="{svg_padding}" y="{svg_h - svg_padding + 20}" fill="#94a3b8" font-size="10" font-family="sans-serif" text-anchor="middle">0,0</text>',
+                    f'<text x="{svg_w - svg_padding}" y="{svg_h - svg_padding + 20}" fill="#94a3b8" font-size="10" font-family="sans-serif" text-anchor="middle">4000,0</text>'
+                ]
                 
-                analysis_quality_score = (0.2 * e_logs + 0.2 * e_topo + 0.3 * e_local + 0.15 * e_metrics + 0.15 * e_ml)
+                for _, r in coords_df.iterrows():
+                    x_local = r["x_local_um"]
+                    y_local = r["y_local_um"]
+                    
+                    x_pct = x_local / 4000.0
+                    y_pct = (4000.0 - y_local) / 4000.0
+                    
+                    cx = svg_padding + x_pct * (svg_w - 2 * svg_padding)
+                    cy = svg_padding + y_pct * (svg_h - 2 * svg_padding)
+                    
+                    if r["priority"] == "High":
+                        color = "#f43f5e"
+                        radius = 12
+                        glow = 'filter="url(#glow)"'
+                    elif r["priority"] == "Medium":
+                        color = "#fbbf24"
+                        radius = 8
+                        glow = ""
+                    else:
+                        color = "#94a3b8"
+                        radius = 5
+                        glow = ""
+                        
+                    svg_elements.append(f"""
+                    <circle cx="{cx:.1f}" cy="{cy:.1f}" r="{radius}" fill="{color}" {glow} opacity="0.85">
+                        <title>{r['cell_name']} ({r['chain']})&#10;Local: ({r['x_local_um']:.1f}, {r['y_local_um']:.1f}) µm&#10;Fails: {r['distinct_dies_affected']} dies&#10;Priority: {r['priority']}</title>
+                    </circle>
+                    <circle cx="{cx:.1f}" cy="{cy:.1f}" r="2" fill="#ffffff" />
+                    """)
+                    
+                svg_markup = f'<svg width="{svg_w}" height="{svg_h}" viewBox="0 0 {svg_w} {svg_h}" style="background-color: #0f172a; border-radius: 12px; box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.6);">' + "\n".join(svg_elements) + '</svg>'
                 
-                # Metrics cards
-                s_col1, s_col2, s_col3 = st.columns(3)
-                with s_col1:
-                    st.metric("Overall Analysis Confidence", f"{analysis_quality_score:.2%}")
-                with s_col2:
-                    st.metric("Data Ingestion Coverage", f"{e_logs:.1%}")
-                with s_col3:
-                    st.metric("STIL Topology Resolved", f"{e_topo:.1%}")
+                map_col, text_col = st.columns([2, 3])
+                with map_col:
+                    st.components.v1.html(svg_markup, width=500, height=520)
+                with text_col:
+                    st.write("#### 📝 Coordinate Registry")
+                    st.caption("Coordinate points show physical location on a 4000µm x 4000µm die. Higher priority targets indicate maximum diagnostic confidence and occurrence rates.")
+                    
+                    tbl_data = []
+                    for _, r in coords_df.iterrows():
+                        tbl_data.append({
+                            "Scan Cell": r["cell_name"],
+                            "Chain": r["chain"],
+                            "Die X (µm)": r["x_local_um"],
+                            "Die Y (µm)": r["y_local_um"],
+                            "Priority": r["priority"],
+                            "Confidence": r["confidence"],
+                            "Dies Impacted": int(r["distinct_dies_affected"])
+                        })
+                    st.dataframe(pd.DataFrame(tbl_data), use_container_width=True)
+                    
+                st.write("---")
+                st.write("### 📥 Download microscope navigation coordinate files")
                 
-                # Detailed breakdown
-                st.write("#### 🔍 Diagnostic Analysis Quality Breakdown")
-                st.markdown(f"""
-                - **Ingestion Quality**: `{n_parsed_logs}/{n_discovered_logs}` active lot log files loaded and parsed successfully (ingestion coverage: `{e_logs:.1%}`).
-                - **Design Topology**: Scan chain connections, clocks, and compactor networks resolved.
-                - **Localization Coverage**: Localized suspected flip-flops for `{n_localized_chains}/{n_failing_chains}` failing chains.
-                - **Parametric Alignment**: `{non_null_slacks}/{total_records}` records successfully aligned with voltage drop (`IR_DROP_MV`), temperature (`THERMAL_C`), and timing slacks.
-                - **ML Classifier Convergence**: Zero-dependency Logistic Regression model successfully trained and loaded.
-                """)
+                temp_dir = Path("data/cache")
+                temp_dir.mkdir(parents=True, exist_ok=True)
+                pfa_res = export_pfa_locations(coords_df, temp_dir)
                 
-                st.info(
-                    f"💡 **Analysis Verdict**: Based on input completeness and design alignment, the overall diagnostic analysis quality score stands at **{analysis_quality_score:.2%}**. "
-                    "This indicates a highly robust, fully aligned diagnostic run with zero missing inputs."
-                )
+                json_bytes = (temp_dir / "SCD-FR-009_debug_locations.json").read_text(encoding="utf-8")
+                csv_bytes = (temp_dir / "SCD-FR-009_debug_locations.csv").read_text(encoding="utf-8")
                 
+                import time
+                ts_key = int(time.time() * 1000)
+                
+                dl_col1, dl_col2 = st.columns(2)
+                with dl_col1:
+                    st.download_button(
+                        "📥 Download Debug Coordinates (CSV format)",
+                        data=csv_bytes,
+                        file_name="SCD-FR-009_debug_locations.csv",
+                        mime="text/csv",
+                        key=f"dl_csv_{ts_key}"
+                    )
+                with dl_col2:
+                    st.download_button(
+                        "📥 Download Debug Coordinates (JSON format)",
+                        data=json_bytes,
+                        file_name="SCD-FR-009_debug_locations.json",
+                        mime="application/json",
+                        key=f"dl_json_{ts_key}"
+                    )
+                    
         except Exception as e:
-            st.error(f"Failed to load or calculate ML metrics: {e}")
+            st.error(f"Failed to calculate debug locations: {e}")
+
+# ===========================================================================
+# Phase 10 tab — SCD-FR-010 Diagnosis Confidence
+# ===========================================================================
+with tab10:
+    st.header("Phase 10 — Diagnosis Confidence & ML Interpretability (SCD-FR-010)")
+    st.write("Understand and sandbox the Logistic Regression ML classifier used to evaluate diagnosis trustworthiness.")
+    
+    from confidence_score import load_confidence_model
+    try:
+        model_data = load_confidence_model()
+        suspects = locate_failing_cells(failures, chain_map, min_observations=1)
+        
+        # 1. Model Weights Interpretability Chart
+        st.write("### 🧠 ML Model Feature Importance (Trained Weights)")
+        st.caption("Positive weights increase diagnosis confidence; negative weights represent factors causing high ambiguity (like hold timing issues or being far from the scan-out pin).")
+        
+        w_df = pd.DataFrame({
+            "Feature": model_data["feature_cols"],
+            "Weight": model_data["weights"]
+        }).sort_values(by="Weight", ascending=True)
+        
+        # Map features to reader-friendly descriptions
+        feature_desc = {
+            "pattern_consistency": "Pattern Consistency (observations / total)",
+            "offset_ratio": "Ambiguity Zone Ratio (closer to scan-in)",
+            "log_pattern_count": "Log Pattern Volume (sample size)",
+            "rc_SHIFT": "Root Cause: Scan Shift Break",
+            "rc_SETUP": "Root Cause: Capture Setup Timing",
+            "rc_HOLD": "Root Cause: Capture Hold Timing",
+            "rc_DEFECT": "Root Cause: Systematic Defect / Other"
+        }
+        w_df["Feature Description"] = w_df["Feature"].map(feature_desc)
+        
+        fig_w = px.bar(
+            w_df,
+            x="Weight",
+            y="Feature Description",
+            orientation="h",
+            color="Weight",
+            color_continuous_scale="RdBu",
+            color_continuous_midpoint=0.0,
+            text=w_df["Weight"].map(lambda v: f"{v:+.3f}")
+        )
+        fig_w.update_traces(textposition="outside")
+        fig_w.update_layout(height=350, coloraxis_showscale=False, yaxis_title=None, xaxis_title="Learned Coefficient")
+        st.plotly_chart(fig_w, use_container_width=True)
+        
+        # 2. Overall Agent Diagnosis Confidence Statistics
+        st.write("---")
+        st.write("### 📊 Agent Overall Analysis Confidence Score")
+        st.caption("This score measures the completeness, execution quality, and statistical reliability of our diagnostic run.")
+        
+        if suspects.empty:
+            st.warning("No suspects analyzed to calculate confidence metrics.")
+        else:
+            # Calculate Agent Analysis Execution Quality Score
+            if source_mode == "Local data folder" and 'selected_paths' in globals() and selected_paths:
+                n_discovered_logs = len(selected_paths)
+                n_parsed_logs = int(failures.groupby(['lot_id', 'source_file']).ngroups)
+                e_logs = 1.0
+            else:
+                n_discovered_logs = 1
+                n_parsed_logs = 1
+                e_logs = 1.0
+            
+            e_topo = 1.0 if chain_map else 0.0
+            
+            n_failing_chains = failures["chain_id"].nunique()
+            n_localized_chains = suspects["chain_id"].nunique()
+            e_local = min(1.0, n_localized_chains / n_failing_chains) if n_failing_chains > 0 else 1.0
+            
+            total_records = len(failures)
+            non_null_slacks = failures["setup_slack_ps"].notna().sum()
+            e_metrics = float(non_null_slacks / total_records) if total_records > 0 else 1.0
+            
+            e_ml = 1.0 if (model_data and "weights" in model_data) else 0.0
+            
+            analysis_quality_score = (0.2 * e_logs + 0.2 * e_topo + 0.3 * e_local + 0.15 * e_metrics + 0.15 * e_ml)
+            
+            # Metrics cards
+            s_col1, s_col2, s_col3 = st.columns(3)
+            with s_col1:
+                st.metric("Overall Analysis Confidence", f"{analysis_quality_score:.2%}")
+            with s_col2:
+                st.metric("Data Ingestion Coverage", f"{e_logs:.1%}")
+            with s_col3:
+                st.metric("STIL Topology Resolved", f"{e_topo:.1%}")
+            
+            # Detailed breakdown
+            st.write("#### 🔍 Diagnostic Analysis Quality Breakdown")
+            st.markdown(f"""
+            - **Ingestion Quality**: `{n_parsed_logs}/{n_discovered_logs}` active lot log files loaded and parsed successfully (ingestion coverage: `{e_logs:.1%}`).
+            - **Design Topology**: Scan chain connections, clocks, and compactor networks resolved.
+            - **Localization Coverage**: Localized suspected flip-flops for `{n_localized_chains}/{n_failing_chains}` failing chains.
+            - **Parametric Alignment**: `{non_null_slacks}/{total_records}` records successfully aligned with voltage drop (`IR_DROP_MV`), temperature (`THERMAL_C`), and timing slacks.
+            - **ML Classifier Convergence**: Zero-dependency Logistic Regression model successfully trained and loaded.
+            """)
+            
+            st.info(
+                f"💡 **Analysis Verdict**: Based on input completeness and design alignment, the overall diagnostic analysis quality score stands at **{analysis_quality_score:.2%}**. "
+                "This indicates a highly robust, fully aligned diagnostic run with zero missing inputs."
+            )
+            
+    except Exception as e:
+        st.error(f"Failed to load or calculate ML metrics: {e}")
 
 
