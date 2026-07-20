@@ -253,7 +253,7 @@ def locate_exact_break_for_group(
         else (
             f"soft_agreement {conf_parts['soft_agreement']:.1%} < {LOCATION_CERTAIN_SOFT_MIN:.0%} "
             f"and/or patterns ({patterns_total}) < {LOCATION_CERTAIN_MIN_PATTERNS} — "
-            "break signature present, but exact cell not confirmed for FA"
+            "break detected; exact break bit not confirmed across patterns"
         )
     )
 

@@ -49,48 +49,8 @@ def select_logs(max_per_lot: int | None) -> list[Path]:
 
 
 def _apply_ml_to_df(df: pd.DataFrame) -> pd.DataFrame:
-    if df.empty:
-        return df
-    # Ensure required columns
-    from parser import NUMERIC_COLS
-    required_cols = [
-        "lot_id", "lot_pattern", "wafer_id", "die_id", "source_file", 
-        "pattern_id", "chain_id", "chain", "fail_flop_id", "fail_type", 
-        "expected_signature", "actual_signature", "root_cause_hint", 
-        "failure_region", "status", "defect_type", "die_label",
-        "predicted_root_cause", "prediction_confidence", "is_anomaly", "anomaly_score"
-    ] + NUMERIC_COLS
-    for col in required_cols:
-        if col not in df.columns:
-            df[col] = None
-
     import ml_pipeline as mlp
-    classifier = mlp.load_classifier(df)
-    if classifier is None:
-        try:
-            classifier, _ = mlp.train_root_cause_classifier(df)
-            mlp.save_classifier(classifier)
-        except Exception:
-            pass
-    if classifier is not None:
-        try:
-            df = mlp.predict_root_cause(classifier, df)
-        except Exception:
-            pass
-
-    anomaly_detector = mlp.load_anomaly_detector(df)
-    if anomaly_detector is None:
-        try:
-            anomaly_detector = mlp.train_anomaly_detector(df)
-            mlp.save_anomaly_detector(anomaly_detector)
-        except Exception:
-            pass
-    if anomaly_detector is not None:
-        try:
-            df = mlp.detect_anomalies(anomaly_detector, df)
-        except Exception:
-            pass
-    return df
+    return mlp.apply_failure_ml(df)
 
 
 def load_failures(paths: list[Path]) -> pd.DataFrame:
@@ -271,15 +231,28 @@ def build_fr002(df: pd.DataFrame, paths: list[Path], min_observations: int = 2,
         if not suspects.empty else suspects
     )
 
+    try:
+        from confidence_score import CONFIDENCE_DEFINITION, aggregate_diagnosis_confidence
+        conf_agg = aggregate_diagnosis_confidence(suspects, top_k=1)
+        diagnosis_confidence = conf_agg.get("mean_suspect_confidence")
+        confidence_definition = conf_agg.get("confidence_definition", CONFIDENCE_DEFINITION)
+        global_mean = conf_agg.get("global_mean_all_suspects")
+    except Exception:
+        diagnosis_confidence = (
+            round(float(suspects["confidence"].mean()), 4) if not suspects.empty else 0.0
+        )
+        confidence_definition = None
+        global_mean = diagnosis_confidence
+
     return {
         "requirement_id": "SCD-FR-002",
         "requirement": "Locate failing scan cells",
         "acceptance_criteria": "Suspected failing scan cells identified with confidence score.",
         "method": (
             "Map FAIL_FLOP_ID -> bit position via STIL ScanLength, look up cell name, "
-            "and compute composite diagnostic confidence score using a Logistic Regression "
-            "ML model trained on historical microscope confirmation records (incorporating "
-            "pattern support, chain location, and root cause classification)."
+            "and compute calibrated composite confidence "
+            "(relative dominance + pattern corroboration + obs share + fail-type "
+            "consistency, blended with Logistic Regression confirmation probability)."
         ),
         "status": "satisfied" if not suspects.empty else "no_failures_found",
         "generated_at": datetime.now(timezone.utc).isoformat(),
@@ -293,11 +266,17 @@ def build_fr002(df: pd.DataFrame, paths: list[Path], min_observations: int = 2,
             "total_suspected_cells": int(len(suspects)),
             "chains_involved": int(suspects["chain_id"].nunique()) if not suspects.empty else 0,
             "max_confidence": float(suspects["confidence"].max()) if not suspects.empty else 0.0,
-            "mean_confidence": round(float(suspects["confidence"].mean()), 4) if not suspects.empty else 0.0,
-            "top_n_recorded": int(min(top_n, len(suspects))),
+            # mean_confidence kept for backward compat; equals diagnosis_confidence (per-chain top KPI)
+            "mean_confidence": float(diagnosis_confidence or 0.0),
+            "diagnosis_confidence": float(diagnosis_confidence or 0.0),
+            "global_mean_all_suspects": float(global_mean or 0.0),
+            "confidence_definition": confidence_definition,
+            "top_n_recorded": int(len(suspects)),
         },
         "per_chain_top_suspect": records(per_chain_top) if not suspects.empty else [],
-        "top_suspected_cells": records(suspects.head(top_n)) if not suspects.empty else [],
+        # Full list for dashboard tables (no silent top_n truncate).
+        "suspected_cells": records(suspects) if not suspects.empty else [],
+        "top_suspected_cells": records(suspects) if not suspects.empty else [],
     }
 
 
@@ -340,9 +319,10 @@ def build_fr003(df: pd.DataFrame = None) -> dict:
     }
 
 
-def build_fr005(df: pd.DataFrame, paths: list[Path]) -> dict:
+def build_fr005(df: pd.DataFrame, paths: list[Path], chain_map: dict | None = None) -> dict:
     """Build the SCD-FR-005 result: scan-chain-to-failure correlation report."""
-    correlations = []
+    from correlation_analysis import build_correlation_rows
+
     if df.empty:
         return {
             "requirement_id": "SCD-FR-005",
@@ -357,72 +337,15 @@ def build_fr005(df: pd.DataFrame, paths: list[Path]) -> dict:
             "correlations": []
         }
 
-    numerical_cols = ["ir_drop_mv", "thermal_c", "setup_slack_ps", "hold_slack_ps", "ai_severity_score"]
-    valid_num_cols = [col for col in numerical_cols if col in df.columns]
+    if chain_map is None:
+        md_topo_file = find_topology_md_file(DATA_DIR)
+        if md_topo_file:
+            chain_map = parse_hardware_topology_md(md_topo_file)
+        else:
+            active_stil = resolve_active_stil_file()
+            chain_map = parse_stil_scan_structures(active_stil) if active_stil else {}
 
-    # Sort chains numerically
-    def _num_key(c):
-        val = "".join(ch for ch in c if ch.isdigit())
-        return int(val) if val else 0
-    unique_chains = sorted(df["chain"].dropna().unique(), key=_num_key)
-
-    for chain_name in unique_chains:
-        # Create binary indicator column in a temporary dataframe
-        is_chain = (df["chain"] == chain_name).astype(int)
-        
-        # Pearson correlation for each valid numerical column
-        pearson_corrs = {}
-        for col in valid_num_cols:
-            col_series = pd.to_numeric(df[col], errors="coerce")
-            # We need standard deviation > 0 for both variables to compute correlation
-            if col_series.nunique() > 1 and is_chain.nunique() > 1:
-                r = float(is_chain.corr(col_series))
-                pearson_corrs[col] = 0.0 if pd.isna(r) else round(r, 4)
-            else:
-                pearson_corrs[col] = 0.0
-                
-        # Categorical distributions for this chain
-        chain_df = df[df["chain"] == chain_name]
-        total_chain_fails = len(chain_df)
-        
-        # 1. Fail Type breakdown
-        fail_type_pct = {}
-        if not chain_df.empty and "fail_type" in chain_df.columns:
-            fail_type_counts = chain_df["fail_type"].value_counts()
-            for k, v in fail_type_counts.items():
-                fail_type_pct[k] = round(float(v / total_chain_fails * 100), 2)
-                
-        # 2. Failure Region breakdown
-        region_pct = {}
-        if not chain_df.empty and "failure_region" in chain_df.columns:
-            region_counts = chain_df["failure_region"].value_counts()
-            for k, v in region_counts.items():
-                region_pct[k] = round(float(v / total_chain_fails * 100), 2)
-                
-        # 3. Root Cause Hint breakdown
-        root_cause_pct = {}
-        if not chain_df.empty and "root_cause_hint" in chain_df.columns:
-            rc_counts = chain_df["root_cause_hint"].value_counts()
-            for k, v in rc_counts.items():
-                root_cause_pct[k] = round(float(v / total_chain_fails * 100), 2)
-                
-        # Primary driver: the parameter in valid_num_cols with highest absolute pearson correlation
-        primary_driver = None
-        max_abs_r = -1.0
-        for col, r in pearson_corrs.items():
-            if abs(r) > max_abs_r:
-                max_abs_r = abs(r)
-                primary_driver = col
-                
-        correlations.append({
-            "chain": chain_name,
-            "failure_count": total_chain_fails,
-            "pearson_correlations": pearson_corrs,
-            "primary_physical_driver": primary_driver,
-            "fail_type_percentages": fail_type_pct,
-            "failure_region_percentages": region_pct,
-            "root_cause_percentages": root_cause_pct
-        })
+    correlations, _overall, meta = build_correlation_rows(df, chain_map=chain_map or None)
 
     return {
         "requirement_id": "SCD-FR-005",
@@ -434,7 +357,19 @@ def build_fr005(df: pd.DataFrame, paths: list[Path]) -> dict:
             "logs_parsed": len(paths),
             "total_fail_records": len(df)
         },
-        "correlations": correlations
+        "correlations": correlations,
+        "region_field_used": meta.get("region_field_used"),
+        "root_cause_field_used": meta.get("root_cause_field_used"),
+        "numerical_features": meta.get("numerical_features"),
+        "correlation_feature_count": meta.get("correlation_feature_count"),
+        "chains_analyzed": meta.get("chains_analyzed"),
+        "physical_features": meta.get("physical_features"),
+        "scan_load_features": meta.get("scan_load_features"),
+        "spatial_features": meta.get("spatial_features"),
+        "topology_fields": meta.get("topology_fields"),
+        "topology_available": meta.get("topology_available"),
+        "compression_summary": meta.get("compression_summary"),
+        "summary": meta.get("summary"),
     }
 
 
@@ -677,7 +612,7 @@ def main() -> None:
         "SCD-FR-004_chain_failure_ranking.json": build_fr004(df, paths),
         "SCD-FR-002_suspected_failing_cells.json": build_fr002(df, paths),
         "SCD-FR-003_scan_topology.json": build_fr003(df),
-        "SCD-FR-005_failure_correlation.json": build_fr005(df, paths),
+        "SCD-FR-005_failure_correlation.json": build_fr005(df, paths, chain_map=chain_map),
         "SCD-FR-006_scan_chain_breaks.json": build_fr006(df, paths),
         "SCD-FR-007_shift_capture_diagnosis.json": build_fr007(df, paths),
     }
@@ -698,7 +633,7 @@ def main() -> None:
     except Exception as e:
         print(f"Failed to generate HTML report: {e}")
 
-    # Generate PFA Debug Location Recommendations (SCD-FR-009)
+    # Generate silicon debug location recommendations (SCD-FR-009)
     from debug_locations import calculate_cell_coordinates, export_pfa_locations
     try:
         coords_df = calculate_cell_coordinates(df, chain_map)

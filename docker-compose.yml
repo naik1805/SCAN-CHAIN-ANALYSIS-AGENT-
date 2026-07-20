@@ -1,13 +1,13 @@
 version: "3.8"
 
 services:
-  diagnosis-agent:
+  diagnosis-api:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: scan_chain_diagnosis_dashboard
+    container_name: scan_chain_diagnosis_api
     ports:
-      - "8502:8502"
+      - "8000:8000"
     volumes:
       - ./data:/app/data
       - ./output:/app/output

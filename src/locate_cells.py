@@ -9,8 +9,9 @@ Pipeline:
            bit_position(from ScanOut) = (flop_number - 1) mod scan_length
            offset_from_scan_in        = scan_length - 1 - bit_position
            cell_name                  = chain.cell_order[bit_position]
-    4. Confidence = corroborating pattern count / total failing patterns on chain
-       (how strongly the evidence converges on this one cell).
+    4. Confidence = FR-010 calibrated composite (relative dominance, pattern
+       corroboration, obs share, fail-type consistency, blended with ML PFA
+       probability) — not a raw observations/chain_observations average.
 
 Output: suspected cell name + position + confidence score per chain.
 """
@@ -71,7 +72,12 @@ def enrich_with_positions(failures: pd.DataFrame, chains: dict[str, dict]) -> pd
     df = df.merge(info_df, on=["chain_id", "chain"], how="left")
 
     # 2. Vectorized calculations
-    df["chain_length"] = df["scan_length_stil"].fillna(df["shift_cycles"]).fillna(234).astype(int)
+    shift_cycles = (
+        df["shift_cycles"]
+        if "shift_cycles" in df.columns
+        else pd.Series(np.nan, index=df.index)
+    )
+    df["chain_length"] = df["scan_length_stil"].fillna(shift_cycles).fillna(234).astype(int)
 
     mask_valid = df["flop_number"].notna()
     df["bit_position"] = np.nan
@@ -145,12 +151,19 @@ def locate_failing_cells(
 
     One row per physical (chain_id, fail_flop_id/cell). Grouping is by FULL chain
     id so that same-numbered chains in different instances (e.g. core vs phy
-    channel1) are not merged. Confidence is the share of the chain's failing
-    observations that converge on this cell (corroborating ÷ chain total).
+    channel1) are not merged.
+
+    Confidence is the FR-010 calibrated composite from ``confidence_score``:
+    evidence (relative dominance, pattern corroboration, obs share, fail-type
+    consistency) blended with isotonic-calibrated Gradient Boosting P(PFA) — not a
+    raw observations/chain_observations average.
     """
     cols = ["chain", "instance", "chain_id", "cell_name", "fail_flop_id",
             "bit_position", "offset_from_scan_in", "chain_length", "observations",
-            "corroborating_patterns", "chain_observations", "confidence",
+            "corroborating_patterns", "chain_observations", "chain_pattern_count",
+            "fail_type_consistency", "confidence",
+            "obs_share", "relative_dominance", "pattern_corroboration",
+            "evidence_score", "ml_confidence",
             "dominant_fail_type", "dominant_region", "dominant_root_cause",
             "predicted_root_cause", "mean_ai_severity", "lots_affected", "scan_in", "scan_out",
             "scan_master_clock",
@@ -160,7 +173,8 @@ def locate_failing_cells(
     if enriched.empty:
         return pd.DataFrame(columns=cols)
 
-    # ML Step: Train KNNClassifier to predict unknown root cause hints (only if not pre-computed)
+    # Root-cause prediction: skip inline KNN when failures already carry
+    # ``predicted_root_cause`` from ml_pipeline (RandomForest — API / export path).
     if "predicted_root_cause" not in enriched.columns:
         enriched["predicted_root_cause"] = enriched["root_cause_hint"].fillna("UNKNOWN")
         
@@ -254,25 +268,69 @@ def locate_failing_cells(
     chain_obs = enriched.groupby("chain_id").size().rename("chain_observations")
     agg_res = agg_res.merge(chain_obs, on="chain_id", how="left")
 
+    if "pattern_id" in enriched.columns:
+        chain_pat = enriched.groupby("chain_id")["pattern_id"].nunique().rename("chain_pattern_count")
+        agg_res = agg_res.merge(chain_pat, on="chain_id", how="left")
+    else:
+        agg_res["chain_pattern_count"] = agg_res["corroborating_patterns"]
+
+    # Fail-type consistency: fraction of this cell's observations matching its mode
+    if "fail_type" in enriched.columns and "dominant_fail_type" in agg_res.columns:
+        ft_join = enriched[["chain_id", "fail_flop_id", "fail_type"]].merge(
+            agg_res[["chain_id", "fail_flop_id", "dominant_fail_type"]],
+            on=["chain_id", "fail_flop_id"],
+            how="left",
+        )
+        ft_join["ft_match"] = (
+            ft_join["fail_type"].astype(str) == ft_join["dominant_fail_type"].astype(str)
+        )
+        ft_cons = (
+            ft_join.groupby(["chain_id", "fail_flop_id"])["ft_match"]
+            .mean()
+            .rename("fail_type_consistency")
+            .reset_index()
+        )
+        agg_res = agg_res.merge(ft_cons, on=["chain_id", "fail_flop_id"], how="left")
+        agg_res["fail_type_consistency"] = agg_res["fail_type_consistency"].fillna(0.5)
+    else:
+        agg_res["fail_type_consistency"] = 0.5
+
+    # Seed obs_share for transparency; FR-010 composite overwrites confidence
     agg_res["confidence"] = (agg_res["observations"] / agg_res["chain_observations"]).round(4)
-    
-    # Apply ML Confidence Scoring Model (SCD-FR-010 Option B)
+
+    # Calibrated composite confidence (SCD-FR-010) — evidence + ML, no artificial floor
     try:
         from confidence_score import load_confidence_model, predict_diagnosis_confidence
         model_data = load_confidence_model()
-        agg_res = predict_diagnosis_confidence(agg_res, model_data)
+        scored = predict_diagnosis_confidence(agg_res, model_data)
+        for col in (
+            "confidence", "obs_share", "relative_dominance", "pattern_corroboration",
+            "evidence_score", "ml_confidence", "fail_type_consistency",
+        ):
+            if col in scored.columns:
+                agg_res[col] = scored[col]
     except Exception:
-        pass
-    
+        # Evidence-only fallback if model load / predict fails
+        try:
+            from confidence_score import predict_diagnosis_confidence
+            scored = predict_diagnosis_confidence(agg_res, None)
+            agg_res["confidence"] = scored["confidence"]
+            if "fail_type_consistency" in scored.columns:
+                agg_res["fail_type_consistency"] = scored["fail_type_consistency"]
+        except Exception:
+            pass
+
     # Round mean_ai_severity using two-stage rounding to eliminate float representation noise
     agg_res["mean_ai_severity"] = agg_res["mean_ai_severity"].map(lambda x: round(round(float(x), 10), 3) if pd.notna(x) else None)
-    
+
     # Cast/map bit_position and offset_from_scan_in
     agg_res["bit_position"] = agg_res["bit_position"].map(lambda x: int(x) if pd.notna(x) else None)
     agg_res["offset_from_scan_in"] = agg_res["offset_from_scan_in"].map(lambda x: int(x) if pd.notna(x) else None)
-    
+
     agg_res = agg_res.sort_values(
         ["confidence", "observations"], ascending=False
     ).reset_index(drop=True)
 
-    return agg_res[cols]
+    # Only return declared columns that exist (extra score diagnostics kept if present
+    # would break callers expecting exact cols — stick to cols list)
+    return agg_res[[c for c in cols if c in agg_res.columns]]

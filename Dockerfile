@@ -1,32 +1,30 @@
-# Multi-stage production-grade Dockerfile for Scan Chain Diagnosis Agent
+# Multi-stage production Dockerfile — FastAPI diagnosis API
 # ---------------------------------------------------------------------
 FROM python:3.11-slim AS builder
 
 WORKDIR /app
 
-# Install build dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
-
-# Install dependencies into a wheels directory
-RUN pip install --no-cache-dir --user -r requirements.txt
+COPY api/requirements.txt api-requirements.txt
+RUN pip install --no-cache-dir --user -r requirements.txt \
+    && pip install --no-cache-dir --user -r api-requirements.txt
 
 # ---------------------------------------------------------------------
 FROM python:3.11-slim AS runner
 
 WORKDIR /app
 
-# Copy installed packages from builder
 COPY --from=builder /root/.local /root/.local
 COPY . .
 
 ENV PATH=/root/.local/bin:$PATH
 ENV PYTHONUNBUFFERED=1
+ENV PYTHONPATH=/app
 
-EXPOSE 8502
+EXPOSE 8000
 
-# Run Streamlit dashboard by default
-ENTRYPOINT ["streamlit", "run", "src/app.py", "--server.port", "8502", "--server.address", "0.0.0.0"]
+ENTRYPOINT ["uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8000"]

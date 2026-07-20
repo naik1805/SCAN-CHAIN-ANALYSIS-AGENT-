@@ -175,6 +175,139 @@ def build_connectivity_plotly_figure(
     return fig
 
 
+def build_system_connectivity_data(
+    chains_detail: list[dict],
+    compression: dict,
+    full_graph: dict | None = None,
+) -> dict:
+    """JSON-serializable system-level DFT graph for React (mirrors Plotly layout)."""
+    if not chains_detail:
+        return {
+            "nodes": [],
+            "edges": [],
+            "stats": {
+                "graph_nodes": 0,
+                "graph_edges": 0,
+                "chain_nodes": 0,
+                "compression_ratio": 0,
+            },
+        }
+
+    sorted_chains = sorted(chains_detail, key=lambda c: _chain_sort_key(c.get("chain_name", "")))
+    n = len(sorted_chains)
+    col_x = {"jtag": 0, "tap": 1, "edt": 2, "decomp": 3.2, "chain": 4.8, "comp": 6.2}
+    y_edt = 0.5
+
+    chain_positions: dict[str, tuple[float, float]] = {}
+    for i, ch in enumerate(sorted_chains):
+        y = (i + 0.5) / n
+        chain_positions[ch["scan_chain_id"]] = (col_x["chain"], y)
+
+    decomp_chains: dict[str, list[float]] = {}
+    comp_chains: dict[str, list[float]] = {}
+    for ch in sorted_chains:
+        ca = ch.get("compression_association") or {}
+        dp = ca.get("decompressor_pin")
+        cp = ca.get("compactor_pin")
+        _, y = chain_positions[ch["scan_chain_id"]]
+        if dp:
+            decomp_chains.setdefault(dp, []).append(y)
+        if cp:
+            comp_chains.setdefault(cp, []).append(y)
+
+    decomp_pos = {pin: (col_x["decomp"], sum(ys) / len(ys)) for pin, ys in decomp_chains.items()}
+    comp_pos = {pin: (col_x["comp"], sum(ys) / len(ys)) for pin, ys in comp_chains.items()}
+
+    nodes: list[dict] = []
+    edges: list[dict] = []
+
+    def _node(nid: str, x: float, y: float, label: str, kind: str, hover: str = "") -> None:
+        nodes.append({
+            "id": nid,
+            "x": x,
+            "y": y,
+            "label": label,
+            "kind": kind,
+            "hover": hover or label,
+        })
+
+    _node("jtag", col_x["jtag"], y_edt, "JTAG", "controller", "JTAG Controller")
+    _node("tap", col_x["tap"], y_edt, "TAP", "controller", "TAP Controller")
+    _node("edt", col_x["edt"], y_edt, "EDT Engine", "controller", "EDT Compression Engine")
+
+    for pin, (dx, dy) in decomp_pos.items():
+        short = pin.replace("edt_channels_in", "Decomp")
+        _node(
+            f"decomp:{pin}", dx, dy, short, "decompressor",
+            f"Decompressor: {pin}<br>Chains: {len(decomp_chains[pin])}",
+        )
+
+    for ch in sorted_chains:
+        cx, cy = chain_positions[ch["scan_chain_id"]]
+        inst = ch.get("instance_type", "")
+        label = ch.get("chain_name", "")
+        hover = (
+            f"{label} [{inst}] · {ch.get('chain_length')} FFs · "
+            f"SI: {ch.get('scan_input_si')} · SO: {ch.get('scan_output_so')}"
+        )
+        nodes.append({
+            "id": ch["scan_chain_id"],
+            "x": cx,
+            "y": cy,
+            "label": label,
+            "kind": "chain",
+            "hover": hover,
+            "details": {
+                "chain_name": label,
+                "instance_type": inst,
+                "chain_length": ch.get("chain_length"),
+                "scan_input_si": ch.get("scan_input_si"),
+                "scan_output_so": ch.get("scan_output_so"),
+                "clock_domain": ch.get("clock_domain"),
+                "scan_enable_se": ch.get("scan_enable_se"),
+            },
+        })
+
+    for pin, (kx, ky) in comp_pos.items():
+        short = pin.replace("edt_channels_out", "Comp")
+        _node(
+            f"comp:{pin}", kx, ky, short, "compactor",
+            f"Compactor: {pin}<br>Chains: {len(comp_chains[pin])}",
+        )
+
+    def _edge(a: str, b: str) -> None:
+        edges.append({"from": a, "to": b})
+
+    _edge("jtag", "tap")
+    _edge("tap", "edt")
+    for pin in decomp_pos:
+        _edge("edt", f"decomp:{pin}")
+    for ch in sorted_chains:
+        ca = ch.get("compression_association") or {}
+        dp = ca.get("decompressor_pin")
+        cp = ca.get("compactor_pin")
+        cid = ch["scan_chain_id"]
+        if dp:
+            _edge(f"decomp:{dp}", cid)
+        if cp:
+            _edge(cid, f"comp:{cp}")
+    for pin in comp_pos:
+        _edge(f"comp:{pin}", "edt")
+
+    fg = full_graph or {}
+    ratio = compression.get("compression_ratio", 0)
+    return {
+        "nodes": nodes,
+        "edges": edges,
+        "stats": {
+            "graph_nodes": fg.get("node_count", len(nodes)),
+            "graph_edges": fg.get("edge_count", len(edges)),
+            "chain_nodes": n,
+            "compression_ratio": ratio,
+        },
+    }
+
+
 def _decomp_channel(pin: str) -> str:
     if "[" in pin:
         return pin.split("[")[1][:-1]

@@ -1,39 +1,19 @@
 {
+  "model_type": "sklearn_gbm_calibrated",
   "feature_cols": [
     "pattern_consistency",
     "offset_ratio",
     "log_pattern_count",
+    "relative_dominance",
+    "pattern_corroboration",
+    "obs_share",
+    "fail_type_consistency",
     "rc_SHIFT",
     "rc_SETUP",
     "rc_HOLD",
     "rc_DEFECT"
   ],
-  "means": {
-    "pattern_consistency": 0.5449512,
-    "offset_ratio": 0.49547863247863244,
-    "log_pattern_count": 2.707825845188482,
-    "rc_SHIFT": 0.0,
-    "rc_SETUP": 0.0,
-    "rc_HOLD": 0.0,
-    "rc_DEFECT": 0.0
-  },
-  "stds": {
-    "pattern_consistency": 0.26127539795885873,
-    "offset_ratio": 0.28220665999947714,
-    "log_pattern_count": 0.7257794273812314,
-    "rc_SHIFT": 1.0,
-    "rc_SETUP": 1.0,
-    "rc_HOLD": 1.0,
-    "rc_DEFECT": 1.0
-  },
-  "weights": [
-    0.9823144567375812,
-    -0.4317908030309132,
-    0.7209594420064458,
-    1.1309583195067119,
-    0.8677598926296283,
-    -0.7525641465577623,
-    0.5272639772762183
-  ],
-  "bias": 1.7734180428548014
+  "n_train": 1045,
+  "positive_rate": 0.8641148325358852,
+  "joblib": "confidence_classifier.joblib"
 }

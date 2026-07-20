@@ -81,6 +81,14 @@ class ReportingConfig:
 
 
 @dataclass
+class ProductionConfig:
+    """Production hardening: reviews, retrain, dashboard cache."""
+    retrain_feedback_threshold: int = 25
+    dashboard_cache_ttl_sec: int = 120
+    auto_seed_reviews: bool = True
+
+
+@dataclass
 class AppConfig:
     """Root configuration object.  All sub-configs are nested here."""
     ml: MLConfig = field(default_factory=MLConfig)
@@ -88,6 +96,7 @@ class AppConfig:
     cache: CacheConfig = field(default_factory=CacheConfig)
     logging: LoggingConfig = field(default_factory=LoggingConfig)
     reporting: ReportingConfig = field(default_factory=ReportingConfig)
+    production: ProductionConfig = field(default_factory=ProductionConfig)
 
     @property
     def project_root(self) -> Path:
@@ -149,6 +158,7 @@ def load_config(path: Path | None = None) -> AppConfig:
         cache=_parse_section(CacheConfig, raw.get("cache", {})),
         logging=_parse_section(LoggingConfig, raw.get("logging", {})),
         reporting=_parse_section(ReportingConfig, raw.get("reporting", {})),
+        production=_parse_section(ProductionConfig, raw.get("production", {})),
     )
 
 
@@ -170,6 +180,7 @@ __all__ = [
     "CacheConfig",
     "LoggingConfig",
     "ReportingConfig",
+    "ProductionConfig",
     "get_config",
     "load_config",
 ]

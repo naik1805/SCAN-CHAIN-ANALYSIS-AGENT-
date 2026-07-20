@@ -21,21 +21,16 @@ from typing import Any
 import pandas as pd
 
 from exceptions import ValidationError
+from schema import (
+    OPTIONAL_FEATURE_COLUMNS,
+    REQUIRED_FAILURE_COLUMNS,
+    normalize_failure_schema,
+)
 
 log = logging.getLogger(__name__)
 
-# ---------------------------------------------------------------------------
-# Required columns that every parsed log DataFrame must contain
-# ---------------------------------------------------------------------------
-
-_REQUIRED_COLUMNS: frozenset[str] = frozenset({
-    "lot_id",
-    "source_file",
-    "chain_id",
-    "chain",
-    "fail_flop_id",
-    "fail_type",
-})
+# Backward-compatible alias for tests / imports
+_REQUIRED_COLUMNS = REQUIRED_FAILURE_COLUMNS
 
 _PHYSICAL_FEATURE_COLUMNS: tuple[str, ...] = (
     "ir_drop_mv",
@@ -60,24 +55,54 @@ def validate_log_dataframe(df: pd.DataFrame) -> None:
     """
     if df.empty:
         raise ValidationError(
-            "Parsed DataFrame is empty — no FAIL records found. "
-            "Check that the log files contain STATUS : FAIL blocks."
+            "No failure records were found in the uploaded logs. "
+            "Verify that log files contain failing test blocks (STATUS : FAIL) "
+            "and that the file format matches your client's ATE export."
         )
 
-    missing = sorted(_REQUIRED_COLUMNS - set(df.columns))
+    missing = sorted(REQUIRED_FAILURE_COLUMNS - set(df.columns))
     if missing:
         raise ValidationError(
-            "Parsed log DataFrame is missing required columns.",
+            "Required log fields could not be mapped from the uploaded files. "
+            f"Missing columns: {', '.join(missing)}. "
+            "Check that chain, flop, and lot identifiers are present in each FAIL record.",
             missing_columns=missing,
         )
 
+    work = normalize_failure_schema(df)
+    empty_required = sorted(
+        c for c in REQUIRED_FAILURE_COLUMNS
+        if work[c].isna().all()
+        or (work[c].astype(str).str.strip() == "").all()
+    )
+    if empty_required:
+        raise ValidationError(
+            "Required log fields are present but contain no usable data: "
+            f"{', '.join(empty_required)}.",
+            missing_columns=empty_required,
+        )
+
     # Warn (don't raise) if physical feature columns are absent — ML is optional
-    missing_feat = [c for c in _PHYSICAL_FEATURE_COLUMNS if c not in df.columns]
+    missing_feat = [
+        c for c in _PHYSICAL_FEATURE_COLUMNS
+        if c not in work.columns or work[c].isna().all()
+    ]
     if missing_feat:
         log.warning(
             "Physical feature columns %s are missing — ML root-cause "
             "prediction will be skipped.",
             missing_feat,
+        )
+
+    missing_optional = [
+        c for c in OPTIONAL_FEATURE_COLUMNS
+        if c not in work.columns or work[c].isna().all()
+    ]
+    if missing_optional:
+        log.warning(
+            "Optional client fields %s are absent or empty — correlation, "
+            "spatial, and die-context views may be limited.",
+            missing_optional,
         )
 
 

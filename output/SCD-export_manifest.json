@@ -1,0 +1,120 @@
+{
+  "generated_at": "2026-07-16T05:33:11.184204+00:00",
+  "export_kind": "manifest",
+  "dashboard_snapshot": "SCD-dashboard.json",
+  "dataset_fingerprint": {
+    "log_file_count": 90,
+    "failure_records": 5089,
+    "load_source": "cache:90 logs"
+  },
+  "kpis": [
+    {
+      "kpi_id": "failing_chains",
+      "section": "overview",
+      "requirement_id": "SCD-FR-001",
+      "artifact": "SCD-FR-001_failing_scan_chains.json",
+      "artifact_exists": true,
+      "artifact_path": "output/SCD-FR-001_failing_scan_chains.json"
+    },
+    {
+      "kpi_id": "failing_cells",
+      "section": "overview",
+      "requirement_id": "SCD-FR-002",
+      "artifact": "SCD-FR-002_suspected_failing_cells.json",
+      "artifact_exists": true,
+      "artifact_path": "output/SCD-FR-002_suspected_failing_cells.json"
+    },
+    {
+      "kpi_id": "chain_breaks",
+      "section": "overview",
+      "requirement_id": "SCD-FR-006",
+      "artifact": "SCD-FR-006_scan_chain_breaks.json",
+      "artifact_exists": true,
+      "artifact_path": "output/SCD-FR-006_scan_chain_breaks.json"
+    },
+    {
+      "kpi_id": "shift_capture",
+      "section": "overview",
+      "requirement_id": "SCD-FR-007",
+      "artifact": "SCD-FR-007_shift_capture_diagnosis.json",
+      "artifact_exists": true,
+      "artifact_path": "output/SCD-FR-007_shift_capture_diagnosis.json"
+    },
+    {
+      "kpi_id": "topology_chains",
+      "section": "engineering",
+      "requirement_id": "SCD-FR-003",
+      "artifact": "SCD-FR-003_scan_topology.json",
+      "artifact_exists": true,
+      "artifact_path": "output/SCD-FR-003_scan_topology.json"
+    },
+    {
+      "kpi_id": "ranked_chains",
+      "section": "engineering",
+      "requirement_id": "SCD-FR-004",
+      "artifact": "SCD-FR-004_chain_failure_ranking.json",
+      "artifact_exists": true,
+      "artifact_path": "output/SCD-FR-004_chain_failure_ranking.json"
+    },
+    {
+      "kpi_id": "failure_correlations",
+      "section": "engineering",
+      "requirement_id": "SCD-FR-005",
+      "artifact": "SCD-FR-005_failure_correlation.json",
+      "artifact_exists": true,
+      "artifact_path": "output/SCD-FR-005_failure_correlation.json"
+    },
+    {
+      "kpi_id": "top_failing_chain",
+      "section": "engineering",
+      "requirement_id": "SCD-FR-004",
+      "artifact": "SCD-FR-004_chain_failure_ranking.json",
+      "artifact_exists": true,
+      "artifact_path": "output/SCD-FR-004_chain_failure_ranking.json"
+    },
+    {
+      "kpi_id": "diagnosis_reports",
+      "section": "ai",
+      "requirement_id": "SCD-FR-008",
+      "artifact": "SCD-FR-008_scan_diagnosis_report.html",
+      "artifact_exists": true,
+      "artifact_path": "output/SCD-FR-008_scan_diagnosis_report.html"
+    },
+    {
+      "kpi_id": "debug_locations",
+      "section": "ai",
+      "requirement_id": "SCD-FR-009",
+      "artifact": "SCD-FR-009_debug_locations.json",
+      "artifact_exists": true,
+      "artifact_path": "output/SCD-FR-009_debug_locations.json"
+    },
+    {
+      "kpi_id": "avg_confidence",
+      "section": "ai",
+      "requirement_id": "SCD-FR-002",
+      "artifact": "SCD-FR-002_suspected_failing_cells.json",
+      "artifact_exists": true,
+      "artifact_path": "output/SCD-FR-002_suspected_failing_cells.json"
+    },
+    {
+      "kpi_id": "pending_reviews",
+      "section": "ai",
+      "requirement_id": "SCD-FR-008",
+      "artifact": "SCD-FR-008_scan_diagnosis_report.html",
+      "artifact_exists": true,
+      "artifact_path": "output/SCD-FR-008_scan_diagnosis_report.html"
+    }
+  ],
+  "requirement_artifacts": [
+    "SCD-FR-001_failing_scan_chains.json",
+    "SCD-FR-002_suspected_failing_cells.json",
+    "SCD-FR-003_scan_topology.json",
+    "SCD-FR-004_chain_failure_ranking.json",
+    "SCD-FR-005_failure_correlation.json",
+    "SCD-FR-006_scan_chain_breaks.json",
+    "SCD-FR-007_shift_capture_diagnosis.json",
+    "SCD-FR-008_scan_diagnosis_report.html",
+    "SCD-FR-009_debug_locations.csv",
+    "SCD-FR-009_debug_locations.json"
+  ]
+}

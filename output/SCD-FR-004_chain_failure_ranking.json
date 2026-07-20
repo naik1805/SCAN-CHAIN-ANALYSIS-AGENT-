@@ -3,9 +3,9 @@
   "requirement": "Rank scan chains by failure frequency",
   "acceptance_criteria": "Chains ranked based on failure frequency.",
   "status": "satisfied",
-  "generated_at": "2026-07-13T07:28:20.447863+00:00",
+  "generated_at": "2026-07-16T05:32:50.973706+00:00",
   "inputs": {
-    "logs_parsed": 9,
+    "logs_parsed": 90,
     "lots": [
       "LOT_1",
       "LOT_2",
@@ -18,174 +18,221 @@
       "LOT_9"
     ]
   },
+  "ranking_feature": {
+    "api": "pandas.Series.rank",
+    "default_method": "dense",
+    "methods": {
+      "average": "Tied values share the average of their ordinal ranks (default in pandas).",
+      "min": "Tied values all get the lowest (best) rank of the group (competition ranking).",
+      "max": "Tied values all get the highest (worst) rank of the group.",
+      "first": "Ties broken by order of appearance in the Series (stable, no shared ranks).",
+      "dense": "Like min, but ranks always increase by 1 between distinct groups (no gaps)."
+    },
+    "options": {
+      "ascending": "False \u2192 higher fail_count gets better (lower) rank number.",
+      "na_option": "How to rank NaNs: 'keep' | 'top' | 'bottom'.",
+      "pct": "If True, return percentile ranks in [0, 1] instead of ordinal ranks."
+    },
+    "fr004_usage": {
+      "column_ranked": "fail_count",
+      "method": "dense",
+      "ascending": false,
+      "pct": false,
+      "meaning": "Chains with more failures receive lower rank numbers (1 = worst)."
+    }
+  },
   "summary": {
-    "total_fail_records": 960,
+    "total_fail_records": 5089,
     "distinct_failing_chains": 23,
     "top_chain": "channel14",
-    "top_chain_fail_count": 125,
-    "chains_covering_80pct": 13
+    "top_chain_fail_count": 496,
+    "chains_covering_80pct": 14,
+    "rank_method": "dense"
   },
   "ranking": [
     {
       "rank": 1,
       "chain": "channel14",
-      "fail_count": 125,
-      "fail_pct": 13.021,
-      "cumulative_pct": 13.021
+      "fail_count": 496,
+      "fail_pct": 9.747,
+      "cumulative_pct": 9.747,
+      "rank_method": "dense"
     },
     {
       "rank": 2,
-      "chain": "channel16",
-      "fail_count": 89,
-      "fail_pct": 9.271,
-      "cumulative_pct": 22.292
+      "chain": "channel02",
+      "fail_count": 404,
+      "fail_pct": 7.939,
+      "cumulative_pct": 17.686,
+      "rank_method": "dense"
     },
     {
       "rank": 3,
-      "chain": "channel10",
-      "fail_count": 84,
-      "fail_pct": 8.75,
-      "cumulative_pct": 31.042
+      "chain": "channel16",
+      "fail_count": 344,
+      "fail_pct": 6.76,
+      "cumulative_pct": 24.446,
+      "rank_method": "dense"
     },
     {
       "rank": 4,
-      "chain": "channel06",
-      "fail_count": 80,
-      "fail_pct": 8.333,
-      "cumulative_pct": 39.375
+      "chain": "channel11",
+      "fail_count": 301,
+      "fail_pct": 5.915,
+      "cumulative_pct": 30.361,
+      "rank_method": "dense"
     },
     {
       "rank": 5,
-      "chain": "channel07",
-      "fail_count": 68,
-      "fail_pct": 7.083,
-      "cumulative_pct": 46.458
+      "chain": "channel04",
+      "fail_count": 283,
+      "fail_pct": 5.561,
+      "cumulative_pct": 35.922,
+      "rank_method": "dense"
     },
     {
       "rank": 6,
-      "chain": "channel03",
-      "fail_count": 68,
-      "fail_pct": 7.083,
-      "cumulative_pct": 53.541
+      "chain": "channel01",
+      "fail_count": 276,
+      "fail_pct": 5.423,
+      "cumulative_pct": 41.345,
+      "rank_method": "dense"
     },
     {
       "rank": 7,
-      "chain": "channel09",
-      "fail_count": 63,
-      "fail_pct": 6.562,
-      "cumulative_pct": 60.103
+      "chain": "channel15",
+      "fail_count": 272,
+      "fail_pct": 5.345,
+      "cumulative_pct": 46.69,
+      "rank_method": "dense"
     },
     {
       "rank": 8,
-      "chain": "channel12",
-      "fail_count": 60,
-      "fail_pct": 6.25,
-      "cumulative_pct": 66.353
+      "chain": "channel09",
+      "fail_count": 270,
+      "fail_pct": 5.306,
+      "cumulative_pct": 51.996,
+      "rank_method": "dense"
     },
     {
       "rank": 9,
-      "chain": "channel17",
-      "fail_count": 27,
-      "fail_pct": 2.812,
-      "cumulative_pct": 69.165
+      "chain": "channel07",
+      "fail_count": 260,
+      "fail_pct": 5.109,
+      "cumulative_pct": 57.105,
+      "rank_method": "dense"
+    },
+    {
+      "rank": 9,
+      "chain": "channel10",
+      "fail_count": 260,
+      "fail_pct": 5.109,
+      "cumulative_pct": 62.214,
+      "rank_method": "dense"
     },
     {
       "rank": 10,
-      "chain": "channel13",
-      "fail_count": 26,
-      "fail_pct": 2.708,
-      "cumulative_pct": 71.873
+      "chain": "channel06",
+      "fail_count": 243,
+      "fail_pct": 4.775,
+      "cumulative_pct": 66.989,
+      "rank_method": "dense"
     },
     {
       "rank": 11,
-      "chain": "channel08",
-      "fail_count": 26,
-      "fail_pct": 2.708,
-      "cumulative_pct": 74.581
+      "chain": "channel19",
+      "fail_count": 212,
+      "fail_pct": 4.166,
+      "cumulative_pct": 71.155,
+      "rank_method": "dense"
     },
     {
       "rank": 12,
-      "chain": "channel22",
-      "fail_count": 26,
-      "fail_pct": 2.708,
-      "cumulative_pct": 77.289
+      "chain": "channel03",
+      "fail_count": 197,
+      "fail_pct": 3.871,
+      "cumulative_pct": 75.026,
+      "rank_method": "dense"
     },
     {
       "rank": 13,
-      "chain": "channel23",
-      "fail_count": 26,
-      "fail_pct": 2.708,
-      "cumulative_pct": 79.997
+      "chain": "channel21",
+      "fail_count": 165,
+      "fail_pct": 3.242,
+      "cumulative_pct": 78.268,
+      "rank_method": "dense"
     },
     {
       "rank": 14,
-      "chain": "channel21",
-      "fail_count": 24,
-      "fail_pct": 2.5,
-      "cumulative_pct": 82.497
+      "chain": "channel12",
+      "fail_count": 153,
+      "fail_pct": 3.006,
+      "cumulative_pct": 81.274,
+      "rank_method": "dense"
     },
     {
       "rank": 15,
-      "chain": "channel18",
-      "fail_count": 23,
-      "fail_pct": 2.396,
-      "cumulative_pct": 84.893
+      "chain": "channel17",
+      "fail_count": 130,
+      "fail_pct": 2.555,
+      "cumulative_pct": 83.829,
+      "rank_method": "dense"
     },
     {
       "rank": 16,
-      "chain": "channel11",
-      "fail_count": 20,
-      "fail_pct": 2.083,
-      "cumulative_pct": 86.976
+      "chain": "channel23",
+      "fail_count": 127,
+      "fail_pct": 2.496,
+      "cumulative_pct": 86.325,
+      "rank_method": "dense"
     },
     {
       "rank": 17,
-      "chain": "channel15",
-      "fail_count": 19,
-      "fail_pct": 1.979,
-      "cumulative_pct": 88.955
+      "chain": "channel13",
+      "fail_count": 122,
+      "fail_pct": 2.397,
+      "cumulative_pct": 88.722,
+      "rank_method": "dense"
     },
     {
       "rank": 18,
-      "chain": "channel19",
-      "fail_count": 19,
-      "fail_pct": 1.979,
-      "cumulative_pct": 90.934
+      "chain": "channel18",
+      "fail_count": 119,
+      "fail_pct": 2.338,
+      "cumulative_pct": 91.06,
+      "rank_method": "dense"
+    },
+    {
+      "rank": 18,
+      "chain": "channel22",
+      "fail_count": 119,
+      "fail_pct": 2.338,
+      "cumulative_pct": 93.398,
+      "rank_method": "dense"
     },
     {
       "rank": 19,
       "chain": "channel05",
-      "fail_count": 19,
-      "fail_pct": 1.979,
-      "cumulative_pct": 92.913
+      "fail_count": 114,
+      "fail_pct": 2.24,
+      "cumulative_pct": 95.638,
+      "rank_method": "dense"
+    },
+    {
+      "rank": 20,
+      "chain": "channel08",
+      "fail_count": 111,
+      "fail_pct": 2.181,
+      "cumulative_pct": 97.819,
+      "rank_method": "dense"
     },
     {
       "rank": 20,
       "chain": "channel20",
-      "fail_count": 18,
-      "fail_pct": 1.875,
-      "cumulative_pct": 94.788
-    },
-    {
-      "rank": 21,
-      "chain": "channel02",
-      "fail_count": 17,
-      "fail_pct": 1.771,
-      "cumulative_pct": 96.559
-    },
-    {
-      "rank": 22,
-      "chain": "channel04",
-      "fail_count": 17,
-      "fail_pct": 1.771,
-      "cumulative_pct": 98.33
-    },
-    {
-      "rank": 23,
-      "chain": "channel01",
-      "fail_count": 16,
-      "fail_pct": 1.667,
-      "cumulative_pct": 99.997
+      "fail_count": 111,
+      "fail_pct": 2.181,
+      "cumulative_pct": 100.0,
+      "rank_method": "dense"
     }
   ]
 }

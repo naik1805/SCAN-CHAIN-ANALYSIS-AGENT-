@@ -24,7 +24,7 @@ class TestValidateLogDataframe:
         validate_log_dataframe(minimal_failures_df)
 
     def test_empty_df_raises(self):
-        with pytest.raises(ValidationError, match="empty"):
+        with pytest.raises(ValidationError, match="failure records"):
             validate_log_dataframe(pd.DataFrame())
 
     def test_missing_columns_raises(self):

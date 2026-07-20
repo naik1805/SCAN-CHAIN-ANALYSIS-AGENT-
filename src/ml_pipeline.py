@@ -268,6 +268,32 @@ def predict_root_cause(
     return result
 
 
+def attach_root_cause_confidence(pipeline: Pipeline, df: pd.DataFrame) -> pd.DataFrame:
+    """Attach max class probability for every row with valid features (trust reporting).
+
+    ``predict_root_cause`` only fills confidence on unlabeled rows; production UI
+    needs model certainty on all inferable failures.
+    """
+    result = df.copy()
+    if "prediction_confidence" not in result.columns:
+        result["prediction_confidence"] = np.nan
+
+    X, _ = _prepare_features(df)
+    valid = ~np.isnan(X).any(axis=1)
+    if not valid.any():
+        return result
+
+    try:
+        proba = pipeline.predict_proba(X[valid]).max(axis=1)
+    except Exception as exc:
+        log.warning("Root-cause confidence scoring skipped: %s", exc)
+        return result
+
+    idx = np.where(valid)[0]
+    result.iloc[idx, result.columns.get_loc("prediction_confidence")] = np.round(proba, 4)
+    return result
+
+
 # ---------------------------------------------------------------------------
 # Anomaly detector (IsolationForest)
 # ---------------------------------------------------------------------------
@@ -357,6 +383,54 @@ def detect_anomalies(detector: Pipeline, df: pd.DataFrame) -> pd.DataFrame:
         n_anomalies, len(X_valid), n_anomalies / len(X_valid) * 100,
     )
     return result
+
+
+# ---------------------------------------------------------------------------
+# Batch inference (export CLI, FastAPI loader, Streamlit)
+# ---------------------------------------------------------------------------
+
+def apply_failure_ml(df: pd.DataFrame) -> pd.DataFrame:
+    """Load/train sklearn models and attach root-cause + anomaly columns.
+
+    Adds or updates ``predicted_root_cause``, ``prediction_confidence``,
+    ``is_anomaly``, and ``anomaly_score`` on the failure DataFrame.
+    Safe to call on cached parses that lack ML columns.
+    """
+    if df.empty:
+        return df
+
+    from schema import normalize_failure_schema
+
+    df = normalize_failure_schema(df)
+
+    classifier = load_classifier(df)
+    if classifier is None:
+        try:
+            classifier, metrics = train_root_cause_classifier(df)
+            save_classifier(classifier, metrics)
+        except Exception as exc:
+            log.warning("Root-cause classifier train skipped: %s", exc)
+    if classifier is not None:
+        try:
+            df = predict_root_cause(classifier, df)
+            df = attach_root_cause_confidence(classifier, df)
+        except Exception as exc:
+            log.warning("Root-cause prediction skipped: %s", exc)
+
+    anomaly_detector = load_anomaly_detector(df)
+    if anomaly_detector is None:
+        try:
+            anomaly_detector = train_anomaly_detector(df)
+            save_anomaly_detector(anomaly_detector)
+        except Exception as exc:
+            log.warning("Anomaly detector train skipped: %s", exc)
+    if anomaly_detector is not None:
+        try:
+            df = detect_anomalies(anomaly_detector, df)
+        except Exception as exc:
+            log.warning("Anomaly detection skipped: %s", exc)
+
+    return df
 
 
 # ---------------------------------------------------------------------------
@@ -497,6 +571,7 @@ def get_model_card(metrics: dict[str, Any]) -> dict[str, Any]:
 
 __all__ = [
     "FEATURE_COLS",
+    "apply_failure_ml",
     "train_root_cause_classifier",
     "predict_root_cause",
     "train_anomaly_detector",

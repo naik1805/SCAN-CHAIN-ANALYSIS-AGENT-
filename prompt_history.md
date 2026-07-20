@@ -1,227 +1,72 @@
-# Project Prompt Ingestion & Technical Translation Log
+# Scan Chain Diagnosis Agent — Rebuild-From-Scratch Prompt Set
 
-This document records all prompts provided by the user during the course of the **Scan Chain Diagnosis Agent** project, starting from the project's inception on **June 19, 2026** through the present. Each prompt has been technically translated to reflect precise engineering and design specifications suitable for system development.
+Technical rebuild prompts in **rebuild order only**: execute **RB-001 → RB-032** sequentially.
 
-## Project Tech Stack Summary
-
-The project utilizes the following technologies, tools, and libraries as specified and implemented:
-
-*   **UI Dashboard & Presentation**: **Streamlit** (interactive failure visualization, coordinates plotting, custom metrics, and download triggers).
-*   **Programming Language**: **Python 3** (backend execution environment).
-*   **Data Processing**: **Pandas** & **NumPy** (log parsing, data manipulation, topological data extraction).
-*   **Machine Learning Models**:
-    *   **Random Forest Classifier** (`sklearn`): Root cause classification.
-    *   **K-Nearest Neighbors (KNN)**: Custom classification model.
-    *   **Sigmoid Regression / Neural Model**: Diagnosis confidence prediction.
-*   **Data Storage & Caching**: **Apache Parquet** (fast column-based file cache for log data to optimize Streamlit load times) & **Joblib** (ML model serialization).
-*   **Testing Suite**: **Pytest** (automated unit and regression testing, validating 55 test cases).
-*   **API Layer (Migration-Ready)**: **FastAPI** (separated design to support migration to microservices).
+> Note: A full chronological conversation log previously existed through **PR-261** and was replaced by this rebuild set.
 
 ---
 
-## Project Functional Requirements (SCD-FR)
+## Project scope (shipped system)
 
-The following functional requirements have been requested and implemented over the course of the project:
+| Layer | Stack / artifacts |
+| :--- | :--- |
+| Diagnosis engine | Python 3, Pandas/NumPy, `src/` modules implementing **SCD-FR-001…FR-010** |
+| Original UI | Streamlit multi-phase dashboard (`src/app.py`, 10 phases) |
+| ML | sklearn Random Forest (root cause), Isolation Forest (anomaly), custom logistic (confidence / PFA) |
+| Cache / export | Parquet disk cache, JSON under `output/`, HTML reports |
+| Presentation shell | Next.js + FastAPI adapters only — **algorithms in `src/` unchanged** |
+| Data | `data/logs/` (ATE), `data/stil/` (`.stil`), optional `hadware_topology.md` |
 
-| Requirement ID | Description | Acceptance Criteria |
-| :--- | :--- | :--- |
-| **SCD-FR-001** | Parse ATE tester failure logs and extract failing scan chains. | Log files ingested successfully with failing chains extracted. |
-| **SCD-FR-002** | Pinpoint exact failing cells and flip-flops. | Suspected cells identified, displaying physical and logical positions. |
-| **SCD-FR-003** | Load and analyze scan chain topology. | Ordered cell maps loaded from STIL and visualized as block diagrams. |
-| **SCD-FR-004** | Rank scan chains by failure frequency. | Failing chains ranked with Pareto distribution visualization. |
-| **SCD-FR-005** | Correlate failures with physical & timing features. | Pearson correlation coefficients mapping IR drop, thermal, and slack. |
-| **SCD-FR-006** | Identify scan chain break locations. | Scan breaks localized and highlighted in active channels. |
-| **SCD-FR-007** | Detect and classify shift vs. capture issues. | Defect mechanisms separated into shift-test vs. capture-test failures. |
-| **SCD-FR-008** | Generate automated scan diagnosis reports. | Exportable, shareable HTML report with detailed tables. |
-| **SCD-FR-009** | Recommend physical debug coordinates. | Silicon XY coordinate recommendations for microscope inspection. |
-| **SCD-FR-010** | Provide diagnosis confidence scores. | ML-based composite PFA probability score displayed per cell. |
+### Functional requirements
+
+| ID | Capability |
+| :--- | :--- |
+| **SCD-FR-001** | Parse ATE logs → failing scan chains |
+| **SCD-FR-002** | Localize suspected failing cells / flip-flops |
+| **SCD-FR-003** | Load/analyze scan topology (STIL + markdown) |
+| **SCD-FR-004** | Rank chains by failure frequency (native dense rank) |
+| **SCD-FR-005** | Correlate failures with physical/timing features |
+| **SCD-FR-006** | Exact chain-break localization with **CERTAIN / UNCERTAIN** (no fake confidence floors) |
+| **SCD-FR-007** | Classify shift vs capture defects |
+| **SCD-FR-008** | Generate HTML diagnosis reports |
+| **SCD-FR-009** | Recommend silicon XY debug coordinates |
+| **SCD-FR-010** | Diagnosis confidence (evidence + ML; dashboard = per-chain top aggregate) |
 
 ---
 
-## Chronological Technical Prompt Log
+## Rebuild order
 
-| Prompt ID | Timestamp | User Name | Technical Translated Specification |
-| :--- | :--- | :--- | :--- |
-| PR-001 | 2026-06-19T10:19:36Z | Mohit | Initialize the workspace in `.antigravity/scan chain diagnosis agent` to resume active development. |
-| PR-002 | 2026-06-19T10:26:40Z | Mohit | Focus development on the 3rd requirement (Scan Topology Analysis) and run sanity checks on existing modules. |
-| PR-003 | 2026-06-19T10:30:20Z | Mohit | Configure code artifacts within `src/` to parse 135 tester logs and the STIL file located in `data/`. |
-| PR-004 | 2026-06-19T10:34:54Z | Mohit | Execute the scan chain failure diagnostic pipeline. |
-| PR-005 | 2026-06-19T10:42:53Z | Mohit | Debug and optimize the rendering layout of the scan chain topology visualization module. |
-| PR-006 | 2026-06-19T10:50:05Z | Mohit | Improve the scan chain topology schematic, replacing wire meshes with structured functional block diagrams. |
-| PR-007 | 2026-06-19T11:01:45Z | Mohit | Approve the updated topology block diagram layout. |
-| PR-008 | 2026-06-19T11:07:19Z | Mohit | Investigate dashboard loading latency and identify performance bottlenecks. |
-| PR-009 | 2026-06-19T11:28:47Z | Mohit | Fix rendering issues in the Failure Ranking graph to clearly distinguish high-frequency failures. |
-| PR-010 | 2026-06-19T11:32:28Z | Mohit | Label each scan channel directly with its relative failure rank in the visualization. |
-| PR-011 | 2026-06-21T17:01:54Z | Mohit | Execute the scan chain failure diagnostic pipeline. |
-| PR-012 | 2026-06-21T17:11:19Z | Mohit | Explain the Pareto principle (80/20 rule) and its application to defect screening. |
-| PR-013 | 2026-06-21T17:12:53Z | Mohit | Describe the analytical threshold required to resolve 100% of reported chip failure mechanisms. |
-| PR-014 | 2026-06-21T17:16:05Z | Mohit | Define DFT scan channels and explain how physical chains map to ATE tester channels. |
-| PR-015 | 2026-06-22T05:20:21Z | Mohit | Prepare data directory for importing a new hardware topology markdown file to analyze and visualize scan cell ordering. |
-| PR-016 | 2026-06-22T05:22:42Z | Mohit | Import the custom topology layout file named `hadware_topology.md`. |
-| PR-017 | 2026-06-22T05:41:20Z | Mohit | Debug the failing cell localization algorithm to investigate why no cells are mapped despite log mismatches. |
-| PR-018 | 2026-06-22T05:52:26Z | Mohit | Validate that 24 active scan chains match the physical structures in the netlist/STIL definitions. |
-| PR-019 | 2026-06-22T05:58:04Z | Mohit | Simplify the scan chain serialization mapping explanation for a non-DFT audience. |
-| PR-020 | 2026-06-22T05:59:03Z | Mohit | Explain the structural splitting of channel1 into separate scan chains due to compactor bypass modes. |
-| PR-021 | 2026-06-22T07:11:55Z | Mohit | Implement the 5th requirement: correlate failures against physical variables (IR drop, thermal) using Pearson correlation. |
-| PR-022 | 2026-06-22T07:18:49Z | Mohit | Integrate prior diagnostic outputs (failure regions, defect types) as variables for correlation analysis. |
-| PR-023 | 2026-06-22T07:27:56Z | Mohit | Explain Pearson correlation coefficient and its application to checking electrical/thermal defects. |
-| PR-024 | 2026-06-22T07:29:12Z | Mohit | Document the origin and extraction process of electrical (IR drop, slack) and physical (thermal) parameters. |
-| PR-025 | 2026-06-22T07:31:32Z | Mohit | Explain the 'AI Severity Score' metric and how it evaluates defect impact. |
-| PR-026 | 2026-06-22T08:53:18Z | Mohit | Add qualitative severity bins (Low, Medium, High) next to the numerical AI Severity Scores. |
-| PR-027 | 2026-06-22T09:00:56Z | Mohit | Ensure severity labels are rendered directly within the Pearson correlation results table. |
-| PR-028 | 2026-06-22T09:06:29Z | Mohit | Verify that correlation calculations ingest the full population of 135 log files. |
-| PR-029 | 2026-06-23T05:40:44Z | Mohit | Execute the scan chain failure diagnostic pipeline. |
-| PR-030 | 2026-06-23T05:51:42Z | Mohit | Implement the 6th requirement: detect scan chain breaks by checking shift cycle statistics across all 135 logs. |
-| PR-031 | 2026-06-23T05:59:46Z | Mohit | Approve the implementation plan and proceed with the coding phase. |
-| PR-032 | 2026-06-23T07:01:36Z | Mohit | Design the diagnostic engine to support customizable variables and flexible parsing to handle other chip designs. |
-| PR-033 | 2026-06-23T07:10:48Z | Mohit | Document the active ML training models and algorithms used inside the codebase. |
-| PR-034 | 2026-06-23T07:12:52Z | Mohit | Determine where ML classification models can optimize fault location and root cause analysis. |
-| PR-035 | 2026-06-23T07:16:05Z | Mohit | Implement ML classifiers throughout the diagnostic flow, identifying specific models and tasks. |
-| PR-036 | 2026-06-23T07:18:50Z | Mohit | Compare Random Forest classification against K-Means clustering for root cause classification. |
-| PR-037 | 2026-06-23T07:21:22Z | Mohit | Establish a generic preprocessing and feature engineering layer to adapt classifiers to any chip STIL or topology. |
-| PR-038 | 2026-06-23T07:26:38Z | Mohit | Verify if the generic preprocessing pipeline successfully handles shape and feature differences across products. |
-| PR-039 | 2026-06-23T07:27:22Z | Mohit | Approve the implementation plan and proceed with the coding phase. |
-| PR-040 | 2026-06-23T09:29:21Z | Mohit | Replace the resource-heavy 3D cluster plot with a lighter, fast-loading 2D chart representation. |
-| PR-041 | 2026-06-23T09:38:38Z | Mohit | Execute the scan chain failure diagnostic pipeline. |
-| PR-042 | 2026-06-23T09:51:54Z | Mohit | Optimize application memory and CPU footprint to fix Streamlit latency issues and prevent 99% resource utilization. |
-| PR-043 | 2026-06-23T10:07:14Z | Mohit | Analyze remaining execution delays and implement caching/vectorization to optimize loading speeds. |
-| PR-044 | 2026-06-23T10:25:53Z | Mohit | Confirm application stability and memory footprint reduction. |
-| PR-045 | 2026-06-23T10:39:17Z | Mohit | Implement persistent disk caching for the initial parsing phase to speed up cold-start loading. |
-| PR-046 | 2026-06-23T11:29:22Z | Mohit | Document each ML model utilized in the project and map them to their corresponding functional requirements. |
-| PR-047 | 2026-06-23T11:32:15Z | Mohit | Enforce industry-level software engineering standards (robust exception handling, strict typing, unit tests). |
-| PR-048 | 2026-06-24T04:47:09Z | Mohit | Confirm that core logic modules are decoupled from Streamlit elements to facilitate migration to Fast API. |
-| PR-049 | 2026-06-24T04:50:11Z | Mohit | Explain the service deployment boundaries when migrating logic to FastAPI (excluding UI components). |
-| PR-050 | 2026-06-24T04:52:05Z | Mohit | Verify that core numerical and classification outputs remain consistent across UI and API frameworks. |
-| PR-051 | 2026-06-24T05:10:20Z | Mohit | Provide details for Q2 (ML model type selection) and Q3 (threshold configuration parameters). |
-| PR-052 | 2026-06-24T05:22:13Z | Mohit | Execute the scan chain failure diagnostic pipeline. |
-| PR-053 | 2026-06-24T09:28:33Z | Mohit | Approve configuration path: skip Q1, apply Option B (Custom Sigmoid ML model) for Q2, and configure a 5% threshold for Q3. |
-| PR-054 | 2026-06-24T09:41:03Z | Mohit | Locate and highlight user interface controls inside the dashboard tabs. |
-| PR-055 | 2026-06-25T05:18:57Z | Mohit | Execute the scan chain failure diagnostic pipeline. |
-| PR-056 | 2026-06-29T05:33:20Z | Mohit | Evict old logs and cache files to prepare the workspace for new training dataset ingestion. |
-| PR-057 | 2026-06-29T09:19:05Z | Mohit | Ingest the new STIL layout file (29,625 patterns) and matching tester logs, and run initial model training. |
-| PR-058 | 2026-06-29T09:29:56Z | Mohit | Resume the scheduled pipeline execution. |
-| PR-059 | 2026-06-29T09:47:17Z | Mohit | Resume the scheduled pipeline execution. |
-| PR-060 | 2026-06-29T09:51:21Z | Mohit | Acknowledge system state or query for diagnostic execution status. |
-| PR-061 | 2026-06-29T09:53:04Z | Mohit | Investigate and debug the system error or exception occurring during runtime. |
-| PR-062 | 2026-06-29T09:53:05Z | Mohit | Acknowledge system state or query for diagnostic execution status. |
-| PR-063 | 2026-06-29T09:55:26Z | Mohit | Check the status of the local background task execution server. |
-| PR-064 | 2026-06-29T09:58:53Z | Mohit | Resolve cascading runtime errors across tabs caused by unparsed keys in the new logs. |
-| PR-065 | 2026-06-29T10:02:19Z | Mohit | Resume the scheduled pipeline execution. |
-| PR-066 | 2026-06-29T10:10:36Z | Mohit | Re-implement requirements FR-002 to FR-005, optimizing parsing logic to prevent exceptions on the new logs. |
-| PR-067 | 2026-06-29T10:11:40Z | Mohit | Execute the scan chain failure diagnostic pipeline. |
-| PR-068 | 2026-06-29T10:22:18Z | Mohit | Verify dashboard alignment with updated backend dataframes to eliminate UI rendering exceptions. |
-| PR-069 | 2026-06-29T10:27:57Z | Mohit | Review the scan chain break detection threshold to investigate why no breaks are registered in Phase 5. |
-| PR-070 | 2026-06-29T11:07:28Z | Mohit | Explain the layout and features of the newly generated failure bitmap visualization. |
-| PR-071 | 2026-06-29T11:16:53Z | Mohit | Verify why the suspected failing cell table in Phase 3 is empty under the current observation threshold. |
-| PR-072 | 2026-06-29T11:22:38Z | Mohit | Explain why cells appear in Phase 2 but are filtered out of Phase 3 due to minimum observation count parameters. |
-| PR-073 | 2026-06-29T11:29:53Z | Mohit | Explain the role of the minimum observation threshold in filtering diagnostic noise. |
-| PR-074 | 2026-06-29T11:32:14Z | Mohit | Confirm that the parser successfully ingested all 29,625 scan patterns from the logs. |
-| PR-075 | 2026-07-01T04:52:25Z | Mohit | Execute the scan chain failure diagnostic pipeline. |
-| PR-076 | 2026-07-01T04:54:38Z | Mohit | Resume the scheduled pipeline execution. |
-| PR-077 | 2026-07-01T05:02:56Z | Mohit | Clean the cache directories to prepare for retraining classifiers on a new ATE log dataset. |
-| PR-078 | 2026-07-01T05:14:09Z | Mohit | Execute parser and mapping scripts to compare the new logs against the active STIL layout, updating output JSONs. |
-| PR-079 | 2026-07-01T05:25:59Z | Mohit | Resume the scheduled pipeline execution. |
-| PR-080 | 2026-07-01T05:37:48Z | Mohit | Define requirements for FR-006 scan chain breaks: utilize shift-only test pattern results, expected-vs-actual bitstream comparisons, and STIL chain lengths. |
-| PR-081 | 2026-07-01T05:48:12Z | Mohit | Resume the scheduled pipeline execution. |
-| PR-082 | 2026-07-01T05:54:57Z | Mohit | Investigate dashboard UI caching to explain why backend updates are not rendered in the browser. |
-| PR-083 | 2026-07-01T05:58:28Z | Mohit | Resume the scheduled pipeline execution. |
-| PR-084 | 2026-07-01T06:03:52Z | Mohit | Debug the scan chain break detection visualization in Phase 5 to resolve empty displays. |
-| PR-085 | 2026-07-01T06:14:38Z | Mohit | Enforce production-grade coding standards, error boundary structures, and robust performance optimization. |
-| PR-086 | 2026-07-01T06:18:24Z | Mohit | Enforce production-grade coding standards, error boundary structures, and robust performance optimization. |
-| PR-087 | 2026-07-01T06:25:39Z | Mohit | Verify the usage of Random Forest classifiers in the diagnostic flow. |
-| PR-088 | 2026-07-01T06:27:04Z | Mohit | Provide model evaluation metrics (accuracy, F1-score, cross-validation scores) in the dashboard. |
-| PR-089 | 2026-07-01T06:36:38Z | Mohit | Debug UI widget linkages to verify that metrics are bound and rendered in the dashboard view. |
-| PR-090 | 2026-07-01T06:40:56Z | Mohit | Indicate the exact page layout coordinates or sections where the metrics are displayed. |
-| PR-091 | 2026-07-01T06:45:46Z | Mohit | Resume the scheduled pipeline execution. |
-| PR-092 | 2026-07-01T06:49:49Z | Mohit | Debug UI widget linkages to verify that metrics are bound and rendered in the dashboard view. |
-| PR-093 | 2026-07-01T06:53:01Z | Mohit | Resume the scheduled pipeline execution. |
-| PR-094 | 2026-07-01T06:57:23Z | Mohit | Acknowledge system state or query for diagnostic execution status. |
-| PR-095 | 2026-07-01T06:57:59Z | Mohit | Resume the scheduled pipeline execution. |
-| PR-096 | 2026-07-01T07:05:11Z | Mohit | Provide an overview of K-Fold Cross-Validation, explaining accuracy metrics and dataset splits. |
-| PR-097 | 2026-07-01T07:55:45Z | Mohit | Provide the specific sub-folder and file naming convention for placing the die/wafer coordinate mapping file. |
-| PR-098 | 2026-07-01T08:43:17Z | Mohit | Approve the implementation plan and proceed with the coding phase. |
-| PR-099 | 2026-07-01T08:45:22Z | Mohit | Approve the implementation plan and proceed with the coding phase. |
-| PR-100 | 2026-07-01T08:52:54Z | Mohit | Debug why the model selection module fails to load on startup. |
-| PR-101 | 2026-07-01T09:19:29Z | Mohit | Implement the 7th requirement: classify failures into shift-test defects (chain breaks) or capture-test defects (functional failures). |
-| PR-102 | 2026-07-01T09:40:52Z | Mohit | Assess whether the Random Forest classifiers can be repurposed to perform shift/capture classification. |
-| PR-103 | 2026-07-01T09:45:45Z | Mohit | Integrate the shift/capture classification results into the existing model outputs and save the results under Phase 7. |
-| PR-104 | 2026-07-01T09:47:30Z | Mohit | Approve the implementation plan and proceed with the coding phase. |
-| PR-105 | 2026-07-01T10:21:44Z | Mohit | Approve the implementation plan and proceed with the coding phase. |
-| PR-106 | 2026-07-02T05:06:04Z | Mohit | Implement the 8th requirement: generate automated HTML/PDF diagnosis reports summarizing failure statistics and root causes, supporting download options. |
-| PR-107 | 2026-07-02T05:10:14Z | Mohit | Include the failing chain (FR-001) and scan topology (FR-003) details in the HTML report content. |
-| PR-108 | 2026-07-02T05:12:47Z | Mohit | Approve the implementation plan and proceed with the coding phase. |
-| PR-109 | 2026-07-02T05:23:23Z | Mohit | Investigate and debug the system error or exception occurring during runtime. |
-| PR-110 | 2026-07-02T05:28:39Z | Mohit | Fix formatting bugs in the HTML report's failure correlation (FR-005) results table. |
-| PR-111 | 2026-07-02T05:29:50Z | Mohit | Resume the scheduled pipeline execution. |
-| PR-112 | 2026-07-02T05:41:17Z | Mohit | Ensure that the shift/capture diagnostic details (FR-007) are fully printed in the report under their header. |
-| PR-113 | 2026-07-02T06:23:09Z | Mohit | Populate the HTML report with actual correlation coefficients (FR-005) rather than just the section title. |
-| PR-114 | 2026-07-02T06:35:48Z | Mohit | Investigate and debug the system error or exception occurring during runtime. |
-| PR-115 | 2026-07-02T07:09:30Z | Mohit | Fix the template formatting error preventing the display of Pearson correlation coefficient columns in the HTML report. |
-| PR-116 | 2026-07-02T07:11:57Z | Mohit | Execute command / proceed with the diagnostic pipeline configuration step: 'yes i refreshed'. |
-| PR-117 | 2026-07-02T07:14:29Z | Mohit | Execute command / proceed with the diagnostic pipeline configuration step: 'yes finished'. |
-| PR-118 | 2026-07-02T07:21:03Z | Mohit | Remove corporate branding and copyright text from the HTML report template footer. |
-| PR-119 | 2026-07-02T07:24:46Z | Mohit | Replace the corporate system footer with 'Scan Diagnosis Agent' in the HTML generator. |
-| PR-120 | 2026-07-02T10:28:30Z | Mohit | Implement the 9th requirement: recommend physical XY coordinate locations on the silicon die for PFA inspection, using coordinates from log files. |
-| PR-121 | 2026-07-02T10:33:28Z | Mohit | Resume the scheduled pipeline execution. |
-| PR-122 | 2026-07-02T10:39:28Z | Mohit | Explain the serpentine stitching algorithm and its use in routing simulation. |
-| PR-123 | 2026-07-02T10:44:36Z | Mohit | Explain the mathematical and physical routing modeling behind serpentine scan chain paths. |
-| PR-124 | 2026-07-02T10:46:40Z | Mohit | Explain how the routing coordinates correlate with physical design to guarantee PFA mapping accuracy. |
-| PR-125 | 2026-07-02T10:49:39Z | Mohit | Approve the implementation plan and proceed with the coding phase. |
-| PR-126 | 2026-07-02T10:53:09Z | Mohit | Resume the scheduled pipeline execution. |
-| PR-127 | 2026-07-02T11:08:04Z | Mohit | Implement the 10th requirement: calculate and display confidence scores for every diagnostic result using historical accuracy and ML scoring models. |
-| PR-128 | 2026-07-02T11:18:23Z | Mohit | Identify what machine learning classifiers (e.g. Random Forest, Sigmoid-regression) are active in the confidence scoring pipeline. |
-| PR-129 | 2026-07-02T11:29:12Z | Mohit | Resume the scheduled pipeline execution. |
-| PR-130 | 2026-07-02T11:32:47Z | Mohit | Resume the scheduled pipeline execution. |
-| PR-131 | 2026-07-02T11:34:07Z | Mohit | Resume the scheduled pipeline execution. |
-| PR-132 | 2026-07-02T11:38:49Z | Mohit | Create a new dedicated tab/phase in the Streamlit UI to display the diagnosis confidence metrics. |
-| PR-133 | 2026-07-03T04:58:27Z | Mohit | Execute the scan chain failure diagnostic pipeline. |
-| PR-134 | 2026-07-03T05:59:58Z | Mohit | Verify the availability of key diagnostic artifacts (tester failure logs, physical/logical maps, failing bitmaps, and past debug cases) within the workspace. |
-| PR-135 | 2026-07-03T06:53:20Z | Mohit | Resolve the missing (N/A) values in the AI-based defect severity scoring model; ensure that an automated severity scoring algorithm runs across all diagnostic phases. |
-| PR-136 | 2026-07-03T06:56:21Z | Mohit | Resume the scheduled pipeline execution. |
-| PR-137 | 2026-07-03T07:15:08Z | Mohit | Explain the discrepancy between the mid-phase defect priority and the final Physical Failure Analysis (PFA) debug location severity ratings; define the terms PFA and PFA Debug Locations. |
-| PR-138 | 2026-07-03T07:22:41Z | Mohit | Align the requirements for Phase 8 (FR-009) to focus solely on physical coordinates/bounding boxes for probe points (Debug Locations) without referencing downstream PFA confirmation metrics. |
-| PR-139 | 2026-07-03T07:29:14Z | Mohit | Explain the mathematical or algorithmic threshold logic that escalated a medium-severity anomaly to high-priority inside the debug location recommendation engine (Phase 8). |
-| PR-140 | 2026-07-03T07:43:33Z | Mohit | Explain the unit of measurement µm (micrometer) and its significance in silicon coordinate mapping (e.g., wafer coordinates, defect sizing, die bounding boxes). |
-| PR-141 | 2026-07-03T09:30:34Z | Mohit | Provide the origin and validation method for the physical die dimensions (4000um x 4000um) used in silicon coordinate plotting. |
-| PR-142 | 2026-07-03T09:33:05Z | Mohit | Clarify the mathematical convergence between the physical failure analysis (PFA) confirmation probability and the overall scan chain diagnostic confidence score. |
-| PR-143 | 2026-07-03T09:34:44Z | Mohit | Explain the purpose, isolation boundaries, and operational constraints of the Streamlit application runtime/sandbox environment. |
-| PR-144 | 2026-07-03T11:17:03Z | Mohit | Assess the diagnostic accuracy limitations of mapping logical failures without physical design layout data (DEF/LEF information) to guide PFA site isolation. |
-| PR-145 | 2026-07-04T10:19:24Z | Mohit | Calculate the total register cell count per scan shift pattern based on the STIL ScanStructures definition. |
-| PR-146 | 2026-07-06T04:43:57Z | Mohit | Fix the metadata reporting bug where the STIL filename is printed as 'Unknown' inside the Phase 7 HTML report; ensure the active parsed STIL filename is dynamically resolved and rendered. |
-| PR-147 | 2026-07-06T05:50:01Z | Mohit | Document the data ingestion process and configuration steps for importing new tester log files and matching STIL layout structures for a different product lot. |
-| PR-148 | 2026-07-06T07:09:00Z | Mohit | Locate and explain the coordinate-based failure bitmap generation logic and where the output files are stored within the project directory. |
-| PR-149 | 2026-07-06T07:09:25Z | Mohit | Resume the scheduled pipeline execution. |
-| PR-150 | 2026-07-07T06:25:05Z | Mohit | Format the aggregate diagnostic confidence score in the Phase 9 summary as a clean percentage value, suppressing sandbox/raw debug logs. |
-| PR-151 | 2026-07-07T06:29:13Z | Mohit | Analyze the underlying mathematical factors (e.g., high failure entropy, lack of corroborating patterns, missing STIL mappings) reducing the computed diagnostic confidence score. |
-| PR-152 | 2026-07-07T06:30:48Z | Mohit | Refine the confidence scoring model to reflect the coverage, validation consistency, and completeness of the diagnostic analysis. |
-| PR-153 | 2026-07-07T06:35:44Z | Mohit | Diagnose the caching/parsing early-exit bug that caused the pipeline to only ingest 5 out of the 90 available ATE log files. |
-| PR-154 | 2026-07-07T06:38:58Z | Mohit | Verify that the parser iterates and ingests all 45 failing die log files from the active lot directory instead of terminating prematurely. |
-| PR-155 | 2026-07-07T06:43:50Z | Mohit | Audit all downstream outputs and dataframes to confirm they incorporate parsed data from all 45 log files. |
-| PR-156 | 2026-07-07T06:47:16Z | Mohit | Enable the pipeline to dynamically scale and parse a 2000-pattern lot run by importing the new 2000-pattern log files and matching STIL layout structure. |
-| PR-157 | 2026-07-07T06:51:46Z | Mohit | Trigger the ingestion and structural mapping pipeline for the newly placed 2000-pattern log directory and corresponding STIL layout. |
-| PR-158 | 2026-07-07T07:31:22Z | Mohit | Investigate and debug the system error or exception occurring during runtime. |
-| PR-159 | 2026-07-07T08:10:27Z | Mohit | Implement a schema-adaptive model management layer that automatically invalidates and retrains classifiers on data schema modifications, ensuring absolute parsing robustness across different lot characteristics. |
-| PR-160 | 2026-07-07T10:08:47Z | Mohit | Validate that the pipeline executes with zero errors on a fresh set of 2000-pattern logs using the same STIL file, verifying correct model retraining and report generation. |
-| PR-161 | 2026-07-07T10:13:56Z | Mohit | Explain the machine learning training benefit of feeding different lot logs into the Random Forest and Isolation Forest classifiers. |
-| PR-162 | 2026-07-07T11:32:47Z | Mohit | Enforce parsing of the 2000-pattern STIL topology alongside the 2000-pattern ATE tester logs. |
-| PR-163 | 2026-07-07T11:35:28Z | Mohit | Fix the STIL selection fallback bug to ensure the report dynamically shows 'Production_SCAN_stuck_at_2000pat.stil' matching the active 2000-pattern run. |
-| PR-164 | 2026-07-08T10:49:44Z | Mohit | Explain the reverse-mapping algorithm used to locate the exact failing flip-flop and scan chain from the tester log mismatches. |
-| PR-165 | 2026-07-08T10:58:41Z | Mohit | Expand the suspected failing cells list in the HTML report to print all localized cell rows without truncation or limiting the table to 30 rows. |
-| PR-166 | 2026-07-08T11:12:04Z | Mohit | Ensure that all suspected cells are fully listed in the HTML report table while excluding physical/electrical summary charts if they clutter the view. |
-| PR-167 | 2026-07-08T11:19:18Z | Mohit | Verify that the HTML report generator updates in the active running application instance by forcing a clean server restart. |
-| PR-168 | 2026-07-08T11:28:44Z | Mohit | Add inline documentation detailing the localization methodology (ATE mismatch extraction, STIL mapping, confidence formula) in Section 6 of the HTML report. |
-| PR-169 | 2026-07-08T11:38:02Z | Mohit | Address Streamlit's module caching issue by completely terminating and restarting the web server to reflect the latest generator edits. |
-| PR-170 | 2026-07-08T11:48:50Z | Mohit | Migrate the methodology documentation box from the exported HTML report into an interactive expander within the Phase 2 dashboard tab. |
-| PR-171 | 2026-07-08T12:08:59Z | Mohit | Enrich Section 6 of the HTML report by adding all detailed columns from the Phase 2 table, including Instance, Flip-Flop ID, Bit Position, Offset from Scan-In, Chain Length, Corroborating Patterns, and Chain Observations. |
-| PR-172 | 2026-07-08T12:13:53Z | Mohit | Define the 'Instance' parameter in scan chain diagnostics and explain how it maps to specific physical blocks (core/phy/other) on the SoC. |
-| PR-173 | 2026-07-08T12:23:32Z | Mohit | Define the 'Offset' parameter and explain its relation to the scan-in pin, scan-out pin, and bit position. |
-| PR-174 | 2026-07-09T04:41:34Z | Mohit | Provide a detailed technical explanation of the serialization-deserialization translation flow from tester cycle failures to hierarchical netlist register names. |
-| PR-175 | 2026-07-09T04:52:23Z | Mohit | Diagnose and fix the regex/string matching bug that caused the instance mapping logic to fail on short chain names, defaulting all entries to 'other'. |
-| PR-176 | 2026-07-09T04:57:45Z | Mohit | Explain the physical and architectural significance of the 'core' instance block (U_core/) in relation to silicon failure diagnostics. |
-| PR-177 | 2026-07-09T06:35:44Z | Mohit | Explain the exact algorithm used to generate the 1-based Flip-Flop ID from ATE waveform mismatches. |
-| PR-178 | 2026-07-09T06:36:48Z | Mohit | Explain the modulo calculation and parameters used to map the 1-based register index to a 0-based bit position. |
-| PR-179 | 2026-07-09T06:38:24Z | Mohit | Define the 'Observations' metric and explain its significance in representing defect repeatability across logs. |
-| PR-180 | 2026-07-09T06:39:32Z | Mohit | Define the 'Corroborating Patterns' metric and contrast it with 'Observations' to explain how pattern independence increases defect confidence. |
-| PR-181 | 2026-07-09T07:39:31Z | Mohit | Explain the 'Max Confidence' metric and how the custom logistic regression model calculates a 48.55% composite PFA probability based on physical and electrical features. |
-| PR-182 | 2026-07-09T09:55:05Z | Mohit | Compile all user prompts from the conversation log, translate them into technical specifications, and generate a structured history document inside the artifact directory. |
-| PR-183 | 2026-07-09T10:02:21Z | Mohit | Query the complete conversation log history (starting from June 19th) to generate an untruncated prompt log. |
+| Prompt ID | Technical Specification |
+| :--- | :--- |
+| **RB-001** | **Bootstrap repo & stack.** Create project root with layout: `src/`, `tests/`, `data/logs/`, `data/stil/`, `data/models/`, `data/cache/`, `output/`, `api/`, `frontend/`. Add `requirements.txt` (streamlit, pandas, numpy, plotly, scikit-learn, pyarrow, joblib, pyyaml, pytest), `api/requirements.txt` (fastapi, uvicorn), `README.md` with run commands, `.gitignore` (cache, models binaries as policy, `__pycache__`, `.env`). Python packages under `src/` must be importable for Streamlit, CLI export, pytest, and FastAPI adapters. |
+| **RB-002** | **Config, exceptions, logging.** Implement `src/config.py` (dataclass AppConfig: ML, diagnosis thresholds, cache, logging, reporting; load from optional YAML), `src/exceptions.py` (`SCAError`, `ParseError`, `ValidationError`, `ModelError`, `CacheError`), `src/logger.py` (run-id JSON logs under a runs directory). Core diagnosis modules must raise typed errors; no UI imports in engine modules. |
+| **RB-003** | **Data layout & discovery.** Document and code paths: recursive ATE logs under `data/logs/<LOT>/…`, STIL under `data/stil/*.stil`, optional hardware topology markdown (`hadware_topology.md` / finder). Implement `discover_logs(log_dir)`, `resolve_active_stil_file(df)`, `find_topology_md_file(data_dir)`. Support lot-aware `max_per_lot` selection for fast runs. Mock simulation mode may run without files. |
+| **RB-004** | **FR-001 — ATE log parser.** Implement `src/parser.py`: parse Tessent-style and compact inline multi-channel logs; expand `X@{n}` run-length; extract FAIL records with fields including lot/wafer/die, pattern_id, chain_id/chain, fail_flop_id, fail_type, expected/actual signatures (and bitstreams where present), root_cause_hint, failure_region, defect_type, numeric cols (IR drop, thermal, slacks, die/wafer coords). Public API: `parse_log_file`, `records_to_dataframe`, `parse_log_to_dataframe`. Keep FAIL-only by default. Add `tests/test_parser.py` with fixtures covering both formats. |
+| **RB-005** | **Validation & quality gates.** Implement `src/validation.py`: validate failure DataFrame schema, validate chain_map structure, `data_quality_report`, duplicate detection. Call validation at parse/export boundaries so corrupt lots fail clearly rather than silently empty UI tables. |
+| **RB-006** | **FR-003 — STIL & topology loading.** Implement `src/stil_parser.py`: parse STIL `ScanStructures` → chain_id, length, SI/SO, clocks, cell_order; enrich instance type (core/phy/other), scan-enable inference, compression channel association; `resolve_chain` for channel↔hierarchy name mismatches (e.g. channel 14 ↔ `c13`). Parse hardware topology markdown into the same chain_map shape. Prefer markdown when present, else STIL. Unit-test chain length and resolve_chain. |
+| **RB-007** | **FR-003 — Topology analysis engine.** Implement `src/topology_analysis.py`: `build_topology_analysis` producing per-chain details (ID, length, cell order sample, SI/SO, connectivity, cell names, clock domain, SE, compression association, physical location estimates, chain balance, shared resources, connectivity graph) using STIL + optional failure/die metadata from logs. Shared resources must **not** require JTAG/TAP/model-reset tabs for production diagnosis. Export shape must feed JSON `SCD-FR-003_scan_topology.json` and HTML report Section 3. |
+| **RB-008** | **Topology visualization helpers.** Implement `src/schematic_diagram.py`: interactive HTML/SVG schematic with in-diagram chain selection (no separate picker list), Plotly connectivity graph, zoomed single-chain block diagram. Avoid duplicate chain-length labels. Keep rendering logic out of Streamlit where possible (HTML string / figure factories). |
+| **RB-009** | **FR-002 — Cell localization.** Implement `src/locate_cells.py`: vectorized mapping from fail_flop_id / shift cycles to bit_position, offset_from_scan_in, cell_name, chain_length, instance; float parity via `round(round(x, 10), 3)` if fractional offsets exist. Aggregate suspects with observations, corroborating_patterns, chain_observations, dominant fail_type. Configurable `min_observations`. Output columns must support Phase 3 table and FR-002 JSON. Tests in `tests/test_locate_cells.py`. |
+| **RB-010** | **FR-010 — Confidence model (core).** Implement `src/confidence_score.py` with **no artificial confidence floors**. Per-cell: `evidence = 0.40*relative_dominance + 0.25*pattern_corroboration + 0.20*obs_share + 0.15*fail_type_consistency`; `confidence = 0.55*evidence + 0.45*ml_pfa_probability` where ML is zero-dep logistic regression trained on historical PFA features (`data/historical_pfa_accuracy.json` → `data/models/confidence_classifier.json`). Dashboard aggregate: **fail-weighted mean of per-chain top-1 confidence** (`aggregate_diagnosis_confidence`), not mean of all dilute candidates. Tests in `tests/test_confidence_score.py`. |
+| **RB-011** | **FR-004 — Chain ranking.** Implement `src/chain_ranking.py`: native pandas dense `Series.rank` by failure frequency; expose `available_ranking_features()` and `rank_chains_by_frequency`; Pareto cumulative % for top-N screening. Default method clearly marked. Tests in `tests/test_chain_ranking.py`. JSON: `SCD-FR-004_chain_failure_ranking.json`. |
+| **RB-012** | **FR-005 — Failure correlations.** Implement Pearson correlation of failure intensity vs physical/timing features (IR drop, thermal, setup/hold slack) plus categorical profiles (failure_region, defect_type). Add AI severity score with Low/Medium/High bins. Output matrix + severity table for dashboard Phase 5 and `SCD-FR-005_failure_correlation.json`. Must run on full selected log population (not a tiny accidental subset). |
+| **RB-013** | **FR-006 — Exact break localization.** Implement `src/chain_breaks.py`: for each failing chain, consensus **first EXPECTED/ACTUAL mismatch bit** across patterns (not a single global min skewed by one noisy pattern); map bit → cell via localized positions / STIL cell_order. Trailing-X care-bit boundary helpers. `location_confidence = soft_agreement` (fraction of patterns with first_mismatch within ±tolerance of reported bit) — **no floor/inflation**. Gates: `LOCATION_CERTAIN_SOFT_MIN = 0.70`, `LOCATION_CERTAIN_MIN_PATTERNS = 2` → `location_status` **CERTAIN** else **UNCERTAIN**. Always expose candidate_cell and candidate_bit for UNCERTAIN review. Public: `detect_chain_breaks`, `detect_chain_breaks_detailed`. Tests covering CERTAIN/UNCERTAIN and soft_agreement. |
+| **RB-014** | **FR-007 — Shift vs capture.** Classify defects into shift-path (chain integrity / unload) vs capture/functional failures using pattern metrics, bitstream mismatch patterns, and FR-006 break evidence. Produce summary counts + per-chain classification for Phase 7 and `SCD-FR-007_shift_capture_diagnosis.json`. Optionally reuse RF features for classification assist, but keep rule/evidence path primary and explainable. |
+| **RB-015** | **FR-008 — HTML report generator.** Implement `src/report_generator.py` + `src/diagnosis_context.py`: single shareable HTML report with sections for FR-001…FR-007 (and confidence/debug as available). Include full suspected-cells table columns (instance, FF id, bit, offset, chain length, corroborating patterns, observations, confidence) — **no hard row truncation for production honesty**; use pagination or full dump with clear count. Topology section mirrors Phase 4 production content (no TAP/model-reset clutter). Footer brand: `Scan Diagnosis Agent` only. Methodology expander content for localization/confidence formulas. SVG donut/bar helpers optional. |
+| **RB-016** | **FR-009 — Debug XY locations.** Implement `src/debug_locations.py`: map localized cells to silicon XY / bounding boxes for microscope probe (serpentine or topology-derived placement when DEF/LEF absent). Units in µm; document die extent assumptions. Export `SCD-FR-009_debug_locations.json`. Phase 9 shows coordinates/boxes without claiming downstream PFA confirmation. Tests in `tests/test_debug_locations.py`. |
+| **RB-017** | **ML pipeline (RF + Isolation Forest).** Implement `src/ml_pipeline.py` with sklearn Pipelines (StandardScaler → model): RandomForestClassifier for `predicted_root_cause` / `prediction_confidence`; IsolationForest for `is_anomaly` / `anomaly_score`. Features from IR drop, thermal, slacks, die/wafer coords. Persist with joblib under `data/models/`; schema-aware reload/retrain when feature schema changes. Expose metrics (accuracy, F1, CV) via model card for UI. Keep optional legacy `src/ml_models.py` (NumPy KNN/KMeans) only if needed for demos — production path uses sklearn. Tests in `tests/test_ml_pipeline.py`. |
+| **RB-018** | **Disk cache & performance.** Implement `src/disk_cache.py`: SHA-1 key from (path, mtime, size) → Parquet under `data/cache/`. Multiprocess parse via `ProcessPoolExecutor` for large lots. Streamlit `@st.cache_data` wrappers for per-file parse, STIL parse, break detection versioned (`exact_v2`). Cache invalidation API. Guarantee full-lot ingestion (no early-exit capping to N files unless user sets `max_per_lot`). |
+| **RB-019** | **CLI export pipeline.** Implement `src/export_outputs.py` (and/or `run_diagnosis.py`): parse selected logs → enrich → ML → write `output/SCD-FR-00X_*.json` for FR-001…FR-007 (and FR-009 debug when available). CLI flags `--max-per-lot`. Idempotent overwrite with UTC timestamp metadata. This is the non-UI contract for tool integration and FastAPI fallback. |
+| **RB-020** | **Streamlit shell — data sidebar.** Implement `src/app.py` sidebar: Local data folder vs mock; lot multi-select; max logs per lot; STIL/topology path display; parse/cache status. Decouple UI from engine (import `parser`, `locate_cells`, `chain_breaks`, etc.; no algorithm reimplementation in the app). |
+| **RB-021** | **Streamlit Phases 1–2 (FR-001, FR-004).** Phase 1: failing chains table + FAIL record counts. Phase 2 (dedicated tab after Phase 1): ranked Pareto chart/table with channel labels and default ranking method callout. |
+| **RB-022** | **Streamlit Phase 3 (FR-002).** Suspected cells table with methodology expander (ATE mismatch → STIL map → confidence formula). Respect `min_observations` with UI explanation when Phase 1 shows chains but Phase 3 is empty. Show RF predicted root cause columns when ML applied. |
+| **RB-023** | **Streamlit Phase 4 (FR-003).** Topology analysis UI: chain expanders, balance, shared resources (clocks/SE/compression — no Control Signals/TAP tab), interactive schematic, connectivity graph. Selecting a chain updates the zoomed diagram. Full chain set for production (no silent “sample of 40” without disclosure). |
+| **RB-024** | **Streamlit Phases 5–7 (FR-005…007).** Phase 5: correlation heatmap/table + severity bins. Phase 6: FR-006 CERTAIN/UNCERTAIN metrics, candidate bit/cell always printed when UNCERTAIN, bitstream/context views, honest soft_agreement %. Phase 7: shift vs capture summaries and charts. |
+| **RB-025** | **Streamlit Phases 8–10 (FR-008…010).** Phase 8: generate/download HTML report reflecting current phase data. Phase 9: debug XY plot/table. Phase 10: per-cell confidence + aggregate KPI using `aggregate_diagnosis_confidence` (percentage formatting). Never hard-code display floors (e.g. force 70%). |
+| **RB-026** | **Pytest suite & CI hygiene.** Expand `tests/` covering parser, locate_cells, chain_ranking, chain_breaks (CERTAIN gate), confidence_score (no-floor + aggregate), topology, debug_locations, ml_pipeline, validation, report topology snippets. `conftest.py` fixtures with small synthetic logs/STIL. Document `pytest` as the default verification gate before UI work. |
+| **RB-027** | **FastAPI adapters (algorithms untouched).** Create `api/main.py` (CORS, router mount), `api/routers/diagnosis.py` endpoints: `GET /api/v1/health`, `GET /api/v1/diagnosis/dashboard`, `GET /api/v1/kpi/{kpi_id}/workspace`, `POST /api/v1/diagnosis/copilot`, `GET /api/v1/diagnosis/filters`. Adapters in `api/adapters/` (`data_loader.py`, `diagnosis_service.py`, `paths.py`) **only import/call** existing `src` functions (`rank_chains_by_frequency`, `detect_chain_breaks`, `locate_failing_cells`, `build_topology_analysis`, confidence aggregate, etc.). Live mode: compute with cache (`max_per_lot` for responsiveness) or fall back to `output/SCD-FR-*.json`. Mock mode: decorative COMPTY numbers. Pending Reviews = honest N/A when no review-queue entity. Schemas in `api/models/schemas.py`. |
+| **RB-028** | **Next.js Scan Diagnosis shell — foundation.** Scaffold `frontend/` (App Router, Tailwind, TanStack Query, framer-motion). Dark glass COMPTY-style layout. Env: `NEXT_PUBLIC_API_MODE=live|mock`, API base URL. Types + mock + API client under `src/lib/kpiDrillDown/`. Root page hosts `ScanDiagnosisTab`. Document in `REACT_SHELL.md`; Streamlit remains available and unchanged. |
+| **RB-029** | **React UI — KPI workspace & charts.** Implement header/actions (refresh, export JSON, report), filter bar (lot/wafer), three KPI sections with sparklines, KPI drill-down modal (`KpiWorkspaceModal`), engineering charts (ranking bar, correlation heatmap, confidence gauge, topology graph, shift/capture), AI copilot panel wired to `/diagnosis/copilot`. Footer shows Data source: FastAPI vs Mock. |
+| **RB-030** | **React UI — engineering tables & honesty.** Render ranked chains and failing cells as structured tables (not raw JSON blobs). Download JSON buttons. **Paginate full failing-cells list** (hundreds of rows) — do not silently truncate to a tiny sample. Diagnosis Confidence KPI must use the same aggregate_diagnosis_confidence semantics as Streamlit/API (evidence+ML, per-chain top). If score is low (~20%), explain dilute candidates; improve only via algorithm/aggregation — never a fake floor. |
+| **RB-031** | **Docker & ops.** Add `Dockerfile` + `docker-compose.yml` for Streamlit on port 8502 with volume mounts for `data/` and `output/`. Document two-terminal React+API run (`uvicorn api.main:app --port 8000`, `npm run dev` → :3000). Keep production honesty rule in README: full tables with pagination; CERTAIN only when soft agreement ≥70% with ≥2 patterns; no fake confidence floors. |
+| **RB-032** | **End-to-end acceptance checklist.** Verify: (1) parse multi-lot logs → FR-001 JSON; (2) STIL map → FR-002 cells with instance/bit/offset; (3) FR-004 ranking + Pareto; (4) FR-005 correlations; (5) FR-006 CERTAIN/UNCERTAIN with candidate bit printed; (6) FR-007 shift/capture; (7) HTML report complete sections; (8) FR-009 XY; (9) FR-010 aggregate confidence matches engine; (10) Streamlit 10 phases load; (11) FastAPI health + dashboard live/mock; (12) Next.js shell KPIs/tables/pagination; (13) `pytest` green; (14) algorithms under `src/chain_breaks.py`, `locate_cells.py`, `confidence_score.py`, etc. unmodified by API/UI layers. |

@@ -17,7 +17,7 @@ import numpy as np
 import pandas as pd
 
 from parser import FIELD_RE, discover_logs
-from stil_parser import resolve_chain
+from stil_parser import channel_index, channel_log_variants, resolve_chain
 
 DIE_W_UM = 4000.0
 DIE_H_UM = 4000.0
@@ -26,6 +26,49 @@ DIE_H_UM = 4000.0
 def _chain_sort_key(chain: str) -> int:
     digits = "".join(c for c in (chain or "") if c.isdigit())
     return int(digits) if digits else 0
+
+
+def _chain_log_aliases(chain_short: str) -> list[str]:
+    """Match STIL chain short names (e.g. channel5) to ATE log chain column (e.g. channel05)."""
+    idx = channel_index(chain_short)
+    if idx is not None:
+        return channel_log_variants(idx)
+    return [chain_short] if chain_short else []
+
+
+def _lookup_cell_evidence(
+    cell_evidence: dict[tuple[str, str], dict],
+    chain_short: str,
+    cell_name: str,
+) -> dict:
+    for alias in _chain_log_aliases(chain_short):
+        ev = cell_evidence.get((alias, cell_name))
+        if ev:
+            return ev
+    return {}
+
+
+def _chain_log_failure_summary(
+    failures: pd.DataFrame,
+    chain_short: str,
+) -> dict[str, int]:
+    """Chain-level FAIL count from logs (independent of per-cell STIL name match)."""
+    if failures is None or failures.empty or "chain" not in failures.columns:
+        return {"failure_records": 0, "distinct_logs": 0, "distinct_dies": 0}
+    idx = channel_index(chain_short)
+    if idx is not None:
+        chain_idx = failures["chain"].map(channel_index)
+        sub = failures[chain_idx == idx]
+    else:
+        aliases = _chain_log_aliases(chain_short)
+        sub = failures[failures["chain"].isin(aliases)]
+    if sub.empty:
+        return {"failure_records": 0, "distinct_logs": 0, "distinct_dies": 0}
+    return {
+        "failure_records": int(len(sub)),
+        "distinct_logs": int(sub["source_file"].nunique()),
+        "distinct_dies": int(sub["die_label"].nunique()) if "die_label" in sub.columns else 0,
+    }
 
 
 def parse_log_metadata(path: str | Path) -> dict:
@@ -411,6 +454,7 @@ def build_chain_detail(
     chain_index: int,
     num_chains: int,
     cell_evidence: dict,
+    failures: pd.DataFrame | None = None,
 ) -> dict:
     """Full per-chain topology record with all 14 feature categories."""
     cell_order = info.get("cell_order") or []
@@ -424,7 +468,7 @@ def build_chain_detail(
     for pos, name in enumerate(cell_order):
         offset = scan_length - 1 - pos
         phys = cell_physical_location(chain_index, num_chains, offset, scan_length, name)
-        ev = cell_evidence.get((chain_short, name), {})
+        ev = _lookup_cell_evidence(cell_evidence, chain_short, name)
         cells.append({
             "position": pos,
             "bit_position": phys["bit_position"],
@@ -469,6 +513,10 @@ def build_chain_detail(
             for c in cells
         ],
         "cells": cells,
+        "log_failure_summary": _chain_log_failure_summary(
+            failures if failures is not None else pd.DataFrame(),
+            chain_short,
+        ),
     }
 
 
@@ -504,7 +552,7 @@ def build_topology_analysis(
     chains_detail = []
     for idx, (cid, info) in enumerate(sorted_items):
         chains_detail.append(
-            build_chain_detail(cid, info, idx, num_chains, cell_evidence)
+            build_chain_detail(cid, info, idx, num_chains, cell_evidence, failures=failures)
         )
 
     clocks = sorted({

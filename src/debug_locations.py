@@ -113,7 +113,7 @@ def calculate_cell_coordinates(df: pd.DataFrame, chain_map: dict) -> pd.DataFram
                 "wafer_y_mm": round(y_wafer, 4)
             })
             
-        # PFA priority score
+        # Debug priority score
         confidence = float(r["confidence"])
         severity = r.get("mean_ai_severity")
         severity_val = float(severity) if pd.notna(severity) else 0.5
@@ -151,7 +151,7 @@ def export_pfa_locations(coords_df: pd.DataFrame, output_dir: Path) -> dict:
     if coords_df.empty:
         json_data = {
             "requirement_id": "SCD-FR-009",
-            "requirement": "Recommend PFA debug locations",
+            "requirement": "Recommend silicon debug locations",
             "acceptance_criteria": "Debug locations recommended with supporting evidence.",
             "status": "no_suspects_found",
             "generated_at": datetime.now(timezone.utc).isoformat(),
@@ -188,7 +188,7 @@ def export_pfa_locations(coords_df: pd.DataFrame, output_dir: Path) -> dict:
     
     json_data = {
         "requirement_id": "SCD-FR-009",
-        "requirement": "Recommend PFA debug locations",
+        "requirement": "Recommend silicon debug locations",
         "acceptance_criteria": "Debug locations recommended with supporting evidence.",
         "status": "satisfied",
         "generated_at": datetime.now(timezone.utc).isoformat(),

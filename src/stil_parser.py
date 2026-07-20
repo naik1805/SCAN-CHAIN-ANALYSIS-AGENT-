@@ -38,11 +38,48 @@ SCANOUT_RE = re.compile(r'^\s*ScanOut\s+"?([^";]+)"?\s*;')
 SCANCLK_RE = re.compile(r'^\s*ScanMasterClock\s+"?([^";]+)"?\s*;')
 SCANINV_RE = re.compile(r"^\s*ScanInversion\s+(\d+)\s*;")
 CHANNEL_RE = re.compile(r"(channel\d+)", re.IGNORECASE)
+CHAIN_INDEX_RE = re.compile(r"(?:channel|chain_?|ch_?)(\d+)", re.IGNORECASE)
 
 
 def _short_chain(chain_id: str) -> str:
     m = CHANNEL_RE.search(chain_id or "")
     return m.group(1).lower() if m else (chain_id or "UNKNOWN")
+
+
+def channel_index(name: str) -> int | None:
+    """Canonical 1-based channel index from log/STIL/hierarchical names.
+
+    Examples: ``channel05`` → 5, ``channel5`` → 5, ``chain_5`` → 5.
+    """
+    if not name:
+        return None
+    m = CHAIN_INDEX_RE.search(str(name))
+    return int(m.group(1)) if m else None
+
+
+def channel_log_variants(index: int) -> list[str]:
+    """Log and STIL spellings for the same scan channel index."""
+    return list(dict.fromkeys([
+        f"channel{index:02d}",
+        f"channel{index}",
+        f"chain_{index}",
+        f"chain{index}",
+    ]))
+
+
+def _chain_index_from_info(info: dict) -> int | None:
+    for field in ("chain_id", "chain", "chain_name"):
+        idx = channel_index(info.get(field, "") or "")
+        if idx is not None:
+            return idx
+    return None
+
+
+def _pick_chain_candidate(candidates: list[dict]) -> dict | None:
+    if not candidates:
+        return None
+    core = [c for c in candidates if "core_inst" in (c.get("chain_id") or "")]
+    return core[0] if core else candidates[0]
 
 
 def cell_name_at(chain_id: str, position: int) -> str:
@@ -179,30 +216,36 @@ def parse_stil_scan_structures(path: str | Path) -> dict[str, dict]:
 
 
 def resolve_chain(chains: dict[str, dict], chain_id: str, chain_short: str) -> dict | None:
-    """Resolve a chain by full id, falling back to short name (prefer core_inst)."""
+    """Resolve a chain by full id, normalized short name, or exact channel index."""
     if chain_id and chain_id in chains:
         return chains[chain_id]
-    
-    # Direct matching of short names
-    candidates = [v for v in chains.values() if v["chain"] == chain_short]
-    if not candidates:
-        # Fallback: check if the digits in the name match!
-        # E.g. "channel10" matches "chain_9" (index 0 vs 1 shift) or "chain_10"
-        s_digits = "".join(c for c in (chain_short or "") if c.isdigit())
-        if s_digits:
-            s_val = int(s_digits)
-            for v in chains.values():
-                v_name = v.get("chain_id", v.get("chain", ""))
-                v_digits = "".join(c for c in (v_name or "") if c.isdigit())
-                if v_digits:
-                    v_val = int(v_digits)
-                    # Match if indices are exact, or off-by-one (0-based vs 1-based)
-                    if v_val == s_val or v_val == s_val - 1 or v_val == s_val + 1:
-                        return v
-        return None
-        
-    core = [c for c in candidates if "core_inst" in (c["chain_id"] or "")]
-    return core[0] if core else candidates[0]
+
+    if chain_short:
+        for info in chains.values():
+            if (info.get("chain") or "").lower() == chain_short.lower():
+                return info
+
+    query_idx = channel_index(chain_short) or channel_index(chain_id)
+    if query_idx is not None:
+        variants = {v.lower() for v in channel_log_variants(query_idx)}
+        candidates = [
+            info for info in chains.values()
+            if (info.get("chain") or "").lower() in variants
+            or _chain_index_from_info(info) == query_idx
+        ]
+        picked = _pick_chain_candidate(candidates)
+        if picked is not None:
+            return picked
+
+        # Legacy fallback only when exactly one off-by-one candidate exists.
+        off_by_one = [
+            info for info in chains.values()
+            if _chain_index_from_info(info) in (query_idx - 1, query_idx + 1)
+        ]
+        if len(off_by_one) == 1:
+            return off_by_one[0]
+
+    return None
 
 
 def chain_summary_rows(chains: dict[str, dict]) -> list[dict]:

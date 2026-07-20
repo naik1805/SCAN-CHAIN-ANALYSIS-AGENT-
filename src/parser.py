@@ -32,6 +32,14 @@ from pathlib import Path
 
 import pandas as pd
 
+from schema import (
+    CANONICAL_NUMERIC_COLS,
+    canonicalize_field_name,
+    normalize_failure_schema,
+    resolve_meta_key,
+    resolve_record_key,
+)
+
 # --- regexes (SCD-FR-001) ---------------------------------------------------
 # Pattern block header, e.g. "[PATTERN_ID : 000841]"
 PATTERN_HEADER_RE = re.compile(r"\[\s*PATTERN_ID\s*:\s*([0-9A-Za-z_]+)\s*\]")
@@ -41,29 +49,9 @@ FIELD_RE = re.compile(r"^\s*([A-Z_]+)\s*:\s*(.*?)\s*$")
 CHANNEL_RE = re.compile(r"(channel\d+|chain_?\d+|ch_?\d+)", re.IGNORECASE)
 
 # Top-of-file metadata keys we want to carry onto every failure record.
-META_KEYS = {
-    "TESTER_NAME", "TEST_PROGRAM", "DEVICE_NAME", "LOT_ID", "LOT_PATTERN",
-    "WAFER_ID", "DIE_ID", "OPERATOR_ID", "TEST_MODE", "SCAN_CHAINS",
-    "TOTAL_FLOPS", "TOTAL_PATTERNS", "DEFECT_TYPE", "DIE_LABEL",
-    "SHIFT_CYCLES", "CAPTURE_CYCLES", "DIE_ROW", "DIE_COL", "WAFER_X", "WAFER_Y",
-    "X1", "Y1", "X2", "Y2"
-}
+# Alias resolution is handled by schema.resolve_meta_key().
 
-# Fields kept from each failing pattern block.
-RECORD_KEYS = [
-    "PATTERN_ID", "SCAN_CHAIN_ID", "SHIFT_CYCLES", "CAPTURE_CYCLES",
-    "EXPECTED_SIGNATURE", "ACTUAL_SIGNATURE", "STATUS", "FAIL_FLOP_ID",
-    "FAIL_TYPE", "SCAN_FAIL_COUNT", "TRANSITION_FAULTS", "IR_DROP_MV",
-    "THERMAL_C", "SETUP_SLACK_PS", "HOLD_SLACK_PS", "TEST_TIME_MS",
-    "ROOT_CAUSE_HINT", "FAILURE_REGION", "AI_SEVERITY_SCORE",
-]
-
-NUMERIC_COLS = [
-    "shift_cycles", "capture_cycles", "scan_fail_count", "transition_faults",
-    "ir_drop_mv", "thermal_c", "setup_slack_ps", "hold_slack_ps",
-    "test_time_ms", "ai_severity_score", "die_row", "die_col", "wafer_x", "wafer_y",
-    "x1", "y1", "x2", "y2"
-]
+NUMERIC_COLS = list(CANONICAL_NUMERIC_COLS)
 
 
 def _short_chain(chain_id: str) -> str:
@@ -169,8 +157,9 @@ def parse_log_file(path: str | Path, keep_status: str = "FAIL") -> tuple[dict, l
                         parts = line.split(":", 1)
                         key = parts[0].strip()
                         value = parts[1].strip()
-                        if key in META_KEYS:
-                            meta[key] = value
+                        meta_key = resolve_meta_key(key)
+                        if meta_key:
+                            meta[meta_key] = value
                     continue
                 
                 # We are in pattern execution log section
@@ -217,7 +206,7 @@ def parse_log_file(path: str | Path, keep_status: str = "FAIL") -> tuple[dict, l
                     parts = line.split(":", 1)
                     key = parts[0].strip()
                     value = parts[1].strip()
-                    metrics[key] = value
+                    metrics[resolve_record_key(key)] = value
                     continue
                     
                 if line == "------------------------------------------------------------":
@@ -257,11 +246,12 @@ def parse_log_file(path: str | Path, keep_status: str = "FAIL") -> tuple[dict, l
                     key = parts[0].strip()
                     value = parts[1].strip()
                     if not seen_first_pattern:
-                        if key in META_KEYS:
-                            meta[key] = value
+                        meta_key = resolve_meta_key(key)
+                        if meta_key:
+                            meta[meta_key] = value
                     else:
                         if current_block is not None:
-                            current_block[key] = value
+                            current_block[resolve_record_key(key)] = value
 
             if current_block is not None:
                 flush(current_block)
@@ -288,9 +278,9 @@ def records_to_dataframe(meta: dict, records: list[dict]) -> pd.DataFrame:
         if "lot_id" not in row or not row["lot_id"]:
             row["lot_id"] = meta.get("LOT_ID", meta.get("LOT_FOLDER", ""))
             
-        # Add all record keys (lowercase)
+        # Add all record keys (canonical lowercase)
         for k, v in rec.items():
-            row[k.lower()] = v
+            row[canonicalize_field_name(k)] = v
             
         # Map specific standard columns if they were not in lowercase form
         if "scan_chain_id" in row and "chain_id" not in row:
@@ -308,18 +298,7 @@ def records_to_dataframe(meta: dict, records: list[dict]) -> pd.DataFrame:
         rows.append(row)
 
     df = pd.DataFrame(rows)
-    
-    # Ensure all required columns are present in the dataframe to prevent KeyErrors
-    required_cols = [
-        "lot_id", "lot_pattern", "wafer_id", "die_id", "source_file", 
-        "pattern_id", "chain_id", "chain", "fail_flop_id", "fail_type", 
-        "expected_signature", "actual_signature", "root_cause_hint", 
-        "failure_region", "status", "defect_type", "die_label",
-        "predicted_root_cause", "prediction_confidence"
-    ] + NUMERIC_COLS
-    for col in required_cols:
-        if col not in df.columns:
-            df[col] = None
+    df = normalize_failure_schema(df)
 
     # Dynamically cast columns that look numeric
     string_cols = {
@@ -364,8 +343,8 @@ def records_to_dataframe(meta: dict, records: list[dict]) -> pd.DataFrame:
         noise = df["pattern_id"].map(make_noise)
         computed_severity = (computed_severity + noise).clip(0.15, 0.98).round(3)
         df["ai_severity_score"] = df["ai_severity_score"].fillna(computed_severity)
-        
-    return df
+
+    return normalize_failure_schema(df)
 
 
 def parse_log_to_dataframe(path: str | Path, keep_status: str = "FAIL") -> pd.DataFrame:

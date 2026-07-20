@@ -1,0 +1,53 @@
+{
+  "fingerprint": "7bf38c7174508fc3",
+  "generated_at": "2026-07-20T04:39:18.702981+00:00",
+  "readiness_score_pct": 69.0,
+  "readiness_grade": "pilot_ready",
+  "lot_holdout": {
+    "available": true,
+    "holdout_accuracy_pct": 0.0,
+    "holdout_mean_confidence_pct": 64.5,
+    "holdout_lots": [
+      "LOT_8",
+      "LOT_9"
+    ],
+    "train_lots": [
+      "LOT_1",
+      "LOT_2",
+      "LOT_3",
+      "LOT_4",
+      "LOT_5",
+      "LOT_6",
+      "LOT_7"
+    ],
+    "n_holdout": 553,
+    "n_train": 1905,
+    "n_classes_train": 7,
+    "unseen_classes_in_holdout": [
+      "RANDOM",
+      "SCRATCH"
+    ],
+    "note": "Lot-holdout RF trained on 7 lots, tested on 2 unseen lot(s). Holdout lots contain unseen classes ['RANDOM', 'SCRATCH'] \u2014 accuracy will be near zero until those modes appear in training."
+  },
+  "stratified_holdout": {
+    "available": true,
+    "holdout_accuracy_pct": 100.0,
+    "holdout_mean_confidence_pct": 82.9,
+    "n_holdout": 492,
+    "n_train": 1966,
+    "n_classes": 9,
+    "note": "Stratified 80/20 holdout by root-cause class (known defect modes)."
+  },
+  "break_localization": {
+    "total": 44,
+    "certain": 0,
+    "uncertain": 44,
+    "certain_pct": 0.0
+  },
+  "top1_consensus": {
+    "chains_scored": 17,
+    "multi_lot_top1_count": 10,
+    "multi_lot_top1_pct": 58.8
+  },
+  "client_summary": "Production readiness 69% (pilot ready). Stratified holdout accuracy 100.0% on known defect classes. Unseen-lot risk: holdout lots introduce ['RANDOM', 'SCRATCH'] (lot accuracy 0.0%). Break localization: 0/44 CERTAIN (0.0%). Top-1 cells confirmed across \u22652 lots: 58.8%."
+}

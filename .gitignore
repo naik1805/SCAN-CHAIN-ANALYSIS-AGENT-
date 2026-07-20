@@ -11,3 +11,22 @@ venv/
 # OS
 Thumbs.db
 .DS_Store
+
+# Next.js
+frontend/node_modules/
+frontend/.next/
+frontend/.env.local
+
+# Python API caches
+.pytest_cache/
+
+# Local scratch / one-off scripts (not part of the product)
+_check_*.py
+_count_out.txt
+_dash_*.json
+_retrain_script.py
+_run_live_diag.py
+_scan_*.js
+
+# Model retrain backups (keep primary .joblib only)
+data/models/*_backup_*.joblib

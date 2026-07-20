@@ -114,60 +114,55 @@ def generate_svg_donut(class_counts: dict[str, int]) -> str:
 
 
 def generate_svg_bar(ranked_chains: pd.DataFrame) -> str:
-    """Generate horizontal bar chart for failing scan chains."""
+    """Generate horizontal bar chart for all failing scan chains (no artificial cap)."""
     if ranked_chains.empty:
         return "<svg width='100%' height='200'><text x='50%' y='50%' text-anchor='middle' fill='#94a3b8'>No Data</text></svg>"
-        
-    top_n = ranked_chains.head(10).copy()
-    max_fails = top_n["failures"].max()
-    
-    pad_left = 120
-    pad_right = 90
-    bar_height = 18
-    spacing = 8
-    chart_width = 400
-    
-    height = len(top_n) * (bar_height + spacing) + 30
-    
+
+    # Show every ranked chain — height scales with count
+    all_rows = ranked_chains.copy()
+    max_fails = float(all_rows["failures"].max()) if len(all_rows) else 0.0
+
+    pad_left = 140
+    bar_height = 16
+    spacing = 6
+    chart_width = 380
+    height = max(80, len(all_rows) * (bar_height + spacing) + 40)
+
     bars = []
     labels = []
     values = []
-    
-    for idx, (_, r) in enumerate(top_n.iterrows()):
+
+    for idx, (_, r) in enumerate(all_rows.iterrows()):
         y = idx * (bar_height + spacing) + 15
-        chain = r["chain"]
-        fails = r["failures"]
-        pct = r["percentage"]
-        
-        # Calculate width
+        chain = str(r["chain"])
+        fails = int(r["failures"])
+        pct = float(r["percentage"])
         w = (fails / max_fails) * chart_width if max_fails > 0 else 0
-        w = max(w, 2.0) # minimum width to show
-        
-        # Label
+        w = max(w, 2.0)
+        label = chain if len(chain) <= 18 else chain[:16] + "…"
+
         labels.append(
-            f'<text x="{pad_left - 15}" y="{y + 13}" font-family="monospace" font-weight="bold" font-size="12" fill="#334155" text-anchor="end">#{idx+1}: {chain}</text>'
+            f'<text x="{pad_left - 12}" y="{y + 12}" font-family="monospace" font-weight="bold" '
+            f'font-size="11" fill="#334155" text-anchor="end">#{idx+1}: {label}</text>'
         )
-        
-        # Bar
         bars.append(
             f'<rect x="{pad_left}" y="{y}" width="{w}" height="{bar_height}" rx="3" fill="{COLORS["PRIMARY_BAR"]}">'
-            f'  <title>{chain}: {fails:,} fails</title>'
-            f'</rect>'
+            f'<title>{chain}: {fails:,} fails ({pct:.1f}%)</title></rect>'
         )
-        
-        # Value text
         values.append(
-            f'<text x="{pad_left + w + 10}" y="{y + 13}" font-family="monospace" font-size="11" fill="#475569">{fails:,} ({pct:.1f}%)</text>'
+            f'<text x="{pad_left + w + 8}" y="{y + 12}" font-family="monospace" font-size="10" '
+            f'fill="#475569">{fails:,} ({pct:.1f}%)</text>'
         )
-        
-    svg = f"""
-    <svg width="610" height="{height}" viewBox="0 0 610 {height}">
+
+    svg_w = pad_left + chart_width + 120
+    return f"""
+    <svg width="100%" height="{height}" viewBox="0 0 {svg_w} {height}" preserveAspectRatio="xMinYMin meet"
+         style="max-width:100%;height:auto;display:block;">
         <g>{chr(10).join(labels)}</g>
         <g>{chr(10).join(bars)}</g>
         <g>{chr(10).join(values)}</g>
     </svg>
     """
-    return svg
 
 
 def generate_html_report(
@@ -516,6 +511,8 @@ def generate_html_report(
             """
             )
         breaks_section_html = f"""
+    <span class="row-count">{len(breaks_df):,} break rows</span>
+    <div class="table-scroll">
     <table>
         <thead>
             <tr>
@@ -537,6 +534,7 @@ def generate_html_report(
             {"".join(break_rows_html)}
         </tbody>
     </table>
+    </div>
     """
 
     # -------------------------------------------------------------
@@ -554,6 +552,7 @@ def generate_html_report(
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DFT Scan Chain Diagnosis Report</title>
+    <!-- report-layout-v2: uncapped tables, single-column charts, scroll wrappers -->
     <style>
         :root {{
             --primary: #2563eb;
@@ -595,7 +594,9 @@ def generate_html_report(
         .logo-area {{
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
+            gap: 16px;
+            flex-wrap: wrap;
         }}
 
         h1 {{
@@ -614,12 +615,13 @@ def generate_html_report(
             border-radius: 6px;
             font-size: 13px;
             font-weight: 500;
+            white-space: nowrap;
         }}
 
         .grid-4 {{
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 16px;
             margin-top: 30px;
         }}
 
@@ -627,24 +629,25 @@ def generate_html_report(
             background: var(--slate-50);
             border: 1px solid var(--slate-200);
             border-radius: 8px;
-            padding: 20px;
+            padding: 16px 12px;
             text-align: center;
+            min-width: 0;
         }}
 
         .card-num {{
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 800;
             color: var(--primary);
             margin: 0;
+            word-break: break-word;
         }}
 
         .card-lbl {{
             font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--slate-700);
-            margin-top: 5px;
             font-weight: 700;
+            color: #64748b;
+            margin: 6px 0 0 0;
+            letter-spacing: 0.04em;
         }}
 
         h2 {{
@@ -653,28 +656,66 @@ def generate_html_report(
             border-left: 4px solid var(--primary);
             padding-left: 12px;
             margin-top: 45px;
-            margin-bottom: 20px;
+            margin-bottom: 12px;
             font-weight: 700;
+            clear: both;
         }}
 
         .section-desc {{
             font-size: 14px;
             color: #64748b;
-            margin-bottom: 20px;
-            margin-top: -10px;
+            margin-bottom: 16px;
+        }}
+
+        .row-count {{
+            display: inline-block;
+            margin: 0 0 10px 0;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: var(--slate-100);
+            color: var(--slate-700);
+            font-size: 12px;
+            font-weight: 600;
+        }}
+
+        .table-scroll {{
+            width: 100%;
+            max-width: 100%;
+            overflow-x: auto;
+            overflow-y: auto;
+            max-height: 560px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            -webkit-overflow-scrolling: touch;
+            contain: layout paint;
+            isolation: isolate;
         }}
 
         table {{
             width: 100%;
             border-collapse: collapse;
-            margin-top: 15px;
-            font-size: 14px;
+            margin: 0;
+            font-size: 13px;
+            table-layout: auto;
         }}
 
         th, td {{
-            padding: 10px 14px;
+            padding: 10px 12px;
             text-align: left;
             border-bottom: 1px solid var(--border);
+            vertical-align: top;
+            word-break: break-word;
+            overflow-wrap: anywhere;
+        }}
+
+        .table-scroll th {{
+            background-color: var(--slate-50);
+            color: var(--slate-900);
+            font-weight: 700;
+            position: sticky;
+            top: 0;
+            z-index: 2;
+            box-shadow: 0 1px 0 var(--border);
         }}
 
         th {{
@@ -689,7 +730,7 @@ def generate_html_report(
 
         .mono {{
             font-family: 'JetBrains Mono', 'Courier New', monospace;
-            font-size: 13px;
+            font-size: 12px;
         }}
 
         .badge {{
@@ -699,6 +740,7 @@ def generate_html_report(
             font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
+            white-space: nowrap;
         }}
 
         .badge-shift {{ background-color: #fee2e2; color: #dc2626; }}
@@ -711,26 +753,35 @@ def generate_html_report(
 
         .charts-row {{
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-top: 30px;
+            grid-template-columns: minmax(0, 1fr);
+            gap: 24px;
+            margin-top: 28px;
+            align-items: start;
         }}
 
         .chart-box {{
             background: #ffffff;
             border: 1px solid var(--slate-200);
             border-radius: 8px;
-            padding: 20px;
+            padding: 16px;
             display: flex;
             flex-direction: column;
-            align-items: center;
+            align-items: stretch;
+            min-width: 0;
+            overflow: visible;
+        }}
+
+        .chart-box svg {{
+            max-width: 100%;
+            height: auto;
+            display: block;
         }}
 
         .chart-title {{
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 700;
             color: var(--slate-900);
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }}
@@ -742,6 +793,12 @@ def generate_html_report(
             text-align: center;
             font-size: 12px;
             color: #64748b;
+            clear: both;
+        }}
+
+        @media (max-width: 900px) {{
+            .wrapper {{ margin: 12px; padding: 20px; }}
+            .grid-4 {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }}
         }}
 
         @media print {{
@@ -753,9 +810,14 @@ def generate_html_report(
                 border: none;
                 margin: 0;
                 padding: 0;
+                max-width: none;
             }}
             .no-print {{
                 display: none;
+            }}
+            .chart-box {{
+                max-height: none;
+                overflow: visible;
             }}
             h2 {{
                 page-break-after: avoid;
@@ -821,13 +883,15 @@ def generate_html_report(
             {donut_chart_svg}
         </div>
         <div class="chart-box">
-            <div class="chart-title">Top Worst Failing Scan Chains</div>
+            <div class="chart-title">All Failing Scan Chains ({len(counts):,})</div>
             {bar_chart_svg}
         </div>
     </div>
 
     <h2>2. Failing Scan Chains (FR-001)</h2>
     <p class="section-desc">Identified failing scan chains with individual failure log counts.</p>
+    <span class="row-count">{len(counts):,} chains</span>
+    <div class="table-scroll">
     <table>
         <thead>
             <tr>
@@ -848,6 +912,7 @@ def generate_html_report(
             """ for idx, r in counts.iterrows())}
         </tbody>
     </table>
+    </div>
 
     <h2>3. Scan Chain Topology Map (FR-003)</h2>
     {topology_section_html}
@@ -869,6 +934,8 @@ def generate_html_report(
 
     <h2>5. Worst Scan Chains Pareto Ranking (FR-004)</h2>
     <p class="section-desc">Pareto ordering via native pandas Series.rank(method='dense', ascending=False) on failure counts.</p>
+    <span class="row-count">{len(counts):,} ranked chains</span>
+    <div class="table-scroll">
     <table>
         <thead>
             <tr>
@@ -897,6 +964,7 @@ def generate_html_report(
             """ for idx, r in counts.iterrows())}
         </tbody>
     </table>
+    </div>
 
     <h2>6. Suspected Failing Cells (FR-002)</h2>
     <p class="section-desc">
@@ -911,6 +979,8 @@ def generate_html_report(
         The table below lists the localized cell name, flip-flop ID, bit position, and confidence.
     </p>
     {f"<p>No suspected failing cell localizations found.</p>" if suspects.empty else f"""
+    <span class="row-count">{len(suspects):,} suspected cells</span>
+    <div class="table-scroll">
     <table>
         <thead>
             <tr>
@@ -947,12 +1017,14 @@ def generate_html_report(
             ''' for _, r in suspects.iterrows())}
         </tbody>
     </table>
-
+    </div>
     """}
 
 
     <h2>7. Failure Correlation Analysis (FR-005)</h2>
     <p class="section-desc">Pearson correlation coefficient mapping of scan chains against physical and timing features.</p>
+    <span class="row-count">{len(corr_df):,} chains × {len(valid_num_cols)} metrics</span>
+    <div class="table-scroll">
     <table>
         <thead>
             <tr>
@@ -969,9 +1041,12 @@ def generate_html_report(
             """ for _, r in corr_df.iterrows())}
         </tbody>
     </table>
+    </div>
 
     <h3 style="margin-top: 25px;">7.2 Failure Signature & Physical Driver Details</h3>
     <p class="section-desc">Primary physical drivers and signature distributions for each failing scan chain.</p>
+    <span class="row-count">{len(corr_df):,} chain signatures</span>
+    <div class="table-scroll">
     <table>
         <thead>
             <tr>
@@ -996,9 +1071,12 @@ def generate_html_report(
             """ for _, r in corr_df.iterrows())}
         </tbody>
     </table>
+    </div>
 
     <h2>8. Shift vs. Capture Timing Analysis (FR-007)</h2>
     <p class="section-desc">Physical breakdown classifying failures by shift-path integrity failures vs capture timing errors.</p>
+    <span class="row-count">{sum(1 for v in class_counts.values() if v > 0)} classifications · {total_records:,} fails</span>
+    <div class="table-scroll">
     <table>
         <thead>
             <tr>
@@ -1028,10 +1106,13 @@ def generate_html_report(
             """ for k, v in class_counts.items() if v > 0)}
         </tbody>
     </table>
+    </div>
 
     <h3 style="margin-top: 25px;">8.2 Detailed Capture Violations Registry</h3>
     <p class="section-desc">Failing patterns classified as capture timing errors or cell defects (excluding systematic shift breaks).</p>
     {f"<p>No capture violations detected.</p>" if not capture_diagnoses else f"""
+    <span class="row-count">{len(capture_diagnoses):,} capture diagnoses</span>
+    <div class="table-scroll">
     <table>
         <thead>
             <tr>
@@ -1062,11 +1143,14 @@ def generate_html_report(
             ''' for d in capture_diagnoses)}
         </tbody>
     </table>
+    </div>
     """}
 
     <h2>9. Debug Location Recommendations (FR-009)</h2>
     <p class="section-desc">Physical (X, Y) coordinates recommended for physical debug inspection, derived via serpentine scan-chain routing geometry.</p>
     {f"<p>No debug location recommendations available.</p>" if coords_df.empty else f"""
+    <span class="row-count">{len(coords_df):,} recommendations</span>
+    <div class="table-scroll">
     <table>
         <thead>
             <tr>
@@ -1089,17 +1173,18 @@ def generate_html_report(
                 <td class="mono">{r['offset_from_scan_in']}</td>
                 <td class="mono">{r['x_local_um']:.2f}</td>
                 <td class="mono">{r['y_local_um']:.2f}</td>
-                <td style="font-size: 11px; max-width: 320px; word-wrap: break-word; line-height: 1.4;">
-                    {"".join(f"&bull; {occ['lot_id']} / {occ['die_label']}: ({occ['wafer_x_mm']:.4f}, {occ['wafer_y_mm']:.4f})<br/>" for occ in r['occurrences'][:5])}
-                    {f"&bull; ...and {len(r['occurrences']) - 5} more<br/>" if len(r['occurrences']) > 5 else ""}
+                <td style="font-size: 11px; line-height: 1.45;">
+                    <span class="row-count" style="margin-bottom:6px;">{len(r['occurrences']):,} occurrence(s)</span><br/>
+                    {"".join(f"&bull; {occ['lot_id']} / {occ['die_label']}: ({occ['wafer_x_mm']:.4f}, {occ['wafer_y_mm']:.4f})<br/>" for occ in r['occurrences'])}
                 </td>
                 <td>
-                    <span class="badge badge-{r['priority'].lower()[:3]}">{r['priority']}</span>
+                    <span class="badge badge-{"high" if str(r.get("priority","")).lower()=="high" else ("med" if str(r.get("priority","")).lower().startswith("med") else "low")}">{r['priority']}</span>
                 </td>
             </tr>
             ''' for _, r in coords_df.iterrows())}
         </tbody>
     </table>
+    </div>
     """}
 
     <footer style="margin-top: 50px; border-top: 1px solid #e2e8f0; padding-top: 15px; text-align: center; color: #64748b; font-size: 12px;">

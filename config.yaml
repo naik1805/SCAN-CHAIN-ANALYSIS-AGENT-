@@ -26,6 +26,15 @@ diagnosis:
   # Default max logs per lot loaded from sidebar
   max_logs_per_lot: 15
 
+production:
+  # Engineer feedback rows required before auto-retraining cell confidence GBM
+  retrain_feedback_threshold: 25
+  # Cache live dashboard by log fingerprint (seconds); 0 disables
+  # Longer TTL: review confirms overlay counts without busting this cache
+  dashboard_cache_ttl_sec: 300
+  # Seed review queue when fingerprint changes (not on every dashboard cache hit)
+  auto_seed_reviews: true
+
 cache:
   backend: parquet          # parquet only (duckdb optional future)
   compression: snappy

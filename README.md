@@ -20,7 +20,8 @@ graph TD
     H -->|Pearson Coefficient Engine| L[Physical Variables Correlation]
     H -->|Trailing-X Break Detection| M[Scan Chain Breaks]
     J & K & L & M -->|JSON Reports| N[Output Folder / export_outputs.py]
-    J & K & L & M -->|Streamlit Dashboard| O[Web UI App / app.py]
+    J & K & L & M -->|FastAPI| P[api/ adapters]
+    P -->|Next.js UI| O[frontend :3000]
 ```
 
 ---
@@ -51,19 +52,20 @@ graph TD
 
 ```text
 scan-chain-diagnosis-agent/
-├── src/
-│   ├── app.py              # Streamlit Production Dashboard
+├── src/                    # Diagnosis engine (parser, ML, FR modules)
 │   ├── parser.py           # Log File Ingestion (Tessent + Compact Inline)
 │   ├── stil_parser.py      # STIL & Markdown Topology Parser
 │   ├── locate_cells.py     # Vectorized Cell Localization Math
-│   ├── ml_pipeline.py      # Zero-Dependency ML Models (Scaler, KNN, KMeans)
+│   ├── ml_pipeline.py      # Root-cause RF + anomaly models
 │   └── export_outputs.py   # CLI Exporter for Automated Tool Pipelines
+├── api/                    # FastAPI wrappers (no algorithm changes)
+├── frontend/               # Next.js Scan Diagnosis dashboard
 ├── tests/                  # Pytest Unit & Integration Test Suite
 ├── data/                   # Input ATE Logs, STIL, & Topology Specification
-├── output/                 # Automated JSON Reports (FR-001 to FR-006)
-├── Dockerfile              # Production Multi-Stage Dockerfile
+├── output/                 # Automated JSON Reports (FR-001 to FR-010)
+├── Dockerfile              # Production Multi-Stage Dockerfile (API)
 ├── docker-compose.yml      # Service Orchestration Compose Config
-├── requirements.txt        # Python Packages Setup
+├── requirements.txt        # Python engine packages
 └── README.md               # Operations & Architecture Documentation
 ```
 
@@ -75,6 +77,7 @@ scan-chain-diagnosis-agent/
 1. Install system requirements:
    ```bash
    pip install -r requirements.txt
+   pip install -r api/requirements.txt
    ```
 2. Run automated test suite:
    ```bash
@@ -84,18 +87,24 @@ scan-chain-diagnosis-agent/
    ```bash
    python src/export_outputs.py
    ```
-4. Run interactive dashboard:
+4. Run the Scan Diagnosis dashboard (Next.js + FastAPI):
    ```bash
-   streamlit run src/app.py --server.port 8502
+   # Terminal A — API
+   uvicorn api.main:app --reload --port 8000
+
+   # Terminal B — UI
+   cd frontend
+   npm install
+   npm run dev
    ```
+   Open **http://localhost:3000**. Details: [`REACT_SHELL.md`](REACT_SHELL.md).
 
 ### Docker Containerized Deployment
-Deploy containerized dashboard instantly with persistent volume mapping:
+Deploy the FastAPI diagnosis API with persistent volume mapping:
 ```bash
 docker-compose up --build -d
 ```
-Access the production dashboard at **http://localhost:8502**.
-
+API at **http://localhost:8000**. Run the frontend locally (`cd frontend && npm run dev`) against that API.
 ---
 
 ## 📊 Requirement Deliverables (output/ folder)
