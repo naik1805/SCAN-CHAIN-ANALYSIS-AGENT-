@@ -137,35 +137,62 @@ const REGISTRY_COLUMNS = [
   "diagnosis_details",
 ] as const;
 
+/** True when a cell has nothing useful to show (null/empty/placeholder). */
+function isBlankCell(v: unknown): boolean {
+  if (v == null) return true;
+  if (typeof v === "string") {
+    const s = v.trim();
+    return s === "" || s.toLowerCase() === "nan" || s.toLowerCase() === "none" || s === "—";
+  }
+  if (Array.isArray(v)) return v.length === 0;
+  return false;
+}
+
+/** Drop columns that are blank in every row (e.g. Tessent-only fields on inline logs). */
+function dropAllBlankColumns(
+  rows: Record<string, unknown>[],
+  columns: string[],
+): string[] {
+  if (!rows.length) return columns;
+  return columns.filter((key) => rows.some((row) => !isBlankCell(row[key])));
+}
+
 function inferColumns(rows: Record<string, unknown>[]): string[] {
   const keys = new Set<string>();
   for (const row of rows) {
     for (const k of Object.keys(row)) keys.add(k);
   }
+  let columns: string[];
   if (keys.has("classification") && keys.has("diagnosis_details")) {
     const ordered: string[] = REGISTRY_COLUMNS.filter((k) => keys.has(k));
     const rest = Array.from(keys).filter((k) => !ordered.includes(k));
-    return [...ordered, ...rest];
+    columns = [...ordered, ...rest];
+  } else {
+    // Prefer Streamlit FR-001 column order when present
+    const preferred = [
+      "source_file", "lot_folder", "tester_name", "test_program", "device_name",
+      "lot_id", "defect_type", "die_label", "die_row", "die_col",
+      "x1", "y1", "x2", "y2", "wafer_x", "wafer_y",
+      "test_mode", "shift_cycles", "capture_cycles", "scan_chains", "total_patterns",
+      "pattern_id", "channel_id", "chain", "expected_output", "status", "actual_output",
+    ];
+    const ordered = preferred.filter((k) => keys.has(k));
+    const rest = Array.from(keys).filter((k) => !ordered.includes(k));
+    if (ordered.length) {
+      columns = [...ordered, ...rest];
+    } else {
+      // Shared resources / compression rows: resource → chains → chain_count
+      const sharedPreferred = ["resource", "chains", "chain_count"];
+      if (sharedPreferred.some((k) => keys.has(k))) {
+        const sharedOrdered = sharedPreferred.filter((k) => keys.has(k));
+        const sharedRest = Array.from(keys).filter((k) => !sharedOrdered.includes(k));
+        columns = [...sharedOrdered, ...sharedRest];
+      } else {
+        columns = [...ordered, ...rest];
+      }
+    }
   }
-  // Prefer Streamlit FR-001 column order when present
-  const preferred = [
-    "source_file", "lot_folder", "tester_name", "test_program", "device_name",
-    "lot_id", "defect_type", "die_label", "die_row", "die_col",
-    "x1", "y1", "x2", "y2", "wafer_x", "wafer_y",
-    "test_mode", "shift_cycles", "capture_cycles", "scan_chains", "total_patterns",
-    "pattern_id", "channel_id", "chain", "expected_output", "status", "actual_output",
-  ];
-  const ordered = preferred.filter((k) => keys.has(k));
-  const rest = Array.from(keys).filter((k) => !ordered.includes(k));
-  if (ordered.length) return [...ordered, ...rest];
-  // Shared resources / compression rows: resource → chains → chain_count
-  const sharedPreferred = ["resource", "chains", "chain_count"];
-  if (sharedPreferred.some((k) => keys.has(k))) {
-    const sharedOrdered = sharedPreferred.filter((k) => keys.has(k));
-    const sharedRest = Array.from(keys).filter((k) => !sharedOrdered.includes(k));
-    return [...sharedOrdered, ...sharedRest];
-  }
-  return [...ordered, ...rest];
+  return dropAllBlankColumns(rows, columns);
 }
 
 function rowMatchesQuery(row: Record<string, unknown>, query: string): boolean {
@@ -194,12 +221,16 @@ export function downloadJson(data: unknown, filename: string) {
 
 export function downloadCsv(rows: Record<string, unknown>[], filename: string) {
   if (!rows.length) return;
-  const cols = Array.from(
-    rows.reduce((set, row) => {
-      Object.keys(row).forEach((k) => set.add(k));
-      return set;
-    }, new Set<string>()),
+  const cols = dropAllBlankColumns(
+    rows,
+    Array.from(
+      rows.reduce((set, row) => {
+        Object.keys(row).forEach((k) => set.add(k));
+        return set;
+      }, new Set<string>()),
+    ),
   );
+  if (!cols.length) return;
   const esc = (v: unknown) => {
     const s = v == null ? "" : String(v);
     if (/[",\n\r]/.test(s)) return `"${s.replace(/"/g, '""')}"`;

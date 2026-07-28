@@ -6,18 +6,22 @@
 
 ## 1. Document Information
 
-| Field | Value |
-|-------|-------|
-| **Project** | Enterprise Scan Chain Diagnosis Agent (SCDA) |
-| **Agent Name** | Failing Scan Chain Identification Agent |
-| **Requirement ID** | SCD-FR-001 |
-| **Version** | v1.0 |
-| **Author** | Diagnosis Engineering |
-| **Reviewer** | DFT Lead |
-| **Date** | 2026-07-18 |
-| **Example** | Failing Scan Chain Agent v1.0 |
+
+| Field              | Value                                        |
+| ------------------ | -------------------------------------------- |
+| **Project**        | Enterprise Scan Chain Diagnosis Agent (SCDA) |
+| **Agent Name**     | Failing Scan Chain Identification Agent      |
+| **Requirement ID** | SCD-FR-001                                   |
+| **Version**        | v1.0                                         |
+| **Author**         | Diagnosis Engineering                        |
+| **Reviewer**       | DFT Lead                                     |
+| **Date**           | 2026-07-18                                   |
+| **Example**        | Failing Scan Chain Agent v1.0                |
+
 
 ---
+
+
 
 ## 2. Project Overview
 
@@ -29,6 +33,8 @@
 
 ---
 
+
+
 ## 3. Business Objective
 
 **Problem:** When thousands of FAIL records span dozens of scan chains, engineers cannot manually tell which chains are actually failing or how badly.
@@ -39,55 +45,71 @@
 
 ---
 
+
+
 ## 4. Technical Overview
 
 **Architecture:** Python engine (`src/`) → FastAPI adapters (`api/`) → Next.js dashboard (`frontend/`).
 
-**Workflow:** `parser.parse_log_to_dataframe` → `schema.normalize_failure_schema` → `ml_pipeline.apply_failure_ml` → **`export_outputs.build_fr001`** → JSON artifact + KPI workspace.
+**Workflow:** `parser.parse_log_to_dataframe` → `schema.normalize_failure_schema` → `ml_pipeline.apply_failure_ml` → `export_outputs.build_fr001` → JSON artifact + KPI workspace.
 
 **Technologies:** pandas (vectorized groupby), `concurrent.futures.ProcessPoolExecutor` ingestion, Parquet warm cache (`disk_cache`).
 
 ---
 
+
+
 ## 5. Technology Stack
 
-| Layer | Technology |
-|-------|-----------|
-| **Frontend** | Next.js 15 (app router), React 19, TypeScript 5.7, TailwindCSS 3.4, Recharts, framer-motion, @tanstack/react-query |
-| **Backend** | FastAPI ≥0.115, Uvicorn, Pydantic v2 |
-| **LLM / ML** | scikit-learn ≥1.5 (RandomForest root cause, IsolationForest anomaly) — not required for FR-001 core |
-| **Framework** | pandas ≥2.2, numpy ≥1.26, pyarrow ≥16 |
-| **Database** | File-based: Parquet cache (`data/cache/`), JSON artifacts (`output/`) |
-| **IDE** | VS Code / Cursor |
-| **Deployment** | Docker + docker-compose (API), local `npm run dev` (UI) |
+
+| Layer          | Technology                                                                                                         |
+| -------------- | ------------------------------------------------------------------------------------------------------------------ |
+| **Frontend**   | Next.js 15 (app router), React 19, TypeScript 5.7, TailwindCSS 3.4, Recharts, framer-motion, @tanstack/react-query |
+| **Backend**    | FastAPI ≥0.115, Uvicorn, Pydantic v2                                                                               |
+| **LLM / ML**   | scikit-learn ≥1.5 (RandomForest root cause, IsolationForest anomaly) — not required for FR-001 core                |
+| **Framework**  | pandas ≥2.2, numpy ≥1.26, pyarrow ≥16                                                                              |
+| **Database**   | File-based: Parquet cache (`data/cache/`), JSON artifacts (`output/`)                                              |
+| **IDE**        | VS Code / Cursor                                                                                                   |
+| **Deployment** | Docker + docker-compose (API), local `npm run dev` (UI)                                                            |
+
 
 ---
+
+
 
 ## 6. Agent Responsibilities
 
 **Responsibilities:**
+
 - Aggregate FAIL records by `chain`.
 - Compute fail count, fail %, distinct patterns, distinct fail flops, lots affected, fail-type breakdown.
 - Rank chains by fail count (descending) and emit a schema-stable JSON report.
 
 **Exclusions:**
+
 - Does NOT localize cells (FR-002), detect breaks (FR-006), or rank with Pareto cumulative coverage as a first-class output (that is FR-004).
 
 ---
 
+
+
 ## 7. Functional Requirements
 
-| Field | Value |
-|-------|-------|
-| **FR ID** | SCD-FR-001 |
-| **Description** | Identify failing scan chains and quantify each chain's failure footprint from parsed ATE FAIL records. |
-| **Priority** | High (foundational — all other FRs consume the same parsed failure set) |
-| **Inputs** | Failure DataFrame (all parsed FAIL records); list of log file paths. Columns consumed: `chain`, `fail_type`, `pattern_id`, `fail_flop_id`, `lot_id`, `chain_id`. |
-| **Outputs** | `SCD-FR-001_failing_scan_chains.json` (see §11). |
-| **Processing Logic** | `groupby("chain")` → per-chain aggregates → sort by `fail_count` desc → assign `rank`. (see §18) |
-| **Dependencies** | `parser`, `schema`, `disk_cache`, `ml_pipeline` (enrichment), pandas. |
+
+| Field                | Value                                                                                                                                                            |
+| -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **FR ID**            | SCD-FR-001                                                                                                                                                       |
+| **Description**      | Identify failing scan chains and quantify each chain's failure footprint from parsed ATE FAIL records.                                                           |
+| **Priority**         | High (foundational — all other FRs consume the same parsed failure set)                                                                                          |
+| **Inputs**           | Failure DataFrame (all parsed FAIL records); list of log file paths. Columns consumed: `chain`, `fail_type`, `pattern_id`, `fail_flop_id`, `lot_id`, `chain_id`. |
+| **Outputs**          | `SCD-FR-001_failing_scan_chains.json` (see §11).                                                                                                                 |
+| **Processing Logic** | `groupby("chain")` → per-chain aggregates → sort by `fail_count` desc → assign `rank`. (see §18)                                                                 |
+| **Dependencies**     | `parser`, `schema`, `disk_cache`, `ml_pipeline` (enrichment), pandas.                                                                                            |
+
 
 ---
+
+
 
 ## 8. Non-Functional Requirements
 
@@ -98,6 +120,8 @@
 
 ---
 
+
+
 ## 9. AI Behavior Specification
 
 - **Role:** Deterministic aggregator (no generative behavior in FR-001).
@@ -107,17 +131,23 @@
 
 ---
 
+
+
 ## 10. Input Specification
 
-| Name | Type | Required | Validation |
-|------|------|----------|-----------|
-| `failures_df` | pandas.DataFrame | Yes | Passes `schema.normalize_failure_schema`; required cols `{lot_id, source_file, chain_id, chain, fail_flop_id, fail_type}`. |
-| `paths` | list[Path] | Yes | Discovered via `parser.discover_logs`; each an existing ATE log file. |
-| `lot` / `wafer` filters | string | No | Optional dashboard filters passed to API. |
+
+| Name                    | Type             | Required | Validation                                                                                                                 |
+| ----------------------- | ---------------- | -------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `failures_df`           | pandas.DataFrame | Yes      | Passes `schema.normalize_failure_schema`; required cols `{lot_id, source_file, chain_id, chain, fail_flop_id, fail_type}`. |
+| `paths`                 | list[Path]       | Yes      | Discovered via `parser.discover_logs`; each an existing ATE log file.                                                      |
+| `lot` / `wafer` filters | string           | No       | Optional dashboard filters passed to API.                                                                                  |
+
 
 Parser contract: one FAIL record is emitted per mismatching bit (EXPECTED_OUTPUT vs ACTUAL_OUTPUT, ignoring `X`), tagged `FAIL_FLOP_ID=FF_{bit+1}`, `FAIL_TYPE=SCAN_SHIFT`.
 
 ---
+
+
 
 ## 11. Output Specification
 
@@ -125,7 +155,8 @@ Parser contract: one FAIL record is emitted per mismatching bit (EXPECTED_OUTPUT
 
 **Top-level keys:** `requirement_id`, `requirement`, `acceptance_criteria`, `status`, `generated_at`, `inputs{logs_parsed, log_files, lots}`, `summary{total_fail_records, distinct_failing_chains, distinct_failing_flops}`, `failing_chains[]`.
 
-**`failing_chains[]` item:**
+`failing_chains[]` **item:**
+
 ```json
 {
   "chain": "channel01",
@@ -139,9 +170,12 @@ Parser contract: one FAIL record is emitted per mismatching bit (EXPECTED_OUTPUT
   "rank": 1
 }
 ```
+
 `status` = `"satisfied"` if any failing chain, else `"no_failures_found"`.
 
 ---
+
+
 
 ## 12. Business Rules
 
@@ -152,6 +186,8 @@ Parser contract: one FAIL record is emitted per mismatching bit (EXPECTED_OUTPUT
 
 ---
 
+
+
 ## 13. Key Engineering Rules
 
 - Never hallucinate chains or counts — every number traces to a parsed record.
@@ -160,6 +196,8 @@ Parser contract: one FAIL record is emitted per mismatching bit (EXPECTED_OUTPUT
 - Deterministic output: identical logs ⇒ byte-identical aggregates.
 
 ---
+
+
 
 ## 14. Constraints
 
@@ -170,26 +208,35 @@ Parser contract: one FAIL record is emitted per mismatching bit (EXPECTED_OUTPUT
 
 ---
 
+
+
 ## 15. API Specification
 
-| Field | Value |
-|-------|-------|
-| **Endpoint** | `GET /api/v1/kpi/failing_chains/workspace` |
-| **Method** | GET |
-| **Query** | `mode` (live/export), `min_observations` (default 2) |
-| **Also** | `GET /api/v1/diagnosis/dashboard` returns the `failing_chains` KPI tile |
-| **Response** | KPI workspace JSON (panels: ranking table + JSON data table) |
-| **Errors** | 200 with empty `failing_chains` when no FAILs; 500 on engine error (returns `_build_unavailable_dashboard`). |
+
+| Field        | Value                                                                                                        |
+| ------------ | ------------------------------------------------------------------------------------------------------------ |
+| **Endpoint** | `GET /api/v1/kpi/failing_chains/workspace`                                                                   |
+| **Method**   | GET                                                                                                          |
+| **Query**    | `mode` (live/export), `min_observations` (default 2)                                                         |
+| **Also**     | `GET /api/v1/diagnosis/dashboard` returns the `failing_chains` KPI tile                                      |
+| **Response** | KPI workspace JSON (panels: ranking table + JSON data table)                                                 |
+| **Errors**   | 200 with empty `failing_chains` when no FAILs; 500 on engine error (returns `_build_unavailable_dashboard`). |
+
 
 ---
+
+
 
 ## 16. Database Design
 
 No relational DB. Persistence:
+
 - **Parquet cache:** `data/cache/logs_<sha1>.parquet` (parsed failures keyed by path/mtime/size).
 - **JSON artifact:** `output/SCD-FR-001_failing_scan_chains.json`.
 
 ---
+
+
 
 ## 17. Dashboard Integration
 
@@ -198,6 +245,8 @@ No relational DB. Persistence:
 - **Outputs shown:** `RankingBarChart.tsx` (chains by fail count) + `JsonDataTable.tsx` (full table).
 
 ---
+
+
 
 ## 18. AI Workflow (Step-by-Step)
 
@@ -210,15 +259,21 @@ No relational DB. Persistence:
 
 ---
 
+
+
 ## 19. Error Handling
 
-| Error | Cause | Action |
-|-------|-------|--------|
+
+| Error             | Cause                     | Action                                                     |
+| ----------------- | ------------------------- | ---------------------------------------------------------- |
 | Empty failure set | No FAIL records / no logs | Emit `status="no_failures_found"`, empty `failing_chains`. |
-| Missing column | Non-canonical log | `normalize_failure_schema` alias-maps; fills defaults. |
-| Parse failure | Corrupt log | Skip file, log warning, continue with remaining logs. |
+| Missing column    | Non-canonical log         | `normalize_failure_schema` alias-maps; fills defaults.     |
+| Parse failure     | Corrupt log               | Skip file, log warning, continue with remaining logs.      |
+
 
 ---
+
+
 
 ## 20. Logging & Monitoring
 
@@ -228,6 +283,8 @@ No relational DB. Persistence:
 
 ---
 
+
+
 ## 21. Security
 
 - **Authentication/authorization:** None (internal engineering tool; localhost/containers).
@@ -235,15 +292,21 @@ No relational DB. Persistence:
 
 ---
 
+
+
 ## 22. Test Cases
 
-| TC ID | Requirement | Steps | Expected Result | Status |
-|-------|-------------|-------|-----------------|--------|
-| TC-001-01 | FR-001 | Run `build_fr001` on a fixture with 2 chains | `distinct_failing_chains == 2`, ranks assigned | Pass |
-| TC-001-02 | FR-001 | Empty DataFrame | `status == "no_failures_found"` | Pass |
-| TC-001-03 | FR-001 | `sum(fail_pct)` ≈ 100 for full set | Percentages consistent | Pass |
+
+| TC ID     | Requirement | Steps                                        | Expected Result                                | Status |
+| --------- | ----------- | -------------------------------------------- | ---------------------------------------------- | ------ |
+| TC-001-01 | FR-001      | Run `build_fr001` on a fixture with 2 chains | `distinct_failing_chains == 2`, ranks assigned | Pass   |
+| TC-001-02 | FR-001      | Empty DataFrame                              | `status == "no_failures_found"`                | Pass   |
+| TC-001-03 | FR-001      | `sum(fail_pct)` ≈ 100 for full set           | Percentages consistent                         | Pass   |
+
 
 ---
+
+
 
 ## 23. Acceptance Criteria
 
@@ -253,12 +316,16 @@ No relational DB. Persistence:
 
 ---
 
+
+
 ## 24. Risks & Assumptions
 
 - **Risk:** Parser mis-tags chain names for a new log dialect → mitigation: alias map + unit tests.
 - **Assumption:** Loaded logs represent the population of interest (respect `max_per_lot`).
 
 ---
+
+
 
 ## 25. Dependencies
 
@@ -268,13 +335,19 @@ No relational DB. Persistence:
 
 ---
 
+
+
 ## 26. Traceability Matrix
 
-| FR | Module/Function | Artifact | TC | AC |
-|----|-----------------|----------|----|----|
+
+| FR         | Module/Function              | Artifact                              | TC            | AC  |
+| ---------- | ---------------------------- | ------------------------------------- | ------------- | --- |
 | SCD-FR-001 | `export_outputs.build_fr001` | `SCD-FR-001_failing_scan_chains.json` | TC-001-01..03 | §23 |
 
+
 ---
+
+
 
 ## 27. Reviewer Checklist
 
@@ -285,9 +358,14 @@ No relational DB. Persistence:
 
 ---
 
+
+
 ## 28. Approval
 
-| Approver | Date | Remarks |
-|----------|------|---------|
-| DFT Lead | | |
-| Yield Engineering | | |
+
+| Approver          | Date | Remarks |
+| ----------------- | ---- | ------- |
+| DFT Lead          |      |         |
+| Yield Engineering |      |         |
+
+
